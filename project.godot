@@ -24,6 +24,12 @@ Constants="*uid://cr11pb1tvf0m4"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[global_group]
+
+player=""
+enemy=""
+player_damage=""
+
 [input]
 
 direita={

@@ -1,194 +1,194 @@
-[gd_scene format=4 uid="uid://bqtyyk0x10com"]
+[gd_scene format=4 uid="uid://cm2pqod6ok02i"]
 
-[ext_resource type="Script" uid="uid://bfl2fom0gp6md" path="res://scripts/player/PlayerController.gd" id="1_a2ci1"]
-[ext_resource type="Texture2D" uid="uid://tg7fhnbj83au" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-fall.png" id="2_o2ktg"]
-[ext_resource type="Texture2D" uid="uid://dfxi0ckocx5lw" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-fall_loop.png" id="3_3edyv"]
-[ext_resource type="Texture2D" uid="uid://vb7urmtw1t5y" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-idle.png" id="4_rn44l"]
-[ext_resource type="Texture2D" uid="uid://cf1okkq5wg1am" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-jump.png" id="5_cestw"]
-[ext_resource type="Texture2D" uid="uid://xj2br55i07i0" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-run.png" id="6_qd1nl"]
-[ext_resource type="Texture2D" uid="uid://c2w3ubo1udr1a" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-walk.png" id="7_5em3x"]
-[ext_resource type="Texture2D" uid="uid://cpfd8848tmpmn" path="res://assets/sprites/Mossy Tileset/Mossy - Decorations&Hazards.png" id="9_dec"]
-[ext_resource type="Texture2D" uid="uid://cpjur4tnkitxs" path="res://assets/sprites/Mossy Tileset/Mossy - BackgroundDecoration.png" id="10_bg"]
-[ext_resource type="Texture2D" uid="uid://cxj4ce8bbrn5" path="res://assets/sprites/Mossy Tileset/1794310819452195819 (1).png" id="10_pbxy0"]
-[ext_resource type="Shader" uid="uid://cw77tkgfjg2wv" path="res://scenes/level_debug.gdshader" id="11_shader"]
-[ext_resource type="TileSet" uid="uid://b2mlgu75nsgsc" path="res://components/tilesets/mossy.tres" id="12_56dri"]
-[ext_resource type="Script" uid="uid://baeaviml207go" path="res://scripts/blur_world.gd" id="12_blur"]
-[ext_resource type="Texture2D" uid="uid://charevfhcukge" path="res://assets/sprites/Mossy Tileset/Mossy - Hanging Plants.png" id="13_hang"]
-[ext_resource type="Texture2D" uid="uid://bnkkbtexr8u6g" path="res://assets/sprites/Mossy Tileset/Mossy - MossyHills.png" id="14_hill"]
-[ext_resource type="Texture2D" uid="uid://d0ipymoawulcl" path="res://assets/sprites/Mossy Tileset/Mossy - FloatingPlatforms.png" id="15_plat"]
-[ext_resource type="Texture2D" uid="uid://bhmv3ghyqdsxu" path="res://assets/sprites/SlimeGreen/SlimeBasic_00001.png" id="17_1fkai"]
-[ext_resource type="Script" uid="uid://ygd08ktkt8w2" path="res://scripts/enemy/enemy.gd" id="17_ntovh"]
+[ext_resource type="Script" uid="uid://bfl2fom0gp6md" path="res://scripts/player/PlayerController.gd" id="1_cjgjs"]
+[ext_resource type="Texture2D" uid="uid://tg7fhnbj83au" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-fall.png" id="2_clinv"]
+[ext_resource type="Texture2D" uid="uid://dfxi0ckocx5lw" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-fall_loop.png" id="3_wkp6h"]
+[ext_resource type="Texture2D" uid="uid://vb7urmtw1t5y" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-idle.png" id="4_egc8i"]
+[ext_resource type="Texture2D" uid="uid://cf1okkq5wg1am" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-jump.png" id="5_qirkr"]
+[ext_resource type="Texture2D" uid="uid://xj2br55i07i0" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-run.png" id="6_j8mrn"]
+[ext_resource type="Texture2D" uid="uid://c2w3ubo1udr1a" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-walk.png" id="7_6qigh"]
+[ext_resource type="Texture2D" uid="uid://cpjur4tnkitxs" path="res://assets/sprites/Mossy Tileset/Mossy - BackgroundDecoration.png" id="8_fsqel"]
+[ext_resource type="Texture2D" uid="uid://cfbsvmgqwgd45" path="res://assets/sprites/Mossy Tileset/1794310819452195819 (1).png" id="9_aivhu"]
+[ext_resource type="Texture2D" uid="uid://charevfhcukge" path="res://assets/sprites/Mossy Tileset/Mossy - Hanging Plants.png" id="10_me80q"]
+[ext_resource type="Texture2D" uid="uid://cpfd8848tmpmn" path="res://assets/sprites/Mossy Tileset/Mossy - Decorations&Hazards.png" id="11_t2fiy"]
+[ext_resource type="Texture2D" uid="uid://d0ipymoawulcl" path="res://assets/sprites/Mossy Tileset/Mossy - FloatingPlatforms.png" id="12_jrotg"]
+[ext_resource type="TileSet" uid="uid://b2mlgu75nsgsc" path="res://components/tilesets/mossy.tres" id="13_trbyp"]
+[ext_resource type="Texture2D" uid="uid://bnkkbtexr8u6g" path="res://assets/sprites/Mossy Tileset/Mossy - MossyHills.png" id="14_l3jo0"]
+[ext_resource type="Script" uid="uid://baeaviml207go" path="res://scripts/blur_world.gd" id="15_bnnkg"]
+[ext_resource type="Shader" uid="uid://cw77tkgfjg2wv" path="res://scenes/level_debug.gdshader" id="16_yyvd8"]
+[ext_resource type="Script" uid="uid://ygd08ktkt8w2" path="res://scripts/enemy/enemy.gd" id="17_n3suy"]
+[ext_resource type="Texture2D" uid="uid://bhmv3ghyqdsxu" path="res://assets/sprites/SlimeGreen/SlimeBasic_00001.png" id="18_wlx42"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7061b"]
-atlas = ExtResource("2_o2ktg")
+atlas = ExtResource("2_clinv")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ewwtb"]
-atlas = ExtResource("2_o2ktg")
+atlas = ExtResource("2_clinv")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kkpkt"]
-atlas = ExtResource("2_o2ktg")
+atlas = ExtResource("2_clinv")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_url56"]
-atlas = ExtResource("2_o2ktg")
+atlas = ExtResource("2_clinv")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nojvd"]
-atlas = ExtResource("3_3edyv")
+atlas = ExtResource("3_wkp6h")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pnwra"]
-atlas = ExtResource("3_3edyv")
+atlas = ExtResource("3_wkp6h")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1p2f2"]
-atlas = ExtResource("3_3edyv")
+atlas = ExtResource("3_wkp6h")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5rf1i"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lanqo"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l2e30"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_di8g0"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_de4ji"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1vuwo"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_meafy"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lqi0n"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(896, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7booa"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(1024, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4mrwv"]
-atlas = ExtResource("4_rn44l")
+atlas = ExtResource("4_egc8i")
 region = Rect2(1152, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a2ci1"]
-atlas = ExtResource("5_cestw")
+atlas = ExtResource("5_qirkr")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o2ktg"]
-atlas = ExtResource("5_cestw")
+atlas = ExtResource("5_qirkr")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3edyv"]
-atlas = ExtResource("5_cestw")
+atlas = ExtResource("5_qirkr")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rn44l"]
-atlas = ExtResource("5_cestw")
+atlas = ExtResource("5_qirkr")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cestw"]
-atlas = ExtResource("5_cestw")
+atlas = ExtResource("5_qirkr")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qd1nl"]
-atlas = ExtResource("5_cestw")
+atlas = ExtResource("5_qirkr")
 region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fl0u8"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ca0hv"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8aeto"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_neoi3"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_msoa2"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cotfu"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wipdg"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0rty7"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(896, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_to1pc"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(1024, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8txkq"]
-atlas = ExtResource("6_qd1nl")
+atlas = ExtResource("6_j8mrn")
 region = Rect2(1152, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f8xle"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_77xjp"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jq7ig"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ag0ey"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8nm7m"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6ffg"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63w6j"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ivat"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(896, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v3xes"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(1024, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7vo34"]
-atlas = ExtResource("7_5em3x")
+atlas = ExtResource("7_6qigh")
 region = Rect2(1152, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3nqnr"]
@@ -404,7 +404,7 @@ glow_bloom = 0.84
 glow_hdr_threshold = 2.32
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3nqnr"]
-shader = ExtResource("11_shader")
+shader = ExtResource("16_yyvd8")
 shader_parameter/blur_amount = 2.0
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.5
@@ -419,7 +419,7 @@ height = 40.0
 z_index = 1
 position = Vector2(500, 436)
 scale = Vector2(0.7, 0.7)
-script = ExtResource("1_a2ci1")
+script = ExtResource("1_cjgjs")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Player" unique_id=831912476]
 texture_filter = 1
@@ -480,7 +480,7 @@ scale = Vector2(0.3, 0.3)
 modulate = Color(0.2, 0.5, 0.52, 0.28)
 position = Vector2(2860, 520)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(16, 40, 1048, 4032)
 
@@ -488,7 +488,7 @@ region_rect = Rect2(16, 40, 1048, 4032)
 modulate = Color(0.2, 0.5, 0.52, 0.28)
 position = Vector2(960, 1320)
 scale = Vector2(0.45, 0.45)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(16, 40, 1048, 4032)
@@ -497,7 +497,7 @@ region_rect = Rect2(16, 40, 1048, 4032)
 modulate = Color(0.16, 0.42, 0.45, 0.42)
 position = Vector2(1610, 470)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(1192, 40, 1040, 2352)
 
@@ -505,7 +505,7 @@ region_rect = Rect2(1192, 40, 1040, 2352)
 modulate = Color(0.16, 0.42, 0.45, 0.42)
 position = Vector2(2110, 340)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(1192, 40, 1040, 2352)
@@ -514,14 +514,14 @@ region_rect = Rect2(1192, 40, 1040, 2352)
 modulate = Color(0.16, 0.42, 0.45, 0.42)
 position = Vector2(2370, 270)
 scale = Vector2(0.28, 0.28)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(16, 40, 1048, 4032)
 
 [node name="NuvemDireita" type="Sprite2D" parent="Paralaxe/Silhuetas" unique_id=1547266854]
 modulate = Color(0.16, 0.42, 0.45, 0.42)
 position = Vector2(3290, 740)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(2672, 128, 1088, 1000)
 
@@ -529,7 +529,7 @@ region_rect = Rect2(2672, 128, 1088, 1000)
 modulate = Color(0.2, 0.5, 0.52, 0.28)
 position = Vector2(3710, 1120)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(2672, 128, 1088, 1000)
@@ -538,7 +538,7 @@ region_rect = Rect2(2672, 128, 1088, 1000)
 modulate = Color(0.16, 0.42, 0.45, 0.42)
 position = Vector2(410, 1170)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(2384, 1408, 1680, 912)
 
@@ -546,7 +546,7 @@ region_rect = Rect2(2384, 1408, 1680, 912)
 modulate = Color(0.16, 0.42, 0.45, 0.42)
 position = Vector2(2060, 1920)
 scale = Vector2(0.85, 0.85)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(1216, 2608, 920, 648)
 
@@ -554,7 +554,7 @@ region_rect = Rect2(1216, 2608, 920, 648)
 modulate = Color(0.2, 0.5, 0.52, 0.28)
 position = Vector2(1660, 1820)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(2672, 128, 1088, 1000)
 
@@ -562,7 +562,7 @@ region_rect = Rect2(2672, 128, 1088, 1000)
 modulate = Color(0.2, 0.5, 0.52, 0.28)
 position = Vector2(2710, 2120)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(2384, 1408, 1680, 912)
 
@@ -570,7 +570,7 @@ region_rect = Rect2(2384, 1408, 1680, 912)
 modulate = Color(0.16, 0.42, 0.45, 0.42)
 position = Vector2(3141, 1740)
 rotation = 3.1415927
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(2672, 128, 1088, 1000)
 
@@ -579,7 +579,7 @@ modulate = Color(0.2, 0.5, 0.52, 0.28)
 position = Vector2(3815, 1820)
 rotation = 3.1415927
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(2672, 128, 1088, 1000)
@@ -589,7 +589,7 @@ modulate = Color(0.16, 0.42, 0.45, 0.42)
 position = Vector2(448, 1717)
 rotation = 3.1415927
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(2384, 1408, 1680, 912)
 
@@ -598,7 +598,7 @@ modulate = Color(0.16, 0.42, 0.45, 0.42)
 position = Vector2(2007, 2467)
 rotation = 3.1415927
 scale = Vector2(0.85, 0.85)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(1216, 2608, 920, 648)
 
@@ -607,7 +607,7 @@ modulate = Color(0.2, 0.5, 0.52, 0.28)
 position = Vector2(1584, 2320)
 rotation = 3.1415927
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(2672, 128, 1088, 1000)
 
@@ -616,7 +616,7 @@ scroll_scale = Vector2(0.5, 0.5)
 
 [node name="1794310819452195819(1)" type="Sprite2D" parent="Paralaxe/Parallax2D" unique_id=1710256231]
 position = Vector2(791, 357)
-texture = ExtResource("10_pbxy0")
+texture = ExtResource("9_aivhu")
 
 [node name="Mundo" type="Node2D" parent="." unique_id=1472373050]
 modulate = Color(0.43137255, 0.5882353, 0.5764706, 1)
@@ -629,7 +629,7 @@ z_index = -1
 modulate = Color(0.62, 0.75, 0.7, 1)
 position = Vector2(560, 502.8)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("13_hang")
+texture = ExtResource("10_me80q")
 region_enabled = true
 region_rect = Rect2(112, 120, 368, 1176)
 
@@ -637,7 +637,7 @@ region_rect = Rect2(112, 120, 368, 1176)
 modulate = Color(0.62, 0.75, 0.7, 1)
 position = Vector2(820, 432.8)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("13_hang")
+texture = ExtResource("10_me80q")
 region_enabled = true
 region_rect = Rect2(512, 112, 368, 976)
 
@@ -645,7 +645,7 @@ region_rect = Rect2(512, 112, 368, 976)
 modulate = Color(0.62, 0.75, 0.7, 1)
 position = Vector2(1075, 442.8)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("13_hang")
+texture = ExtResource("10_me80q")
 region_enabled = true
 region_rect = Rect2(912, 120, 368, 976)
 
@@ -653,7 +653,7 @@ region_rect = Rect2(912, 120, 368, 976)
 modulate = Color(0.22, 0.32, 0.28, 1)
 position = Vector2(1830, 378.4)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("13_hang")
+texture = ExtResource("10_me80q")
 region_enabled = true
 region_rect = Rect2(1304, 112, 312, 824)
 
@@ -661,7 +661,7 @@ region_rect = Rect2(1304, 112, 312, 824)
 modulate = Color(0.22, 0.32, 0.28, 1)
 position = Vector2(2010, 382.56)
 scale = Vector2(0.62, 0.62)
-texture = ExtResource("13_hang")
+texture = ExtResource("10_me80q")
 region_enabled = true
 region_rect = Rect2(512, 112, 368, 976)
 
@@ -669,28 +669,28 @@ region_rect = Rect2(512, 112, 368, 976)
 modulate = Color(0.22, 0.32, 0.28, 1)
 position = Vector2(2180, 378.4)
 scale = Vector2(0.55, 0.55)
-texture = ExtResource("13_hang")
+texture = ExtResource("10_me80q")
 region_enabled = true
 region_rect = Rect2(912, 120, 368, 976)
 
 [node name="MusgoPendurado1" type="Sprite2D" parent="Mundo/Fundo" unique_id=71994065]
 position = Vector2(2390, 559.04)
 scale = Vector2(0.62, 0.62)
-texture = ExtResource("13_hang")
+texture = ExtResource("10_me80q")
 region_enabled = true
 region_rect = Rect2(88, 1392, 464, 1384)
 
 [node name="MusgoPendurado2" type="Sprite2D" parent="Mundo/Fundo" unique_id=782417359]
 position = Vector2(3420, 452.16)
 scale = Vector2(0.48, 0.48)
-texture = ExtResource("13_hang")
+texture = ExtResource("10_me80q")
 region_enabled = true
 region_rect = Rect2(720, 1392, 464, 1384)
 
 [node name="PedraInclinada" type="Sprite2D" parent="Mundo/Fundo" unique_id=1287289806]
 position = Vector2(1180, 1503.6)
 scale = Vector2(0.34, 0.34)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(2888, 8, 1056, 920)
@@ -698,28 +698,28 @@ region_rect = Rect2(2888, 8, 1056, 920)
 [node name="TroncoEsquerda" type="Sprite2D" parent="Mundo/Fundo" unique_id=1139864739]
 position = Vector2(1365.0133, 871.5866)
 scale = Vector2(1.06172, 1.06172)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(3720, 2544, 248, 1504)
 
 [node name="TroncoDireita" type="Sprite2D" parent="Mundo/Fundo" unique_id=424035110]
 position = Vector2(2854.4531, 859.4444)
 scale = Vector2(1.0953454, 1.0953454)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(3104, 2560, 424, 1480)
 
 [node name="TroncoSuporte1" type="Sprite2D" parent="Mundo/Fundo" unique_id=1172278425]
 position = Vector2(1670, 2130.88)
 scale = Vector2(0.42, 0.42)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(2112, 2560, 416, 1472)
 
 [node name="TroncoSuporte2" type="Sprite2D" parent="Mundo/Fundo" unique_id=1179360146]
 position = Vector2(2730, 2129.2)
 scale = Vector2(0.42, 0.42)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(2608, 2560, 432, 1480)
@@ -727,147 +727,147 @@ region_rect = Rect2(2608, 2560, 432, 1480)
 [node name="TroncoFino" type="Sprite2D" parent="Mundo/Fundo" unique_id=1446556816]
 position = Vector2(780, 2159.28)
 scale = Vector2(0.36, 0.36)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(3720, 2544, 248, 1504)
 
 [node name="PedraMusgo" type="Sprite2D" parent="Mundo/Fundo" unique_id=677609134]
 position = Vector2(380, 1487)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(232, 192, 1288, 712)
 
 [node name="ArbustoBorda1" type="Sprite2D" parent="Mundo/Fundo" unique_id=738109489]
 position = Vector2(120, 1594)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("15_plat")
+texture = ExtResource("12_jrotg")
 region_enabled = true
 region_rect = Rect2(112, 48, 264, 320)
 
 [node name="Broto1" type="Sprite2D" parent="Mundo/Fundo" unique_id=2051307831]
 position = Vector2(860, 1597.4)
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(656, 2624, 280, 384)
 
 [node name="Tufo1" type="Sprite2D" parent="Mundo/Fundo" unique_id=1639946928]
 position = Vector2(1180, 1595)
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(1600, 3616, 368, 400)
 
 [node name="Tufo2" type="Sprite2D" parent="Mundo/Fundo" unique_id=901999820]
 position = Vector2(1520, 1605.72)
 scale = Vector2(0.22, 0.22)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(1600, 3072, 400, 448)
 
 [node name="Tufo3" type="Sprite2D" parent="Mundo/Fundo" unique_id=612303941]
 position = Vector2(2700, 1587.8)
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(1600, 3072, 400, 448)
 
 [node name="Folhagem1" type="Sprite2D" parent="Mundo/Fundo" unique_id=1320752201]
 position = Vector2(3060, 1614.4)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(616, 3176, 304, 232)
 
 [node name="Brilho1" type="Sprite2D" parent="Mundo/Fundo" unique_id=1110369385]
 position = Vector2(3330, 1583)
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(568, 3568, 376, 480)
 
 [node name="Brilho2" type="Sprite2D" parent="Mundo/Fundo" unique_id=858543529]
 position = Vector2(3240, 1595.72)
 scale = Vector2(0.26, 0.26)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(216, 3584, 104, 456)
 
 [node name="Broto2" type="Sprite2D" parent="Mundo/Fundo" unique_id=496847683]
 position = Vector2(3640, 1585.88)
 scale = Vector2(0.36, 0.36)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(656, 2624, 280, 384)
 
 [node name="ArbustoBorda2" type="Sprite2D" parent="Mundo/Fundo" unique_id=128232652]
 position = Vector2(3900, 1594)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("15_plat")
+texture = ExtResource("12_jrotg")
 region_enabled = true
 region_rect = Rect2(112, 1104, 288, 280)
 
 [node name="PedraRedonda" type="Sprite2D" parent="Mundo/Fundo" unique_id=94879079]
 position = Vector2(1380, 2316.84)
 scale = Vector2(0.36, 0.36)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(232, 192, 1288, 712)
 
 [node name="PedraAlta" type="Sprite2D" parent="Mundo/Fundo" unique_id=1192318000]
 position = Vector2(2690, 2238)
 scale = Vector2(0.45, 0.45)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(2888, 8, 1056, 920)
 
 [node name="Folhas1" type="Sprite2D" parent="Mundo/Fundo" unique_id=204353566]
 position = Vector2(1130, 2378.8)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(96, 2640, 288, 264)
 
 [node name="BrilhoBaixo1" type="Sprite2D" parent="Mundo/Fundo" unique_id=1163884839]
 position = Vector2(1060, 2350)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(1256, 3632, 88, 400)
 
 [node name="TufoBaixo1" type="Sprite2D" parent="Mundo/Fundo" unique_id=514222662]
 position = Vector2(1870, 2367.28)
 scale = Vector2(0.28, 0.28)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(1600, 3072, 400, 448)
 
 [node name="Caracol" type="Sprite2D" parent="Mundo/Fundo" unique_id=1808761198]
 position = Vector2(2410, 2348.4)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(1168, 3104, 176, 408)
 
 [node name="TufoBaixo2" type="Sprite2D" parent="Mundo/Fundo" unique_id=1593338191]
 position = Vector2(2470, 2378)
 scale = Vector2(0.26, 0.26)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(1600, 3616, 368, 400)
 
 [node name="BrotoBaixo" type="Sprite2D" parent="Mundo/Fundo" unique_id=244629520]
 position = Vector2(3000, 2368.56)
 scale = Vector2(0.32, 0.32)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(656, 2624, 280, 384)
 
 [node name="BrilhoBaixo2" type="Sprite2D" parent="Mundo/Fundo" unique_id=354919723]
 position = Vector2(3110, 2348.4)
 scale = Vector2(0.34, 0.34)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(568, 3568, 376, 480)
 
@@ -876,7 +876,7 @@ position = Vector2(2090, 2291.4)
 scale = Vector2(0.6, 0.6)
 
 [node name="Sprite" type="Sprite2D" parent="Mundo/Fundo/DegrauPedra" unique_id=258741665]
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(1600, 400, 1144, 512)
 
@@ -887,7 +887,7 @@ polygon = PackedVector2Array(-450, -195, 250, -218, 420, -60, 440, 256, -470, 25
 modulate = Color(0.43137255, 0.5882353, 0.5764706, 1)
 z_index = 1
 tile_map_data = PackedByteArray("AAD//wAAAAACAAIAAAAAAAAAAAAJAAEAAAABAAAAAAACAAUAAAACAAAAAAADAAUAAAADAAAAAAAEAAUAAAAEAAAAAAABAAUAAAAFAAAAAAACAAUAAAAGAAAAAAADAAUAAAAHAAAAAAAEAAUAAAAIAAAAAAABAAUAAAAJAAAAAAACAAUAAAAKAAAAAAADAAUAAAALAAAAAAAEAAUAAAAMAAAAAAABAAUAAAANAAAAAAACAAUAAAAOAAAAAAADAAUAAAAPAAAAAAAKAAEAAAAQAAAAAAACAAIAAAD//wEAAAACAAIAAAAAAAEAAAAFAAEAAAAPAAEAAAAAAAEAAAAQAAEAAAACAAIAAAD//wIAAAACAAIAAAAAAAIAAAAFAAIAAAAPAAIAAAAAAAIAAAAQAAIAAAACAAIAAAD//wMAAAACAAIAAAAAAAMAAAAFAAMAAAAPAAMAAAAAAAMAAAAQAAMAAAACAAIAAAD//wQAAAACAAUAAAAAAAQAAAAFAAUAAAAPAAQAAAAAAAUAAAAQAAQAAAADAAUAAAD//wYAAAAEAAAAAAAAAAYAAAABAAAAAAABAAYAAAACAAAAAAACAAYAAAAFAAAAAAADAAYAAAABAAYAAAAEAAYAAAACAAYAAAAFAAYAAAADAAYAAAAGAAYAAAAEAAYAAAAKAAYAAAABAAYAAAALAAYAAAACAAYAAAAMAAYAAAADAAYAAAANAAYAAAAEAAYAAAAOAAYAAAAAAAAAAAAPAAYAAAAEAAAAAAAQAAYAAAABAAAAAAD//wcAAAAEAAUAAAAAAAcAAAABAAUAAAABAAcAAAACAAUAAAACAAcAAAAFAAUAAAADAAcAAAABAAcAAAAEAAcAAAACAAcAAAAFAAcAAAADAAcAAAAGAAcAAAAEAAcAAAAKAAcAAAABAAcAAAALAAcAAAACAAcAAAAMAAcAAAADAAcAAAANAAcAAAAEAAcAAAAOAAcAAAAAAAUAAAAPAAcAAAAEAAUAAAAQAAcAAAABAAUAAAD//wkAAAACAAAAAAAAAAkAAAADAAAAAAABAAkAAAAEAAAAAAACAAkAAAABAAAAAAADAAkAAAACAAAAAAAEAAkAAAADAAAAAAAFAAkAAAAEAAAAAAAGAAkAAAABAAAAAAAHAAkAAAACAAAAAAAIAAkAAAADAAAAAAAJAAkAAAAEAAAAAAAKAAkAAAABAAAAAAALAAkAAAACAAAAAAAMAAkAAAADAAAAAAANAAkAAAAEAAAAAAAOAAkAAAABAAAAAAAPAAkAAAACAAAAAAAQAAkAAAADAAAAAAD//woAAAACAAIAAAAAAAoAAAACAAIAAAABAAoAAAACAAIAAAACAAoAAAACAAIAAAADAAoAAAACAAIAAAAEAAoAAAACAAIAAAAFAAoAAAACAAIAAAAGAAoAAAACAAIAAAAHAAoAAAACAAIAAAAIAAoAAAACAAIAAAAJAAoAAAACAAIAAAAKAAoAAAACAAIAAAALAAoAAAACAAIAAAAMAAoAAAACAAIAAAANAAoAAAACAAIAAAAOAAoAAAACAAIAAAAPAAoAAAACAAIAAAAQAAoAAAACAAIAAAD//wsAAAACAAIAAAAAAAsAAAACAAIAAAABAAsAAAACAAIAAAACAAsAAAACAAIAAAADAAsAAAACAAIAAAAEAAsAAAACAAIAAAAFAAsAAAACAAIAAAAGAAsAAAACAAIAAAAHAAsAAAACAAIAAAAIAAsAAAACAAIAAAAJAAsAAAACAAIAAAAKAAsAAAACAAIAAAALAAsAAAACAAIAAAAMAAsAAAACAAIAAAANAAsAAAACAAIAAAAOAAsAAAACAAIAAAAPAAsAAAACAAIAAAAQAAsAAAACAAIAAAD//wwAAAACAAIAAAAAAAwAAAACAAIAAAABAAwAAAACAAIAAAACAAwAAAACAAIAAAADAAwAAAACAAIAAAAEAAwAAAACAAIAAAAFAAwAAAACAAIAAAAGAAwAAAACAAIAAAAHAAwAAAACAAIAAAAIAAwAAAACAAIAAAAJAAwAAAACAAIAAAAKAAwAAAACAAIAAAALAAwAAAACAAIAAAAMAAwAAAACAAIAAAANAAwAAAACAAIAAAAOAAwAAAACAAIAAAAPAAwAAAACAAIAAAAQAAwAAAACAAIAAAAIAAMAAAAGAAEAAAAIAAQAAAAGAAEAAAAJAAMAAAAHAAEAAAAJAAQAAAAHAAEAAAAIAAUAAAAGAAUAAAAJAAUAAAAHAAUAAAAIAAIAAAAGAAAAAAAJAAIAAAAHAAAAAAA=")
-tile_set = ExtResource("12_56dri")
+tile_set = ExtResource("13_trbyp")
 rendering_quadrant_size = 256
 
 [node name="Teto" type="Node2D" parent="Mundo" unique_id=734597057]
@@ -896,7 +896,7 @@ z_index = 1
 [node name="TetoEsquerda" type="Sprite2D" parent="Mundo/Teto" unique_id=771516661]
 position = Vector2(600, 140)
 scale = Vector2(0.62, 0.62)
-texture = ExtResource("14_hill")
+texture = ExtResource("14_l3jo0")
 region_enabled = true
 region_rect = Rect2(648, 616, 1240, 856)
 
@@ -904,7 +904,7 @@ region_rect = Rect2(648, 616, 1240, 856)
 position = Vector2(120, 760)
 rotation = 1.5708
 scale = Vector2(0.55, 0.55)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(1216, 2608, 920, 648)
 
@@ -912,7 +912,7 @@ region_rect = Rect2(1216, 2608, 920, 648)
 position = Vector2(1600, 90)
 rotation = 3.1416
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("14_hill")
+texture = ExtResource("14_l3jo0")
 region_enabled = true
 region_rect = Rect2(688, 32, 1160, 496)
 
@@ -920,7 +920,7 @@ region_rect = Rect2(688, 32, 1160, 496)
 position = Vector2(2850, 80)
 rotation = 3.1416
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("14_hill")
+texture = ExtResource("14_l3jo0")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(688, 32, 1160, 496)
@@ -928,7 +928,7 @@ region_rect = Rect2(688, 32, 1160, 496)
 [node name="TetoDireita" type="Sprite2D" parent="Mundo/Teto" unique_id=780731610]
 position = Vector2(3720, 190)
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("14_hill")
+texture = ExtResource("14_l3jo0")
 region_enabled = true
 region_rect = Rect2(648, 616, 1240, 856)
 
@@ -936,7 +936,7 @@ region_rect = Rect2(648, 616, 1240, 856)
 position = Vector2(3990, 760)
 rotation = -1.5708
 scale = Vector2(0.55, 0.55)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(1216, 2608, 920, 648)
 
@@ -944,7 +944,7 @@ region_rect = Rect2(1216, 2608, 920, 648)
 position = Vector2(2176.667, 1816.6666)
 rotation = 3.010489
 scale = Vector2(0.92362106, 0.91655093)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(120, 960, 1480, 632)
 
@@ -952,7 +952,7 @@ region_rect = Rect2(120, 960, 1480, 632)
 position = Vector2(3930, 1330)
 rotation = -1.25
 scale = Vector2(0.36, 0.36)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(2064, 968, 1232, 816)
@@ -964,7 +964,7 @@ z_index = 10
 modulate = Color(0.5, 0.64, 0.56, 1)
 position = Vector2(880, 2456.96)
 scale = Vector2(0.86, 0.86)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(2392, 2360, 1688, 1728)
@@ -973,7 +973,7 @@ region_rect = Rect2(2392, 2360, 1688, 1728)
 modulate = Color(0.5, 0.64, 0.56, 1)
 position = Vector2(1420, 2959)
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("14_hill")
+texture = ExtResource("14_l3jo0")
 region_enabled = true
 region_rect = Rect2(64, 1512, 1328, 456)
 
@@ -981,7 +981,7 @@ region_rect = Rect2(64, 1512, 1328, 456)
 modulate = Color(0.5, 0.64, 0.56, 1)
 position = Vector2(3300, 2422.4)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(2392, 2360, 1688, 1728)
 
@@ -989,7 +989,7 @@ region_rect = Rect2(2392, 2360, 1688, 1728)
 modulate = Color(0.5, 0.64, 0.56, 1)
 position = Vector2(4060, 2923.2)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("10_bg")
+texture = ExtResource("8_fsqel")
 region_enabled = true
 region_rect = Rect2(1216, 2608, 920, 648)
 
@@ -998,7 +998,7 @@ modulate = Color(0.13, 0.27, 0.22, 1)
 position = Vector2(170, 2560)
 rotation = 0.25
 scale = Vector2(2.3, 2.3)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(88, 3072, 336, 448)
 
@@ -1007,7 +1007,7 @@ modulate = Color(0.13, 0.27, 0.22, 1)
 position = Vector2(40, 1900)
 rotation = 0.6
 scale = Vector2(1.4, 1.4)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 region_enabled = true
 region_rect = Rect2(88, 3072, 336, 448)
 
@@ -1016,7 +1016,7 @@ modulate = Color(0.13, 0.27, 0.22, 1)
 position = Vector2(3720, 2700)
 rotation = -0.3
 scale = Vector2(2.2, 2.2)
-texture = ExtResource("9_dec")
+texture = ExtResource("11_t2fiy")
 flip_h = true
 region_enabled = true
 region_rect = Rect2(88, 3072, 336, 448)
@@ -1059,7 +1059,7 @@ environment = SubResource("Environment_k4pr2")
 [node name="BlurWorld" type="CanvasLayer" parent="." unique_id=1048814102]
 layer = 10
 visible = false
-script = ExtResource("12_blur")
+script = ExtResource("15_bnnkg")
 
 [node name="ColorRect" type="ColorRect" parent="BlurWorld" unique_id=1284294230]
 material = SubResource("ShaderMaterial_3nqnr")
@@ -1084,11 +1084,11 @@ color = Color(0.105, 0.27, 0.29, 1)
 
 [node name="Enemy" type="CharacterBody2D" parent="." unique_id=1777557332]
 position = Vector2(332, 245)
-script = ExtResource("17_ntovh")
+script = ExtResource("17_n3suy")
 
 [node name="desenho" type="Sprite2D" parent="Enemy" unique_id=1726078914]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("17_1fkai")
+texture = ExtResource("18_wlx42")
 
 [node name="colisao" type="CollisionShape2D" parent="Enemy" unique_id=958419256]
 position = Vector2(-0.5, 0)

@@ -7,6 +7,7 @@ const GRAPPLE_DURATION: float = 4.0
 const JUMP_VELOCITY = -600.0
 const JUMPING_TIME = 0.3
 
+var vida = 100
 var ON_WALL = false
 var WALL_DIR: Global.Direcao = Global.Direcao.DIR
 var GRAPPLE = false

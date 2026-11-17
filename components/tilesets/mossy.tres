@@ -152,6 +152,23 @@ texture_region_size = Vector2i(256, 256)
 6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(128, 6.2768555, 128, 128, 9.415283, 128, 28.24585, 25.107422)
 6:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-31.384308, -69.045456, 128, -78.46074, 128, 128, -59.630157, 128)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2c8mv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4hoea"]
+texture = SubResource("CompressedTexture2D_2c8mv")
+separation = Vector2i(128, 128)
+texture_region_size = Vector2i(256, 256)
+use_texture_padding = false
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+2:2/0 = 0
+1:2/0 = 0
+0:2/0 = 0
+
 [resource]
 tile_size = Vector2i(256, 256)
 physics_layer_0/collision_layer = 1
@@ -159,3 +176,4 @@ physics_layer_1/collision_layer = 2
 physics_layer_1/collision_mask = 2
 physics_layer_1/collision_priority = 0.0
 sources/0 = SubResource("TileSetAtlasSource_musgo")
+sources/1 = SubResource("TileSetAtlasSource_4hoea")

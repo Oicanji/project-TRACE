@@ -6,8 +6,9 @@ extends CharacterBody2D
 @onready var tem_chao_direita: RayCast2D = $tem_chao_direita
 
 const SPEED = 3000.0
-const STEPS = 50
+const STEPS = 150
 var acc_steps = STEPS
+var maximo_passos: int
 var last_step 
 var direction_change_chance = 0.95
 
@@ -22,8 +23,13 @@ func _physics_process(delta: float) -> void:
 
 func inteligencia(delta: float):
 	var direcao_aleatoria = 0
-	if acc_steps == STEPS:
+	if acc_steps == maximo_passos:
 		direcao_aleatoria = randi_range(-1, 1)
+		if direcao_aleatoria == 0:
+			direcao_aleatoria = 1
+			
+		maximo_passos = randi_range(0, STEPS)
+		
 		last_step = direcao_aleatoria
 		acc_steps = 0
 	else:
@@ -35,5 +41,13 @@ func inteligencia(delta: float):
 		velocity.x = (SPEED*direcao_aleatoria) * delta
 	elif direcao_aleatoria == 1 and tem_chao_direita.is_colliding():
 		velocity.x = (SPEED*direcao_aleatoria) * delta
+	else:
+		velocity.x = 0
+		acc_steps = maximo_passos
 
+
+
+func bateu_na_hitbox(body: Area2D) -> void:
+	if body.is_in_group("player"):
+		print("O jogador entrou na área!")
 	
