@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://be3btymynn4rb"]
+
+[ext_resource type="Script" uid="uid://dteqfs8yyxoml" path="res://scripts/ui/hud_vida.gd" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://cf6q85rfguol2" path="res://assets/ui/coracao_cheio.svg" id="2_cheio"]
+
+[node name="HudVida" type="CanvasLayer" unique_id=1535100296]
+layer = 5
+script = ExtResource("1_hud")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1217059216]
+offset_left = -6.9999995
+offset_top = -11.999999
+offset_right = 113.0
+offset_bottom = 36.0
+scale = Vector2(1.3369659, 1.3369659)
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 14
+
+[node name="Coracoes" type="HBoxContainer" parent="MarginContainer" unique_id=68786066]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Coracao1" type="TextureRect" parent="MarginContainer/Coracoes" unique_id=1809639738]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+texture = ExtResource("2_cheio")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Coracao2" type="TextureRect" parent="MarginContainer/Coracoes" unique_id=346157830]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+texture = ExtResource("2_cheio")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Coracao3" type="TextureRect" parent="MarginContainer/Coracoes" unique_id=925183709]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+texture = ExtResource("2_cheio")
+expand_mode = 1
+stretch_mode = 5

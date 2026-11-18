@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var olhar_direito: RayCast2D = $olhar_direito
 @onready var tem_chao_esquerdo: RayCast2D = $tem_chao_esquerdo
 @onready var tem_chao_direita: RayCast2D = $tem_chao_direita
+@onready var desenho: Sprite2D = $desenho
 
 const SPEED = 3000.0
 const STEPS = 150
@@ -39,8 +40,10 @@ func inteligencia(delta: float):
 	# -1 SE TEM CHÃO A ESQUERDA
 	if direcao_aleatoria == -1 and tem_chao_esquerdo.is_colliding():
 		velocity.x = (SPEED*direcao_aleatoria) * delta
+		desenho.flip_h = true
 	elif direcao_aleatoria == 1 and tem_chao_direita.is_colliding():
 		velocity.x = (SPEED*direcao_aleatoria) * delta
+		desenho.flip_h = false
 	else:
 		velocity.x = 0
 		acc_steps = maximo_passos
@@ -48,6 +51,6 @@ func inteligencia(delta: float):
 
 
 func bateu_na_hitbox(body: Area2D) -> void:
-	if body.is_in_group("player"):
-		print("O jogador entrou na área!")
+	if body.is_in_group("player_damage"):
+		queue_free()
 	

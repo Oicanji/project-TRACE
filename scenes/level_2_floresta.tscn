@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bqtyyk0x10com"]
 
 [ext_resource type="Script" uid="uid://bfl2fom0gp6md" path="res://scripts/player/PlayerController.gd" id="1_g10qg"]
+[ext_resource type="PackedScene" uid="uid://b8xfvy7beqnee" path="res://components/garra.tscn" id="2_4sin2"]
 [ext_resource type="Texture2D" uid="uid://tg7fhnbj83au" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-fall.png" id="2_gej1d"]
 [ext_resource type="Texture2D" uid="uid://dfxi0ckocx5lw" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-fall_loop.png" id="3_4sin2"]
 [ext_resource type="Texture2D" uid="uid://vb7urmtw1t5y" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-idle.png" id="4_8wgu1"]
@@ -12,7 +13,9 @@
 [ext_resource type="Script" uid="uid://baeaviml207go" path="res://scripts/blur_world.gd" id="10_yaf1c"]
 [ext_resource type="Shader" uid="uid://cw77tkgfjg2wv" path="res://scenes/level_debug.gdshader" id="11_v76hi"]
 [ext_resource type="Script" uid="uid://ygd08ktkt8w2" path="res://scripts/enemy/enemy.gd" id="12_spqbv"]
-[ext_resource type="Texture2D" uid="uid://bhmv3ghyqdsxu" path="res://assets/sprites/SlimeGreen/SlimeBasic_00001.png" id="13_uxkqd"]
+[ext_resource type="Texture2D" uid="uid://cdb2rw6b7wr8o" path="res://assets/sprites/TVSPRITE (1).png" id="14_4sin2"]
+[ext_resource type="PackedScene" uid="uid://be3btymynn4rb" path="res://scenes/ui/hud_vida.tscn" id="14_hudvida"]
+[ext_resource type="Shader" uid="uid://d4dmc4m46jph7" path="res://shaders/saturation.gdshader" id="15_sat01"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7061b"]
 atlas = ExtResource("2_gej1d")
@@ -373,6 +376,10 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4sin2"]
+shader = ExtResource("15_sat01")
+shader_parameter/saturation = 0.0
+
 [sub_resource type="Gradient" id="Gradient_ponto"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
@@ -421,6 +428,7 @@ z_index = 1
 position = Vector2(131, 431)
 scale = Vector2(0.7, 0.7)
 script = ExtResource("1_g10qg")
+attack_obj = ExtResource("2_4sin2")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Player" unique_id=831912476]
 texture_filter = 1
@@ -500,9 +508,9 @@ scale = Vector2(0.3, 0.3)
 z_index = -1
 
 [node name="Terreno" type="TileMapLayer" parent="Mundo" unique_id=122167782]
-modulate = Color(18.821728, 8.609527, 18.892157, 1)
-self_modulate = Color(0.5568628, 0.44705883, 0.4509804, 1)
+modulate = Color(0.5348978, 0.5370987, 0.5370987, 1)
 z_index = 1
+material = SubResource("ShaderMaterial_4sin2")
 tile_map_data = PackedByteArray("AAD//wAAAAACAAIAAAAAAAAAAAAJAAEAAAABAAAAAAACAAUAAAACAAAAAAADAAUAAAADAAAAAAAEAAUAAAAEAAAAAAABAAUAAAAFAAAAAAACAAUAAAAGAAAAAAADAAUAAAAHAAAAAAAEAAUAAAAIAAAAAAABAAUAAAAJAAAAAAACAAUAAAAKAAAAAAADAAUAAAALAAAAAAAEAAUAAAAMAAAAAAABAAUAAAANAAAAAAACAAUAAAAOAAAAAAADAAUAAAAPAAAAAAAKAAEAAAAQAAAAAAACAAIAAAD//wEAAAACAAIAAAAAAAEAAAAFAAEAAAAPAAEAAAAAAAEAAAAQAAEAAAACAAIAAAD//wIAAAACAAIAAAAAAAIAAAAFAAIAAAAPAAIAAAAAAAIAAAAQAAIAAAACAAIAAAD//wMAAAACAAIAAAAAAAMAAAAFAAMAAAAPAAMAAAAAAAMAAAAQAAMAAAACAAIAAAD//wQAAAACAAUAAAAAAAQAAAAFAAUAAAAPAAQAAAAAAAUAAAAQAAQAAAADAAUAAAD//wYAAAAEAAAAAAAAAAYAAAABAAAAAAABAAYAAAACAAAAAAACAAYAAAAFAAAAAAAOAAYAAAAAAAAAAAAPAAYAAAAEAAAAAAAQAAYAAAABAAAAAAD//wcAAAAEAAUAAAAAAAcAAAABAAUAAAABAAcAAAACAAUAAAACAAcAAAAFAAUAAAAOAAcAAAAAAAUAAAAQAAcAAAABAAUAAAD//wkAAAACAAAAAAAAAAkAAAADAAAAAAABAAkAAAAEAAAAAAACAAkAAAABAAAAAAADAAkAAAACAAAAAAAEAAkAAAADAAAAAAAFAAkAAAAEAAAAAAAGAAkAAAABAAAAAAAHAAkAAAACAAAAAAAIAAkAAAADAAAAAAAJAAkAAAAEAAAAAAAKAAkAAAABAAAAAAALAAkAAAACAAAAAAAMAAkAAAADAAAAAAANAAkAAAAEAAAAAAAOAAkAAAABAAAAAAAPAAkAAAACAAAAAAAQAAkAAAADAAAAAAD//woAAAACAAIAAAAAAAoAAAACAAIAAAABAAoAAAACAAIAAAACAAoAAAACAAIAAAADAAoAAAACAAIAAAAEAAoAAAACAAIAAAAFAAoAAAACAAIAAAAGAAoAAAACAAIAAAAHAAoAAAACAAIAAAAIAAoAAAACAAIAAAAJAAoAAAACAAIAAAAKAAoAAAACAAIAAAALAAoAAAACAAIAAAAMAAoAAAACAAIAAAANAAoAAAACAAIAAAAOAAoAAAACAAIAAAAPAAoAAAACAAIAAAAQAAoAAAACAAIAAAD//wsAAAACAAIAAAAAAAsAAAACAAIAAAABAAsAAAACAAIAAAACAAsAAAACAAIAAAADAAsAAAACAAIAAAAEAAsAAAACAAIAAAAFAAsAAAACAAIAAAAGAAsAAAACAAIAAAAHAAsAAAACAAIAAAAIAAsAAAACAAIAAAAJAAsAAAACAAIAAAAKAAsAAAACAAIAAAALAAsAAAACAAIAAAAMAAsAAAACAAIAAAANAAsAAAACAAIAAAAOAAsAAAACAAIAAAAPAAsAAAACAAIAAAAQAAsAAAACAAIAAAD//wwAAAACAAIAAAAAAAwAAAACAAIAAAABAAwAAAACAAIAAAACAAwAAAACAAIAAAADAAwAAAACAAIAAAAEAAwAAAACAAIAAAAFAAwAAAACAAIAAAAGAAwAAAACAAIAAAAHAAwAAAACAAIAAAAIAAwAAAACAAIAAAAJAAwAAAACAAIAAAAKAAwAAAACAAIAAAALAAwAAAACAAIAAAAMAAwAAAACAAIAAAANAAwAAAACAAIAAAAOAAwAAAACAAIAAAAPAAwAAAACAAIAAAAQAAwAAAACAAIAAAAPAAcAAAAEAAUAAAAEAAYAAAABAAYAAAAEAAcAAAABAAcAAAAFAAYAAAACAAYAAAAFAAcAAAACAAcAAAAGAAYAAAADAAYAAAAGAAcAAAADAAcAAAAHAAYAAAAEAAYAAAAHAAcAAAAEAAcAAAAKAAYAAAACAAYAAAAKAAcAAAACAAcAAAALAAYAAAADAAYAAAALAAcAAAADAAcAAAAMAAYAAAAEAAYAAAAMAAcAAAAEAAcAAAAJAAYAAAABAAYAAAAJAAcAAAABAAcAAAA=")
 tile_set = ExtResource("9_d2a1h")
 rendering_quadrant_size = 256
@@ -579,11 +587,15 @@ position = Vector2(467, 450)
 script = ExtResource("12_spqbv")
 
 [node name="desenho" type="Sprite2D" parent="Enemy" unique_id=1726078914]
+position = Vector2(0, -19.999998)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("13_uxkqd")
+texture = ExtResource("14_4sin2")
+region_enabled = true
+region_rect = Rect2(845, 421.5, 348.45996, 461.5899)
 
 [node name="colisao" type="CollisionShape2D" parent="Enemy" unique_id=958419256]
 position = Vector2(-0.5, 0)
+scale = Vector2(0.966534, 1)
 shape = SubResource("CapsuleShape2D_ntovh")
 
 [node name="olhar_esquerdo" type="RayCast2D" parent="Enemy" unique_id=1476941775]
@@ -604,8 +616,13 @@ target_position = Vector2(42, 37)
 shape = SubResource("CircleShape2D_k4pr2")
 debug_color = Color(0.99742216, 0, 0.17616406, 0.41960785)
 
+[node name="HudVida" parent="." unique_id=1555535129 node_paths=PackedStringArray("player") instance=ExtResource("14_hudvida")]
+player = NodePath("../Player")
+
+[connection signal="vida_alterada" from="Player" to="HudVida" method="_on_vida_alterada"]
 [connection signal="body_entered" from="Player/PatasDireita" to="Player" method="pata_direita"]
 [connection signal="body_exited" from="Player/PatasDireita" to="Player" method="sem_agarre"]
 [connection signal="body_entered" from="Player/PatasEsquerda" to="Player" method="pata_esquerda"]
 [connection signal="body_exited" from="Player/PatasEsquerda" to="Player" method="sem_agarre"]
+[connection signal="area_entered" from="Player/hitbox" to="Player" method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="Enemy/Hitbox" to="Enemy" method="bateu_na_hitbox"]
