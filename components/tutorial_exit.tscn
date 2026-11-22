@@ -1,0 +1,79 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/tutorial_exit.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cpfd8848tmpmn" path="res://assets/sprites/Mossy Tileset/Mossy - Decorations&Hazards.png" id="2_decor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(150, 170)
+
+[sub_resource type="Gradient" id="Gradient_aura"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.55, 1, 0.88, 0.65, 0.25, 0.85, 0.78, 0.25, 0.2, 0.7, 0.7, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aura"]
+gradient = SubResource("Gradient_aura")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_part"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_part"]
+gradient = SubResource("Gradient_part")
+width = 24
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_vida"]
+offsets = PackedFloat32Array(0, 0.2, 0.75, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="TutorialExit" type="Area2D"]
+z_index = 2
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -35)
+shape = SubResource("RectangleShape2D_exit")
+debug_color = Color(0.45, 1, 0.78, 0.25)
+
+[node name="Aura" type="Sprite2D" parent="."]
+position = Vector2(0, -28)
+scale = Vector2(0.85, 0.85)
+texture = SubResource("GradientTexture2D_aura")
+
+[node name="FlorSantuario" type="Sprite2D" parent="."]
+modulate = Color(0.82, 1.25, 1.15, 1)
+position = Vector2(0, -14)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("2_decor")
+region_enabled = true
+region_rect = Rect2(568, 3568, 376, 480)
+
+[node name="ParticulasAlma" type="CPUParticles2D" parent="."]
+position = Vector2(0, -10)
+amount = 24
+texture = SubResource("GradientTexture2D_part")
+lifetime = 2.6
+preprocess = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(36, 12)
+direction = Vector2(0, -1)
+spread = 22.0
+gravity = Vector2(0, -12)
+initial_velocity_min = 14.0
+initial_velocity_max = 32.0
+scale_amount_min = 0.12
+scale_amount_max = 0.28
+color = Color(0.65, 1.5, 1.25, 1)
+color_ramp = SubResource("Gradient_vida")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,0 +1,804 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/player/PlayerController.gd" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://b8xfvy7beqnee" path="res://components/garra.tscn" id="2_garra"]
+[ext_resource type="Texture2D" uid="uid://tg7fhnbj83au" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-fall.png" id="3_fall"]
+[ext_resource type="Texture2D" uid="uid://dfxi0ckocx5lw" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-fall_loop.png" id="4_fall_loop"]
+[ext_resource type="Texture2D" uid="uid://vb7urmtw1t5y" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-idle.png" id="5_idle"]
+[ext_resource type="Texture2D" uid="uid://cf1okkq5wg1am" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-jump.png" id="6_jump"]
+[ext_resource type="Texture2D" uid="uid://xj2br55i07i0" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-run.png" id="7_run"]
+[ext_resource type="Texture2D" uid="uid://c2w3ubo1udr1a" path="res://assets/sprites/templete-free/individual_sheets/male_hero_template-walk.png" id="8_walk"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Cidade/Cidade - SkylineFar.png" id="9_sky_far"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Cidade/Cidade - SkylineMid.png" id="10_sky_mid"]
+[ext_resource type="Script" path="res://scripts/city/city_zone_manager.gd" id="11_mgr"]
+[ext_resource type="PackedScene" uid="uid://be3btymynn4rb" path="res://scenes/ui/hud_vida.tscn" id="12_hud"]
+[ext_resource type="Shader" path="res://shaders/city_tremble_fog.gdshader" id="13_tremble"]
+[ext_resource type="Shader" path="res://shaders/drifting_white_fog.gdshader" id="14_fog"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fall_0"]
+atlas = ExtResource("3_fall")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fall_1"]
+atlas = ExtResource("3_fall")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fall_2"]
+atlas = ExtResource("3_fall")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fall_3"]
+atlas = ExtResource("3_fall")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fl_0"]
+atlas = ExtResource("4_fall_loop")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fl_1"]
+atlas = ExtResource("4_fall_loop")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fl_2"]
+atlas = ExtResource("4_fall_loop")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_0"]
+atlas = ExtResource("5_idle")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_1"]
+atlas = ExtResource("5_idle")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_2"]
+atlas = ExtResource("5_idle")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_3"]
+atlas = ExtResource("5_idle")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_4"]
+atlas = ExtResource("5_idle")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_5"]
+atlas = ExtResource("5_idle")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_6"]
+atlas = ExtResource("5_idle")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_7"]
+atlas = ExtResource("5_idle")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_8"]
+atlas = ExtResource("5_idle")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle_9"]
+atlas = ExtResource("5_idle")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jump_0"]
+atlas = ExtResource("6_jump")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jump_1"]
+atlas = ExtResource("6_jump")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jump_2"]
+atlas = ExtResource("6_jump")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jump_3"]
+atlas = ExtResource("6_jump")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jump_4"]
+atlas = ExtResource("6_jump")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jump_5"]
+atlas = ExtResource("6_jump")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_0"]
+atlas = ExtResource("7_run")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_1"]
+atlas = ExtResource("7_run")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_2"]
+atlas = ExtResource("7_run")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_3"]
+atlas = ExtResource("7_run")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_4"]
+atlas = ExtResource("7_run")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_5"]
+atlas = ExtResource("7_run")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_6"]
+atlas = ExtResource("7_run")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_7"]
+atlas = ExtResource("7_run")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_8"]
+atlas = ExtResource("7_run")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run_9"]
+atlas = ExtResource("7_run")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_0"]
+atlas = ExtResource("8_walk")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_1"]
+atlas = ExtResource("8_walk")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_2"]
+atlas = ExtResource("8_walk")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_3"]
+atlas = ExtResource("8_walk")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_4"]
+atlas = ExtResource("8_walk")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_5"]
+atlas = ExtResource("8_walk")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_6"]
+atlas = ExtResource("8_walk")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_7"]
+atlas = ExtResource("8_walk")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_8"]
+atlas = ExtResource("8_walk")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk_9"]
+atlas = ExtResource("8_walk")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_player"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fall_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fall_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fall_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fall_3")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fl_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fl_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fl_2")
+}],
+"loop": true,
+"name": &"fall_loop",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle_9")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jump_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jump_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jump_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jump_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jump_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jump_5")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run_9")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk_9")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 14.0
+height = 98.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pata"]
+height = 45.714233
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hit"]
+size = Vector2(36, 92)
+
+[sub_resource type="Gradient" id="Gradient_player_aura"]
+offsets = PackedFloat32Array(0, 0.35, 0.72, 1)
+colors = PackedColorArray(0.88, 0.94, 0.96, 0.88, 0.56, 0.68, 0.74, 0.36, 0.2, 0.28, 0.34, 0.08, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_player_aura"]
+gradient = SubResource("Gradient_player_aura")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_white_fog_sky"]
+offsets = PackedFloat32Array(0, 0.35, 0.72, 1)
+colors = PackedColorArray(0.76, 0.82, 0.84, 1, 0.9, 0.94, 0.95, 1, 0.84, 0.89, 0.91, 1, 0.66, 0.73, 0.76, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_white_fog_sky"]
+gradient = SubResource("Gradient_white_fog_sky")
+width = 64
+height = 512
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tremble_far"]
+shader = ExtResource("13_tremble")
+shader_parameter/tremble_strength = 0.0026
+shader_parameter/tremble_speed = 15.0
+shader_parameter/fog_density = 0.48
+shader_parameter/fog_drift_speed = 0.016
+shader_parameter/fog_color = Color(0.9, 0.93, 0.94, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tremble_mid"]
+shader = ExtResource("13_tremble")
+shader_parameter/tremble_strength = 0.0018
+shader_parameter/tremble_speed = 11.5
+shader_parameter/fog_density = 0.34
+shader_parameter/fog_drift_speed = 0.024
+shader_parameter/fog_color = Color(0.87, 0.91, 0.93, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fog_mid"]
+shader = ExtResource("14_fog")
+shader_parameter/fog_color = Color(0.91, 0.94, 0.95, 1)
+shader_parameter/opacity = 0.58
+shader_parameter/speed_x = 0.02
+shader_parameter/speed_y = -0.004
+shader_parameter/scale_uv = 2.4
+shader_parameter/bottom_weight = 0.55
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fog_front"]
+shader = ExtResource("14_fog")
+shader_parameter/fog_color = Color(0.88, 0.92, 0.94, 1)
+shader_parameter/opacity = 0.34
+shader_parameter/speed_x = 0.032
+shader_parameter/speed_y = -0.006
+shader_parameter/scale_uv = 3.1
+shader_parameter/bottom_weight = 0.72
+
+[sub_resource type="Gradient" id="Gradient_rain_streak"]
+offsets = PackedFloat32Array(0, 0.25, 0.85, 1)
+colors = PackedColorArray(0.75, 0.82, 0.86, 0, 0.82, 0.88, 0.92, 0.72, 0.9, 0.95, 0.98, 0.88, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rain_streak"]
+gradient = SubResource("Gradient_rain_streak")
+width = 3
+height = 42
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="Gradient" id="Gradient_fog_puff"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(0.92, 0.95, 0.97, 0.34, 0.86, 0.91, 0.93, 0.14, 0.82, 0.88, 0.9, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fog_puff"]
+gradient = SubResource("Gradient_fog_puff")
+width = 256
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_rain_life"]
+offsets = PackedFloat32Array(0, 0.14, 0.86, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_ash_speck"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.96, 0.98, 1, 0.9, 0.82, 0.88, 0.92, 0.45, 0.7, 0.78, 0.82, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ash_speck"]
+gradient = SubResource("Gradient_ash_speck")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_vinheta"]
+offsets = PackedFloat32Array(0.42, 0.76, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.015, 0.022, 0.03, 0.34, 0.005, 0.008, 0.012, 0.74)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vinheta"]
+gradient = SubResource("Gradient_vinheta")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Environment" id="Environment_cidade"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.72
+glow_bloom = 0.36
+glow_hdr_threshold = 0.92
+adjustment_enabled = true
+adjustment_brightness = 0.96
+adjustment_contrast = 1.18
+adjustment_saturation = 0.72
+
+[sub_resource type="Animation" id="Animation_fade_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fade_out"]
+resource_name = "escurecer"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:color:a")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_fade_in"]
+resource_name = "clarear"
+length = 0.38
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeRect:color:a")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.38),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fade"]
+_data = {
+&"RESET": SubResource("Animation_fade_reset"),
+&"clarear": SubResource("Animation_fade_in"),
+&"escurecer": SubResource("Animation_fade_out")
+}
+
+[node name="level_cidade" type="Node2D"]
+
+[node name="AtmosferaCidade" type="CanvasModulate" parent="."]
+color = Color(0.68, 0.74, 0.78, 1)
+
+[node name="ZoneManager" type="Node" parent="."]
+script = ExtResource("11_mgr")
+initial_zone_id = &"zone_01"
+initial_spawn_id = &"from_start"
+zone_scenes = {
+"zone_01": "res://scenes/city_zones/zone_01_orla_cidade.tscn",
+"zone_02": "res://scenes/city_zones/zone_02_beco_vinhas.tscn",
+"zone_03": "res://scenes/city_zones/zone_03_torre_escada.tscn",
+"zone_04": "res://scenes/city_zones/zone_04_telhados_chuva.tscn",
+"zone_05": "res://scenes/city_zones/zone_05_viaduto_partido.tscn",
+"zone_06": "res://scenes/city_zones/zone_06_condutos_ferrugem.tscn",
+"zone_07": "res://scenes/city_zones/zone_07_galeria_submersa.tscn",
+"zone_08": "res://scenes/city_zones/zone_08_praca_silenciosa.tscn",
+"zone_09": "res://scenes/city_zones/zone_09_escombros_ferro.tscn",
+"zone_10": "res://scenes/city_zones/zone_10_patio_carcaca.tscn"
+}
+
+[node name="FundoCeu" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="CeuGradiente" type="TextureRect" parent="FundoCeu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_white_fog_sky")
+expand_mode = 1
+
+[node name="ParalaxeLonge" type="Parallax2D" parent="."]
+z_index = -20
+scroll_scale = Vector2(0.08, 0.05)
+repeat_size = Vector2(2560, 0)
+repeat_times = 2
+
+[node name="SkylineFar" type="Sprite2D" parent="ParalaxeLonge"]
+material = SubResource("ShaderMaterial_tremble_far")
+position = Vector2(1280, 420)
+scale = Vector2(1, 1.4)
+texture = ExtResource("9_sky_far")
+
+[node name="ParalaxeMeio" type="Parallax2D" parent="."]
+z_index = -12
+scroll_scale = Vector2(0.22, 0.12)
+repeat_size = Vector2(2560, 0)
+repeat_times = 2
+
+[node name="SkylineMid" type="Sprite2D" parent="ParalaxeMeio"]
+material = SubResource("ShaderMaterial_tremble_mid")
+position = Vector2(1280, 470)
+scale = Vector2(1, 1.35)
+texture = ExtResource("10_sky_mid")
+
+[node name="NevoaMeio" type="Parallax2D" parent="."]
+z_index = -5
+scroll_scale = Vector2(0, 0)
+
+[node name="FogRect" type="ColorRect" parent="NevoaMeio"]
+material = SubResource("ShaderMaterial_fog_mid")
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 2240.0
+offset_bottom = 1440.0
+mouse_filter = 2
+
+[node name="NevoaNuvensFundo" type="Parallax2D" parent="."]
+z_index = -4
+scroll_scale = Vector2(0.16, 0.08)
+
+[node name="ParticulasNevoa" type="CPUParticles2D" parent="NevoaNuvensFundo"]
+position = Vector2(900, 460)
+amount = 32
+texture = SubResource("GradientTexture2D_fog_puff")
+lifetime = 14.0
+preprocess = 14.0
+emission_shape = 3
+emission_rect_extents = Vector2(1200, 380)
+direction = Vector2(1, -0.05)
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 14.0
+initial_velocity_max = 36.0
+scale_amount_min = 1.6
+scale_amount_max = 3.6
+color = Color(0.92, 0.95, 0.97, 0.6)
+color_ramp = SubResource("Gradient_rain_life")
+
+[node name="ZoneContainer" type="Node2D" parent="."]
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
+z_index = 2
+position = Vector2(160, 560)
+scale = Vector2(0.65, 0.65)
+script = ExtResource("1_player")
+attack_obj = ExtResource("2_garra")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Player"]
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_player")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Hitbox" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CapsuleShape2D_body")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(1.02, 1.02)
+limit_left = 0
+limit_top = 0
+limit_right = 1792
+limit_bottom = 768
+position_smoothing_enabled = true
+position_smoothing_speed = 5.0
+
+[node name="LuzJogador" type="PointLight2D" parent="Player"]
+color = Color(0.86, 0.92, 0.96, 1)
+energy = 0.62
+texture = SubResource("GradientTexture2D_player_aura")
+texture_scale = 1.85
+
+[node name="PatasDireita" type="Area2D" parent="Player"]
+position = Vector2(37.14289, -5.714286)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PatasDireita"]
+shape = SubResource("CapsuleShape2D_pata")
+debug_color = Color(0.992, 0, 0.264, 0.42)
+
+[node name="PatasEsquerda" type="Area2D" parent="Player"]
+position = Vector2(-37.142857, -4.285714)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PatasEsquerda"]
+shape = SubResource("CapsuleShape2D_pata")
+debug_color = Color(0.992, 0, 0.264, 0.42)
+
+[node name="hitbox" type="Area2D" parent="Player" groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/hitbox"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_hit")
+debug_color = Color(0.981, 0, 0.381, 0.42)
+
+[node name="ChuvaFundo" type="CPUParticles2D" parent="."]
+z_index = -3
+position = Vector2(900, -40)
+amount = 200
+texture = SubResource("GradientTexture2D_rain_streak")
+lifetime = 2.6
+preprocess = 2.6
+emission_shape = 3
+emission_rect_extents = Vector2(1300, 60)
+direction = Vector2(-0.16, 1)
+spread = 4.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 380.0
+initial_velocity_max = 520.0
+angle_min = -10.0
+angle_max = -8.0
+scale_amount_min = 0.5
+scale_amount_max = 0.85
+color = Color(0.84, 0.9, 0.94, 0.32)
+color_ramp = SubResource("Gradient_rain_life")
+
+[node name="ChuvaFrente" type="CPUParticles2D" parent="."]
+z_index = 6
+position = Vector2(900, -40)
+amount = 240
+texture = SubResource("GradientTexture2D_rain_streak")
+lifetime = 2.1
+preprocess = 2.1
+emission_shape = 3
+emission_rect_extents = Vector2(1300, 60)
+direction = Vector2(-0.18, 1)
+spread = 3.0
+gravity = Vector2(0, 150)
+initial_velocity_min = 560.0
+initial_velocity_max = 740.0
+angle_min = -11.0
+angle_max = -9.0
+scale_amount_min = 0.7
+scale_amount_max = 1.15
+color = Color(0.9, 0.95, 0.98, 0.42)
+color_ramp = SubResource("Gradient_rain_life")
+
+[node name="CinzasAr" type="Parallax2D" parent="."]
+z_index = 7
+scroll_scale = Vector2(0.55, 0.55)
+
+[node name="ParticulasCinza" type="CPUParticles2D" parent="CinzasAr"]
+position = Vector2(900, 480)
+amount = 95
+texture = SubResource("GradientTexture2D_ash_speck")
+lifetime = 9.0
+preprocess = 9.0
+emission_shape = 3
+emission_rect_extents = Vector2(1300, 560)
+direction = Vector2(0.3, -0.4)
+spread = 80.0
+gravity = Vector2(0, -4)
+initial_velocity_min = 6.0
+initial_velocity_max = 20.0
+scale_amount_min = 0.14
+scale_amount_max = 0.35
+color = Color(0.94, 0.97, 1, 0.65)
+color_ramp = SubResource("Gradient_rain_life")
+
+[node name="NevoaFrente" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="FogRect" type="ColorRect" parent="NevoaFrente"]
+material = SubResource("ShaderMaterial_fog_front")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cidade")
+
+[node name="Vinheta" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="Overlay" type="TextureRect" parent="Vinheta"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_vinheta")
+expand_mode = 1
+
+[node name="HudVida" parent="." node_paths=PackedStringArray("player") instance=ExtResource("12_hud")]
+player = NodePath("../Player")
+
+[node name="TransicaoZona" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="FadeRect" type="ColorRect" parent="TransicaoZona"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.03, 0.04, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransicaoZona"]
+libraries = {
+&"": SubResource("AnimationLibrary_fade")
+}
+
+[connection signal="vida_alterada" from="Player" to="HudVida" method="_on_vida_alterada"]
+[connection signal="body_entered" from="Player/PatasDireita" to="Player" method="pata_direita"]
+[connection signal="body_exited" from="Player/PatasDireita" to="Player" method="sem_agarre"]
+[connection signal="body_entered" from="Player/PatasEsquerda" to="Player" method="pata_esquerda"]
+[connection signal="body_exited" from="Player/PatasEsquerda" to="Player" method="sem_agarre"]
+[connection signal="area_entered" from="Player/hitbox" to="Player" method="_on_hitbox_area_entered"]

@@ -1,0 +1,170 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/city/city_zone.gd" id="1_zone"]
+[ext_resource type="TileSet" path="res://components/tilesets/cidade.tres" id="2_tiles"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Cidade/Cidade - Props.png" id="3_props"]
+[ext_resource type="PackedScene" path="res://components/zone_portal.tscn" id="4_portal"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Cidade/Cidade - RuinsLayer.png" id="8_ruins"]
+[ext_resource type="PackedScene" path="res://components/city_drone.tscn" id="5_drone"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_esq"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dir"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="Gradient" id="Gradient_lamp"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.72, 0.82, 0.86, 0.36, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lamp"]
+gradient = SubResource("Gradient_lamp")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Zone06CondutosFerrugem" type="Node2D"]
+script = ExtResource("1_zone")
+zone_id = &"zone_06"
+zone_title = "CONDUTOS DE FERRUGEM"
+zone_subtitle = "ZONA 06"
+camera_bounds = Rect2i(0, 0, 2458, 1152)
+is_outdoor = false
+rain_intensity = 0.0
+ambient_color = Color(0.48, 0.54, 0.6, 1.0)
+
+[node name="RuinasFundo" type="Node2D" parent="."]
+z_index = -3
+
+[node name="Mundo" type="Node2D" parent="."]
+scale = Vector2(0.3, 0.3)
+
+[node name="Terreno" type="TileMapLayer" parent="Mundo"]
+z_index = 1
+tile_map_data = PackedByteArray("AAAAAAAAAAADAAEAAAABAAAAAAAEAAIAAAACAAAAAAABAAQAAAADAAAAAAACAAEAAAAEAAAAAAADAAIAAAAFAAAAAAAEAAMAAAAGAAAAAAABAAEAAAAHAAAAAAACAAIAAAAIAAAAAAADAAMAAAAJAAAAAAAEAAQAAAAKAAAAAAABAAIAAAALAAAAAAACAAMAAAAMAAAAAAADAAQAAAANAAAAAAAEAAEAAAAOAAAAAAABAAMAAAAPAAAAAAACAAQAAAAQAAAAAAADAAEAAAARAAAAAAAEAAIAAAASAAAAAAABAAQAAAATAAAAAAACAAEAAAAUAAAAAAADAAIAAAAVAAAAAAAEAAMAAAAWAAAAAAABAAEAAAAXAAAAAAACAAIAAAAYAAAAAAADAAMAAAAZAAAAAAAEAAQAAAAaAAAAAAABAAIAAAAbAAAAAAACAAMAAAAcAAAAAAADAAQAAAAdAAAAAAAEAAEAAAAeAAAAAAABAAMAAAAfAAAAAAACAAQAAAAAAAEAAAACAAQAAAABAAEAAAADAAEAAAACAAEAAAAEAAIAAAADAAEAAAABAAQAAAAEAAEAAAACAAEAAAAFAAEAAAADAAIAAAAGAAEAAAAEAAMAAAAHAAEAAAABAAEAAAAIAAEAAAACAAIAAAAJAAEAAAADAAMAAAAKAAEAAAAEAAQAAAALAAEAAAABAAIAAAAMAAEAAAACAAMAAAANAAEAAAADAAQAAAAOAAEAAAAEAAEAAAAPAAEAAAABAAMAAAAQAAEAAAACAAQAAAARAAEAAAADAAEAAAASAAEAAAAEAAIAAAATAAEAAAABAAQAAAAUAAEAAAACAAEAAAAVAAEAAAADAAIAAAAWAAEAAAAEAAMAAAAXAAEAAAABAAEAAAAYAAEAAAACAAIAAAAZAAEAAAADAAMAAAAaAAEAAAAEAAQAAAAbAAEAAAABAAIAAAAcAAEAAAACAAMAAAAdAAEAAAADAAQAAAAeAAEAAAAEAAEAAAAfAAEAAAABAAMAAAAAAAIAAAABAAUAAAABAAIAAAACAAUAAAACAAIAAAADAAUAAAADAAIAAAAEAAUAAAAEAAIAAAABAAUAAAAFAAIAAAACAAUAAAAGAAIAAAADAAUAAAAHAAIAAAAEAAUAAAAIAAIAAAABAAUAAAAJAAIAAAACAAUAAAAKAAIAAAADAAUAAAALAAIAAAAEAAUAAAAMAAIAAAABAAUAAAANAAIAAAACAAUAAAAOAAIAAAADAAUAAAAPAAIAAAAEAAUAAAAQAAIAAAABAAUAAAARAAIAAAACAAUAAAASAAIAAAADAAUAAAATAAIAAAAEAAUAAAAUAAIAAAABAAUAAAAVAAIAAAACAAUAAAAWAAIAAAADAAUAAAAXAAIAAAAEAAUAAAAYAAIAAAABAAUAAAAZAAIAAAACAAUAAAAaAAIAAAADAAUAAAAbAAIAAAAEAAUAAAAcAAIAAAABAAUAAAAdAAIAAAACAAUAAAAeAAIAAAADAAUAAAAfAAIAAAAEAAUAAAAAAAgAAAADAAAAAAABAAgAAAAEAAAAAAACAAgAAAABAAAAAAADAAgAAAAFAAAAAAAAAAkAAAACAAIAAAABAAkAAAADAAMAAAACAAkAAAAEAAQAAAADAAkAAAAFAAEAAAAQAAkAAAAAAAAAAAARAAkAAAADAAAAAAASAAkAAAAFAAAAAAATAAkAAAABAAYAAAAUAAkAAAACAAYAAAAVAAkAAAADAAYAAAAWAAkAAAAEAAYAAAAbAAkAAAAAAAAAAAAcAAkAAAACAAAAAAAdAAkAAAADAAAAAAAeAAkAAAAEAAAAAAAfAAkAAAABAAAAAAAAAAoAAAABAAEAAAABAAoAAAACAAIAAAACAAoAAAADAAMAAAADAAoAAAAJAAIAAAAEAAoAAAABAAAAAAAFAAoAAAAFAAAAAAAQAAoAAAAAAAEAAAARAAoAAAACAAIAAAASAAoAAAAFAAMAAAATAAoAAAABAAcAAAAUAAoAAAACAAcAAAAVAAoAAAADAAcAAAAWAAoAAAAEAAcAAAAbAAoAAAAAAAQAAAAcAAoAAAABAAQAAAAdAAoAAAACAAEAAAAeAAoAAAADAAIAAAAfAAoAAAAEAAMAAAAAAAsAAAAEAAMAAAABAAsAAAABAAEAAAACAAsAAAACAAIAAAADAAsAAAADAAMAAAAEAAsAAAAEAAQAAAAFAAsAAAAJAAIAAAAGAAsAAAACAAAAAAAHAAsAAAAFAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAADAAAAAAAQAAsAAAAKAAIAAAARAAsAAAABAAEAAAASAAsAAAAFAAIAAAAZAAsAAAAAAAAAAAAaAAsAAAACAAAAAAAbAAsAAAAKAAIAAAAcAAsAAAAEAAIAAAAdAAsAAAABAAQAAAAeAAsAAAACAAEAAAAfAAsAAAADAAIAAAAAAAwAAAADAAIAAAABAAwAAAAEAAMAAAACAAwAAAABAAEAAAADAAwAAAACAAIAAAAEAAwAAAADAAMAAAAFAAwAAAAEAAQAAAAGAAwAAAABAAIAAAAHAAwAAAAFAAIAAAAOAAwAAAAAAAEAAAAPAAwAAAACAAEAAAAQAAwAAAADAAIAAAARAAwAAAAEAAMAAAASAAwAAAAFAAEAAAAZAAwAAAAAAAQAAAAaAAwAAAABAAMAAAAbAAwAAAACAAQAAAAcAAwAAAADAAEAAAAdAAwAAAAEAAIAAAAeAAwAAAABAAQAAAAfAAwAAAACAAEAAAAAAA0AAAACAAEAAAABAA0AAAADAAIAAAACAA0AAAAEAAMAAAADAA0AAAABAAEAAAAEAA0AAAACAAIAAAAFAA0AAAADAAMAAAAGAA0AAAAEAAQAAAAHAA0AAAAJAAIAAAAIAA0AAAACAAAAAAAJAA0AAAADAAAAAAAKAA0AAAAEAAAAAAALAA0AAAABAAAAAAAMAA0AAAACAAAAAAANAA0AAAADAAAAAAAOAA0AAAAKAAIAAAAPAA0AAAABAAQAAAAQAA0AAAACAAEAAAARAA0AAAADAAIAAAASAA0AAAAJAAIAAAATAA0AAAABAAAAAAAUAA0AAAACAAAAAAAVAA0AAAADAAAAAAAWAA0AAAAEAAAAAAAXAA0AAAABAAAAAAAYAA0AAAACAAAAAAAZAA0AAAAKAAIAAAAaAA0AAAAEAAEAAAAbAA0AAAABAAMAAAAcAA0AAAACAAQAAAAdAA0AAAADAAEAAAAeAA0AAAAEAAIAAAAfAA0AAAABAAQAAAAAAA4AAAABAAQAAAABAA4AAAACAAEAAAACAA4AAAADAAIAAAADAA4AAAAEAAMAAAAEAA4AAAABAAEAAAAFAA4AAAACAAIAAAAGAA4AAAADAAMAAAAHAA4AAAAEAAQAAAAIAA4AAAABAAIAAAAJAA4AAAACAAMAAAAKAA4AAAADAAQAAAALAA4AAAAEAAEAAAAMAA4AAAABAAMAAAANAA4AAAACAAQAAAAOAA4AAAADAAEAAAAPAA4AAAAEAAIAAAAQAA4AAAABAAQAAAARAA4AAAACAAEAAAASAA4AAAADAAIAAAATAA4AAAAEAAMAAAAUAA4AAAABAAEAAAAVAA4AAAACAAIAAAAWAA4AAAADAAMAAAAXAA4AAAAEAAQAAAAYAA4AAAABAAIAAAAZAA4AAAACAAMAAAAaAA4AAAADAAQAAAAbAA4AAAAEAAEAAAAcAA4AAAABAAMAAAAdAA4AAAACAAQAAAAeAA4AAAADAAEAAAAfAA4AAAAEAAIAAAA=")
+tile_set = ExtResource("2_tiles")
+rendering_quadrant_size = 256
+
+[node name="Props" type="Node2D" parent="."]
+z_index = -1
+
+[node name="Prop1_arch" type="Sprite2D" parent="Props"]
+z_index = -1
+position = Vector2(806.4, 828.3)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("3_props")
+region_enabled = true
+region_rect = Rect2(0, 0, 320, 512)
+
+[node name="Prop2_rubble" type="Sprite2D" parent="Props"]
+z_index = -1
+position = Vector2(1344.0, 577.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_props")
+region_enabled = true
+region_rect = Rect2(704, 0, 320, 512)
+
+[node name="Prop3_rubble" type="Sprite2D" parent="Props"]
+z_index = -1
+position = Vector2(1728.0, 874.4)
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("3_props")
+region_enabled = true
+region_rect = Rect2(704, 0, 320, 512)
+flip_h = true
+
+[node name="FgCornerBottomLeft" type="Sprite2D" parent="Props"]
+z_index = 10
+modulate = Color(0.02, 0.03, 0.04, 0.94)
+position = Vector2(120.0, 1237.0)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("3_props")
+region_enabled = true
+region_rect = Rect2(0, 512, 512, 512)
+
+[node name="FgCornerBottomRight" type="Sprite2D" parent="Props"]
+z_index = 10
+modulate = Color(0.02, 0.03, 0.04, 0.94)
+position = Vector2(2338.0, 1237.0)
+scale = Vector2(0.72, 0.72)
+flip_h = true
+texture = ExtResource("3_props")
+region_enabled = true
+region_rect = Rect2(0, 512, 512, 512)
+
+[node name="Luzes" type="Node2D" parent="."]
+
+[node name="Luz1" type="PointLight2D" parent="Luzes"]
+position = Vector2(268.8, 499.2)
+color = Color(0.86, 0.88, 0.92, 1.0)
+energy = 0.65
+texture = SubResource("GradientTexture2D_lamp")
+texture_scale = 1.9
+
+[node name="Luz2" type="PointLight2D" parent="Luzes"]
+position = Vector2(806.4, 806.4)
+color = Color(0.82, 0.88, 0.92, 1.0)
+energy = 0.62
+texture = SubResource("GradientTexture2D_lamp")
+texture_scale = 2.2
+
+[node name="Luz3" type="PointLight2D" parent="Luzes"]
+position = Vector2(1344.0, 576.0)
+color = Color(0.78, 0.88, 0.94, 1.0)
+energy = 0.65
+texture = SubResource("GradientTexture2D_lamp")
+texture_scale = 2.0
+
+[node name="Luz4" type="PointLight2D" parent="Luzes"]
+position = Vector2(1804.8, 806.4)
+color = Color(0.82, 0.88, 0.92, 1.0)
+energy = 0.62
+texture = SubResource("GradientTexture2D_lamp")
+texture_scale = 2.2
+
+[node name="Luz5" type="PointLight2D" parent="Luzes"]
+position = Vector2(2265.6, 576.0)
+color = Color(0.78, 0.88, 0.94, 1.0)
+energy = 0.65
+texture = SubResource("GradientTexture2D_lamp")
+texture_scale = 1.9
+
+[node name="Spawns" type="Node2D" parent="."]
+
+[node name="from_west" type="Marker2D" parent="Spawns"]
+position = Vector2(192.0, 582.4)
+
+[node name="from_east" type="Marker2D" parent="Spawns"]
+position = Vector2(2265.6, 659.2)
+
+[node name="Portais" type="Node2D" parent="."]
+
+[node name="Portal_WestToZone05" parent="Portais" instance=ExtResource("4_portal")]
+position = Vector2(76.8, 568.4)
+target_zone_id = &"zone_05"
+target_spawn_id = &"from_east"
+
+[node name="Portal_EastToZone07" parent="Portais" instance=ExtResource("4_portal")]
+position = Vector2(2380.8, 645.2)
+target_zone_id = &"zone_07"
+target_spawn_id = &"from_west_high"
+
+[node name="Inimigos" type="Node2D" parent="."]
+
+[node name="CityDrone1" parent="Inimigos" instance=ExtResource("5_drone")]
+position = Vector2(806.4, 978.4)
+
+[node name="CityDrone2" parent="Inimigos" instance=ExtResource("5_drone")]
+position = Vector2(1728.0, 978.4)
+
+[node name="Limites" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="Esquerda" type="CollisionShape2D" parent="Limites"]
+shape = SubResource("WorldBoundaryShape2D_esq")
+
+[node name="Direita" type="CollisionShape2D" parent="Limites"]
+position = Vector2(2458, 0)
+shape = SubResource("WorldBoundaryShape2D_dir")

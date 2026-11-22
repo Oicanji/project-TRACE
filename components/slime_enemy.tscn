@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://ygd08ktkt8w2" path="res://scripts/enemy/enemy.gd" id="1_enemy"]
+[ext_resource type="Texture2D" uid="uid://bhmv3ghyqdsxu" path="res://assets/sprites/SlimeGreen/SlimeBasic_00001.png" id="2_slime"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ntovh"]
+radius = 20.0
+height = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enemy_hit"]
+radius = 30.0
+
+[node name="Enemy" type="CharacterBody2D"]
+z_index = 2
+script = ExtResource("1_enemy")
+
+[node name="desenho" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_slime")
+
+[node name="colisao" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("CapsuleShape2D_ntovh")
+
+[node name="olhar_esquerdo" type="RayCast2D" parent="."]
+target_position = Vector2(-135, 0)
+
+[node name="olhar_direito" type="RayCast2D" parent="."]
+target_position = Vector2(138, 0)
+
+[node name="tem_chao_esquerdo" type="RayCast2D" parent="."]
+target_position = Vector2(-46, 35)
+
+[node name="tem_chao_direita" type="RayCast2D" parent="."]
+target_position = Vector2(42, 37)
+
+[node name="Hitbox" type="Area2D" parent="." groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_enemy_hit")
+debug_color = Color(0.99742216, 0, 0.17616406, 0.41960785)
+
+[connection signal="area_entered" from="Hitbox" to="." method="bateu_na_hitbox"]
