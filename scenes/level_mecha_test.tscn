@@ -1,0 +1,143 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://components/mecha_player.tscn" id="1_mecha"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_vida.tscn" id="2_hudvida"]
+[ext_resource type="PackedScene" path="res://components/mecha_target_enemy.tscn" id="3_colossus"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1800, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(60, 900)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat_mid"]
+size = Vector2(210, 22)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hint"]
+bg_color = Color(0.05, 0.08, 0.11, 0.78)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.85, 0.95, 0.55)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+
+[node name="LevelMechaTest" type="Node2D"]
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06, 0.08, 0.12, 1)
+
+[node name="Arena" type="Node2D" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="Arena"]
+position = Vector2(750, 580)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Visual" type="Polygon2D" parent="Arena/Floor"]
+color = Color(0.15, 0.19, 0.25, 1)
+polygon = PackedVector2Array(-900, -60, 900, -60, 900, 60, -900, 60)
+
+[node name="FloorTopStrip" type="Polygon2D" parent="Arena/Floor"]
+color = Color(0.28, 0.35, 0.44, 1)
+polygon = PackedVector2Array(-900, -60, 900, -60, 900, -52, -900, -52)
+
+[node name="LeftWall" type="StaticBody2D" parent="Arena"]
+position = Vector2(-30, 190)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/LeftWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Visual" type="Polygon2D" parent="Arena/LeftWall"]
+color = Color(0.12, 0.15, 0.2, 1)
+polygon = PackedVector2Array(-30, -450, 30, -450, 30, 450, -30, 450)
+
+[node name="RightWall" type="StaticBody2D" parent="Arena"]
+position = Vector2(1530, 190)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/RightWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Visual" type="Polygon2D" parent="Arena/RightWall"]
+color = Color(0.12, 0.15, 0.2, 1)
+polygon = PackedVector2Array(-30, -450, 30, -450, 30, 450, -30, 450)
+
+[node name="LeftRampDeck" type="StaticBody2D" parent="Arena"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/LeftRampDeck"]
+polygon = PackedVector2Array(0, 444, 210, 444, 410, 520, 0, 520)
+
+[node name="Visual" type="Polygon2D" parent="Arena/LeftRampDeck"]
+color = Color(0.19, 0.24, 0.31, 1)
+polygon = PackedVector2Array(0, 444, 210, 444, 410, 520, 0, 520)
+
+[node name="DeckTopStrip" type="Polygon2D" parent="Arena/LeftRampDeck"]
+color = Color(0.32, 0.4, 0.5, 1)
+polygon = PackedVector2Array(0, 444, 210, 444, 410, 520, 388, 520, 208, 452, 0, 452)
+
+[node name="PlatformVantage" type="StaticBody2D" parent="Arena"]
+position = Vector2(210, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/PlatformVantage"]
+shape = SubResource("RectangleShape2D_plat_mid")
+
+[node name="Visual" type="Polygon2D" parent="Arena/PlatformVantage"]
+color = Color(0.22, 0.28, 0.36, 1)
+polygon = PackedVector2Array(-105, -11, 105, -11, 105, 11, -105, 11)
+
+[node name="MechaPlayer" parent="." instance=ExtResource("1_mecha")]
+position = Vector2(460, 490)
+
+[node name="Camera2D" parent="MechaPlayer" index="9"]
+zoom = Vector2(1.05, 1.05)
+limit_left = 0
+limit_top = -140
+limit_right = 1500
+limit_bottom = 640
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="ColossusEnemy" parent="Enemies" instance=ExtResource("3_colossus")]
+position = Vector2(1060, 364)
+
+[node name="HudVida" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_hudvida")]
+player = NodePath("../MechaPlayer")
+
+[node name="ControlsOverlay" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="ControlsOverlay"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -52.0
+offset_right = 560.0
+offset_bottom = -14.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hint")
+
+[node name="Label" type="Label" parent="ControlsOverlay/PanelContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.94, 0.98, 0.95)
+theme_override_font_sizes/font_size = 14
+text = "A / D: Mover   |   Espaço: Pular   |   Mouse + Clique Esq.: Mirar e Atirar"
+
+[editable path="MechaPlayer"]

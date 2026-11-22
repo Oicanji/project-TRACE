@@ -45,6 +45,9 @@ func _on_body_entered(body: Node2D) -> void:
 
 	_jogador_dentro = true
 	set_process_unhandled_input(true)
+	var anim: AnimationPlayer = get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if anim and anim.has_animation(&"mostrar"):
+		anim.play(&"mostrar")
 	dica_ativada.emit(self, teclas, texto)
 
 
@@ -54,4 +57,7 @@ func _on_body_exited(body: Node2D) -> void:
 
 	_jogador_dentro = false
 	set_process_unhandled_input(false)
+	var anim: AnimationPlayer = get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if anim and anim.has_animation(&"esconder"):
+		anim.play(&"esconder")
 	dica_desativada.emit(self)

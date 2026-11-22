@@ -1,0 +1,160 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/mecha/mecha_target_enemy.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(204, 308)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(212, 314)
+
+[sub_resource type="Gradient" id="Gradient_sparks"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(1, 0.98, 0.88, 1, 1, 0.42, 0.22, 0.95, 0.72, 0.12, 0.14, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
+bg_color = Color(0.07, 0.08, 0.11, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.48, 0.56, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_fill"]
+bg_color = Color(0.92, 0.22, 0.26, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="MechaTargetEnemy" type="CharacterBody2D"]
+z_index = 2
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="BackArm" type="Polygon2D" parent="Visuals"]
+color = Color(0.18, 0.14, 0.18, 1)
+polygon = PackedVector2Array(56, -78, 108, -68, 118, 28, 102, 74, 72, 64, 80, 12, 64, -36)
+
+[node name="LeftLeg" type="Polygon2D" parent="Visuals"]
+color = Color(0.17, 0.16, 0.21, 1)
+polygon = PackedVector2Array(-76, 56, -24, 56, -20, 134, -10, 154, -92, 154, -84, 132)
+
+[node name="RightLeg" type="Polygon2D" parent="Visuals"]
+color = Color(0.17, 0.16, 0.21, 1)
+polygon = PackedVector2Array(24, 56, 76, 56, 84, 132, 92, 154, 10, 154, 20, 134)
+
+[node name="LegJointLeft" type="Polygon2D" parent="Visuals"]
+color = Color(0.34, 0.24, 0.28, 1)
+polygon = PackedVector2Array(-68, 86, -32, 86, -32, 108, -68, 108)
+
+[node name="LegJointRight" type="Polygon2D" parent="Visuals"]
+color = Color(0.34, 0.24, 0.28, 1)
+polygon = PackedVector2Array(32, 86, 68, 86, 68, 108, 32, 108)
+
+[node name="TorsoBase" type="Polygon2D" parent="Visuals"]
+color = Color(0.28, 0.17, 0.21, 1)
+polygon = PackedVector2Array(-92, 62, -104, -56, -72, -104, 72, -104, 104, -56, 92, 62)
+
+[node name="ShoulderLeft" type="Polygon2D" parent="Visuals"]
+color = Color(0.42, 0.22, 0.27, 1)
+polygon = PackedVector2Array(-116, -68, -96, -114, -46, -114, -56, -54, -108, -42)
+
+[node name="ShoulderRight" type="Polygon2D" parent="Visuals"]
+color = Color(0.42, 0.22, 0.27, 1)
+polygon = PackedVector2Array(46, -114, 96, -114, 116, -68, 108, -42, 56, -54)
+
+[node name="ChestArmor" type="Polygon2D" parent="Visuals"]
+color = Color(0.46, 0.24, 0.29, 1)
+polygon = PackedVector2Array(-76, -64, 76, -64, 68, 34, 0, 52, -68, 34)
+
+[node name="CoreHousing" type="Polygon2D" parent="Visuals"]
+color = Color(0.1, 0.08, 0.12, 1)
+polygon = PackedVector2Array(-32, -32, 32, -32, 40, -6, 22, 22, -22, 22, -40, -6)
+
+[node name="CoreGlow" type="Polygon2D" parent="Visuals"]
+color = Color(1, 0.26, 0.28, 0.95)
+polygon = PackedVector2Array(-20, -20, 20, -20, 26, -6, 14, 10, -14, 10, -26, -6)
+
+[node name="FrontArm" type="Polygon2D" parent="Visuals"]
+color = Color(0.23, 0.17, 0.22, 1)
+polygon = PackedVector2Array(-112, -56, -76, -52, -82, 26, -68, 76, -102, 82, -122, 28)
+
+[node name="Head" type="Polygon2D" parent="Visuals"]
+color = Color(0.32, 0.2, 0.25, 1)
+polygon = PackedVector2Array(-54, -96, -46, -144, -18, -156, 18, -156, 46, -144, 54, -96)
+
+[node name="VisorSlot" type="Polygon2D" parent="Visuals"]
+color = Color(0.07, 0.06, 0.09, 1)
+polygon = PackedVector2Array(-38, -138, 44, -138, 46, -112, -38, -112)
+
+[node name="VisorEye" type="Polygon2D" parent="Visuals"]
+color = Color(1, 0.22, 0.26, 1)
+polygon = PackedVector2Array(-16, -131, 40, -131, 40, -119, -16, -119)
+
+[node name="FloorCheckLeft" type="RayCast2D" parent="."]
+position = Vector2(-106, 142)
+target_position = Vector2(0, 26)
+
+[node name="FloorCheckRight" type="RayCast2D" parent="."]
+position = Vector2(106, 142)
+target_position = Vector2(0, 26)
+
+[node name="Hitbox" type="Area2D" parent="." groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+debug_color = Color(0.99, 0.12, 0.22, 0.25)
+
+[node name="HitSparks" type="CPUParticles2D" parent="."]
+position = Vector2(0, -16)
+emitting = false
+amount = 28
+lifetime = 0.34
+one_shot = true
+explosiveness = 0.92
+emission_shape = 3
+emission_rect_extents = Vector2(56, 70)
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 280)
+initial_velocity_min = 95.0
+initial_velocity_max = 240.0
+scale_amount_min = 3.0
+scale_amount_max = 7.0
+color_ramp = SubResource("Gradient_sparks")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -96.0
+offset_top = -194.0
+offset_right = 96.0
+offset_bottom = -172.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false
+
+[node name="HpLabel" type="Label" parent="HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.98, 0.98, 1, 0.96)
+theme_override_font_sizes/font_size = 13
+text = "10/10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
