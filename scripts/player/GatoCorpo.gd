@@ -298,7 +298,7 @@ func calcular_nucleo() -> void:
 func ancora_perna(perna: Perna) -> Vector2:
 	if perna.frente:
 		return Vector2(
-			peito.x - olhando * (3.2 + (2.6 if perna.longe else 0.0)) + (-2.2 if perna.longe else 2.2),
+			peito.x - olhando * (1.0 + (1.2 if perna.longe else 0.0)) + (-2.2 if perna.longe else 2.2),
 			peito.y + RAIO_PEITO * 0.62 + (-2.0 if perna.longe else 2.0)
 		)
 	return Vector2(
@@ -326,7 +326,7 @@ func raio_tronco(t: float) -> float:
 	return lerpf(RAIO_QUADRIL, RAIO_PEITO, t) + sin(PI * t) * 2.0
 
 
-func empurrar_fora_do_corpo(ponto: Vector2) -> Vector2:
+func empurrar_fora_do_corpo(ponto: Vector2, dianteira: bool = false) -> Vector2:
 	var fora := ponto
 	for i in 7:
 		var t := float(i) / 6.0
@@ -335,10 +335,18 @@ func empurrar_fora_do_corpo(ponto: Vector2) -> Vector2:
 		var delta := fora - centro
 		var dist := delta.length()
 		if dist < minimo:
+			var preferida := Vector2(olhando * 0.35, 1.0).normalized()
 			if dist < 0.001:
-				fora = centro + Vector2(olhando * 0.2, 1.0).normalized() * minimo
+				fora = centro + preferida * minimo
 			else:
-				fora = centro + delta / dist * minimo
+				var empurrada := delta / dist
+				if empurrada.y < 0.15:
+					empurrada = (empurrada + preferida * 1.4).normalized()
+				if empurrada.dot(Vector2(olhando, 0.0)) < 0.0:
+					empurrada = (empurrada + Vector2(olhando * 0.8, 0.4)).normalized()
+				fora = centro + empurrada * minimo
+	if dianteira and (peito.x - fora.x) * olhando > 0.0:
+		fora.x = peito.x + olhando * 4.0
 	return fora
 
 
@@ -385,10 +393,14 @@ func transformar(ponto: Vector2) -> Vector2:
 	return c + (p - c).rotated(giro_angulo)
 
 
-func casa_chao(perna: Perna, ancora: Vector2) -> Vector2:
-	var lado := olhando * (-7.0 if perna.longe else 7.0)
-	var casa_x := ancora.x + olhando * (12.0 + atividade * 10.0) + lado if perna.frente else ancora.x - olhando * (3.5 - atividade * 2.5) + lado
-	return empurrar_fora_do_corpo(Vector2(casa_x, superficie_em(casa_x) - 1.5))
+func casa_chao(perna: Perna, _ancora: Vector2) -> Vector2:
+	var lado := -5.0 if perna.longe else 5.0
+	var casa_x := 0.0
+	if perna.frente:
+		casa_x = peito.x + olhando * (10.0 + atividade * 8.0) + lado
+	else:
+		casa_x = quadril.x - olhando * (4.0 - atividade * 2.0) + lado
+	return empurrar_fora_do_corpo(Vector2(casa_x, superficie_em(casa_x) - 1.5), perna.frente)
 
 
 func pendurar_frente(perna: Perna, ancora: Vector2) -> Vector2:
@@ -396,7 +408,7 @@ func pendurar_frente(perna: Perna, ancora: Vector2) -> Vector2:
 	return empurrar_fora_do_corpo(Vector2(
 		ancora.x + olhando * ((10.0 if perna.longe else 15.0) + balanco_pata),
 		ancora.y + 20.0 + (-1.0 if perna.longe else 1.0)
-	))
+	), true)
 
 
 func alvo_ar(perna: Perna, ancora: Vector2) -> Vector2:
@@ -428,7 +440,7 @@ func posicionar_pes() -> void:
 		var destino := Vector2.ZERO
 		if not no_chao:
 			destino = alvo_ar(perna, ancora)
-		elif perna.frente and em_pe > 0.42:
+		elif perna.frente and em_pe > 0.42 and atividade < 0.18:
 			destino = pendurar_frente(perna, ancora)
 		else:
 			destino = casa_chao(perna, ancora)
@@ -648,7 +660,7 @@ func atualizar_perna(perna: Perna, delta: float) -> void:
 		resolver_perna(perna)
 		return
 	var levantar := 0.0
-	if perna.frente:
+	if perna.frente and atividade < 0.18:
 		levantar = smoothstep(0.0, 1.0, (em_pe - 0.12) / 0.48)
 	if levantar > 0.02:
 		perna.passo = null
@@ -663,7 +675,11 @@ func atualizar_perna(perna: Perna, delta: float) -> void:
 	var casa := casa_chao(perna, ancora)
 	var rapidez := absf(vel_x)
 	var erro := Vector2(perna.pe.x - casa.x, (perna.pe.y - casa.y) * 0.7).length()
-	var limiar := 6.5 + rapidez * 0.018
+	if perna.frente:
+		var atrasado := (peito.x - perna.pe.x) * olhando
+		if atrasado > 2.0:
+			erro += atrasado * 1.6
+	var limiar := 4.5 + rapidez * 0.015
 	perna.casa = casa
 	perna.erro = erro
 	perna.limiar = limiar
@@ -740,20 +756,29 @@ func agendar_passos(delta: float) -> void:
 
 
 func iniciar_passo(perna: Perna, ancora: Vector2, casa: Vector2, rapidez: float) -> void:
-	var duracao := clampf(0.20 - atividade * 0.05, 0.14, 0.22)
-	var avanco := (6.0 if perna.frente else 4.0) + rapidez * duracao * 0.85
-	var destino_x := casa.x + olhando * avanco
+	var duracao := clampf(0.18 - atividade * 0.04, 0.14, 0.20)
+	var lead := (14.0 if perna.frente else 8.0) + rapidez * duracao * 0.9 + atividade * 4.0
+	var base_x := peito.x if perna.frente else quadril.x
+	var lado := -5.0 if perna.longe else 5.0
+	var destino_x := base_x + olhando * lead + lado
+	if (destino_x - casa.x) * olhando < 0.0:
+		destino_x = casa.x + olhando * lead * 0.55
 	var destino_y := superficie_em(destino_x) - 1.5
 	var alcance := (perna.l1 + perna.l2) * 0.92
 	var dy := destino_y - ancora.y
 	if dy < alcance:
 		var max_dx := sqrt(maxf(0.0, alcance * alcance - dy * dy))
 		destino_x = ancora.x + clampf(destino_x - ancora.x, -max_dx, max_dx)
+	if perna.frente and (peito.x - destino_x) * olhando > 0.0:
+		destino_x = peito.x + olhando * 4.0
+	elif (not perna.frente) and (quadril.x - destino_x) * olhando > 2.0:
+		destino_x = quadril.x + olhando * 2.0
 	destino_y = superficie_em(destino_x) - 1.5
-	var dist := Vector2(destino_x - perna.pe.x, destino_y - perna.pe.y).length()
+	var destino := empurrar_fora_do_corpo(Vector2(destino_x, destino_y), perna.frente)
+	var dist := Vector2(destino.x - perna.pe.x, destino.y - perna.pe.y).length()
 	var passo := Passo.new()
 	passo.de = perna.pe
-	passo.para = Vector2(destino_x, destino_y)
+	passo.para = destino
 	passo.decorrido = 0.0
 	passo.duracao = duracao
 	passo.altura = 4.0 + minf(10.0, dist * 0.28) + atividade * 2.0
@@ -765,10 +790,10 @@ func resolver_perna(perna: Perna) -> void:
 	var dobra := (1.0 if perna.frente else -1.0) * olhando
 	if na_parede:
 		dobra = -lado_parede
-	perna.pe = empurrar_fora_do_corpo(perna.pe)
+	perna.pe = empurrar_fora_do_corpo(perna.pe, perna.frente)
 	var resultado := resolver_ik(perna.quadril.x, perna.quadril.y, perna.pe.x, perna.pe.y, perna.l1, perna.l2, dobra)
-	perna.joelho = empurrar_fora_do_corpo(resultado["joelho"])
-	perna.pe_ik = empurrar_fora_do_corpo(resultado["pe"])
+	perna.joelho = empurrar_fora_do_corpo(resultado["joelho"], perna.frente)
+	perna.pe_ik = empurrar_fora_do_corpo(resultado["pe"], perna.frente)
 
 
 func atualizar_cauda(delta: float) -> void:
