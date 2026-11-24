@@ -1,0 +1,277 @@
+[gd_scene format=4 uid="uid://dqur4swtccttg"]
+
+[ext_resource type="Script" uid="uid://qjnprto3vkil" path="res://scripts/city/city_zone.gd" id="1_zone"]
+[ext_resource type="TileSet" uid="uid://b2mlgu75nsgsc" path="res://components/tilesets/mossy.tres" id="2_mossy"]
+[ext_resource type="Texture2D" uid="uid://charevfhcukge" path="res://assets/sprites/Mossy Tileset/Mossy - Hanging Plants.png" id="3_hang"]
+[ext_resource type="Texture2D" uid="uid://cpfd8848tmpmn" path="res://assets/sprites/Mossy Tileset/Mossy - Decorations&Hazards.png" id="4_decor"]
+[ext_resource type="Texture2D" uid="uid://bnkkbtexr8u6g" path="res://assets/sprites/Mossy Tileset/Mossy - MossyHills.png" id="6_hills"]
+[ext_resource type="Texture2D" uid="uid://cpjur4tnkitxs" path="res://assets/sprites/Mossy Tileset/Mossy - BackgroundDecoration.png" id="7_bgdec"]
+[ext_resource type="PackedScene" path="res://components/zone_portal.tscn" id="8_portal"]
+[ext_resource type="PackedScene" path="res://components/tutorial_hint.tscn" id="9_hint"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_esq"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dir"]
+normal = Vector2(-1, 0)
+
+[node name="Zone02BaciaSaltos" type="Node2D" unique_id=1029606400]
+script = ExtResource("1_zone")
+zone_id = &"zone_02"
+zone_title = "BACIA DOS SALTOS"
+zone_subtitle = "ZONA 02 — PULO"
+camera_bounds = Rect2i(0, 0, 1690, 922)
+rain_intensity = 0.0
+ambient_color = Color(1, 1, 1, 1)
+
+[node name="Mundo" type="Node2D" parent="." unique_id=508956297]
+modulate = Color(0.43137255, 0.5882353, 0.5764706, 1)
+scale = Vector2(0.3, 0.3)
+
+[node name="Fundo" type="Node2D" parent="Mundo" unique_id=700619187]
+z_index = -1
+
+[node name="SamambaiaZona2A" type="Sprite2D" parent="Mundo/Fundo" unique_id=279761543]
+modulate = Color(0.62, 0.75, 0.7, 1)
+position = Vector2(640, 410)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("3_hang")
+region_enabled = true
+region_rect = Rect2(112, 120, 368, 1176)
+
+[node name="SamambaiaEscura2A" type="Sprite2D" parent="Mundo/Fundo" unique_id=1872362244]
+modulate = Color(0.22, 0.32, 0.28, 1)
+position = Vector2(1480, 385)
+scale = Vector2(0.64, 0.64)
+texture = ExtResource("3_hang")
+region_enabled = true
+region_rect = Rect2(1304, 112, 312, 824)
+
+[node name="SamambaiaEscura2B" type="Sprite2D" parent="Mundo/Fundo" unique_id=209228354]
+modulate = Color(0.22, 0.32, 0.28, 1)
+position = Vector2(1680, 380)
+scale = Vector2(0.56, 0.56)
+texture = ExtResource("3_hang")
+region_enabled = true
+region_rect = Rect2(512, 112, 368, 976)
+
+[node name="SamambaiaZona2B" type="Sprite2D" parent="Mundo/Fundo" unique_id=1804851706]
+modulate = Color(0.58, 0.72, 0.67, 1)
+position = Vector2(2520, 400)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_hang")
+region_enabled = true
+region_rect = Rect2(912, 120, 368, 976)
+
+[node name="MusgoZona2A" type="Sprite2D" parent="Mundo/Fundo" unique_id=14957887]
+position = Vector2(3460, 470)
+scale = Vector2(0.56, 0.56)
+texture = ExtResource("3_hang")
+region_enabled = true
+region_rect = Rect2(88, 1392, 464, 1384)
+
+[node name="SamambaiaZona2C" type="Sprite2D" parent="Mundo/Fundo" unique_id=1830830278]
+modulate = Color(0.62, 0.75, 0.7, 1)
+position = Vector2(4620, 420)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("3_hang")
+region_enabled = true
+region_rect = Rect2(112, 120, 368, 1176)
+
+[node name="TroncoZona2A" type="Sprite2D" parent="Mundo/Fundo" unique_id=972143715]
+position = Vector2(1120, 1360)
+scale = Vector2(1.02, 1.88)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(2112, 2560, 416, 1472)
+
+[node name="TroncoZona2B" type="Sprite2D" parent="Mundo/Fundo" unique_id=347028506]
+position = Vector2(3742.9863, 1396.72)
+scale = Vector2(1.0640787, 1.7598225)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(3720, 2544, 248, 1504)
+
+[node name="FolhasEntrada" type="Sprite2D" parent="Mundo/Fundo" unique_id=117869076]
+position = Vector2(760, 2294)
+scale = Vector2(0.56, 0.56)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(96, 2640, 288, 264)
+
+[node name="FolhasDegrau" type="Sprite2D" parent="Mundo/Fundo" unique_id=1566450213]
+position = Vector2(1460, 2046)
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(96, 2640, 288, 264)
+
+[node name="PedraBacia" type="Sprite2D" parent="Mundo/Fundo" unique_id=211829440]
+position = Vector2(2240, 2486)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("4_decor")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(232, 192, 1288, 712)
+
+[node name="TufoBacia1" type="Sprite2D" parent="Mundo/Fundo" unique_id=1457124107]
+position = Vector2(2540, 2532)
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(1600, 3616, 368, 400)
+
+[node name="CaracolBacia" type="Sprite2D" parent="Mundo/Fundo" unique_id=1001672960]
+position = Vector2(2780, 2520)
+scale = Vector2(0.56, 0.56)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(1168, 3104, 176, 408)
+
+[node name="BrilhoBacia" type="Sprite2D" parent="Mundo/Fundo" unique_id=1595656514]
+position = Vector2(3080, 2510)
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(568, 3568, 376, 480)
+
+[node name="FolhagemBacia" type="Sprite2D" parent="Mundo/Fundo" unique_id=1922358378]
+position = Vector2(3340, 2556)
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(616, 3176, 304, 232)
+
+[node name="TufoBacia2" type="Sprite2D" parent="Mundo/Fundo" unique_id=811058781]
+position = Vector2(3560, 2518)
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(1600, 3072, 400, 448)
+
+[node name="BrilhoPilar" type="Sprite2D" parent="Mundo/Fundo" unique_id=216755149]
+position = Vector2(4040, 1768)
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(1256, 3632, 88, 400)
+
+[node name="BrotoSaida" type="Sprite2D" parent="Mundo/Fundo" unique_id=1252719812]
+position = Vector2(4760, 2272)
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(656, 2624, 280, 384)
+
+[node name="TufoSaida" type="Sprite2D" parent="Mundo/Fundo" unique_id=1808387028]
+position = Vector2(5020, 2276)
+scale = Vector2(0.54, 0.54)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(1600, 3616, 368, 400)
+
+[node name="Terreno" type="TileMapLayer" parent="Mundo" unique_id=1435451897]
+modulate = Color(0.43137255, 0.5882353, 0.5764706, 1)
+z_index = 3
+tile_map_data = PackedByteArray("AAD//wAAAAACAAIAAAAAAAAAAAAJAAEAAAABAAAAAAACAAUAAAACAAAAAAADAAUAAAADAAAAAAAEAAUAAAAEAAAAAAABAAUAAAAFAAAAAAACAAUAAAAGAAAAAAADAAUAAAAHAAAAAAAEAAUAAAAIAAAAAAABAAUAAAAJAAAAAAACAAUAAAAKAAAAAAADAAUAAAALAAAAAAAEAAUAAAAMAAAAAAABAAUAAAANAAAAAAACAAUAAAAOAAAAAAADAAUAAAAPAAAAAAAEAAUAAAAQAAAAAAABAAUAAAARAAAAAAACAAUAAAASAAAAAAADAAUAAAATAAAAAAAEAAUAAAAUAAAAAAABAAUAAAAVAAAAAAAKAAEAAAAWAAAAAAACAAIAAAD//wEAAAACAAIAAAAAAAEAAAAFAAEAAAAVAAEAAAAAAAEAAAAWAAEAAAACAAIAAAD//wIAAAACAAIAAAAAAAIAAAAFAAIAAAAVAAIAAAAAAAIAAAAWAAIAAAACAAIAAAD//wMAAAACAAIAAAAAAAMAAAAFAAMAAAAVAAMAAAAAAAMAAAAWAAMAAAACAAIAAAD//wQAAAACAAIAAAAAAAQAAAAFAAQAAAAVAAQAAAAAAAQAAAAWAAQAAAACAAIAAAD//wUAAAACAAIAAAAAAAUAAAAFAAEAAAAVAAUAAAAAAAEAAAAWAAUAAAACAAIAAAD//wYAAAABAAUAAAAAAAYAAAAFAAUAAAAMAAYAAAAGAAYAAAANAAYAAAAHAAYAAAAVAAYAAAAAAAUAAAAWAAYAAAADAAUAAAAJAAcAAAAGAAYAAAAKAAcAAAAHAAYAAAAMAAcAAAAGAAcAAAANAAcAAAAHAAcAAAAPAAcAAAAAAAAAAAAQAAcAAAAFAAAAAAAFAAgAAAAAAAAAAAAGAAgAAAAFAAAAAAAJAAgAAAAGAAcAAAAKAAgAAAAHAAcAAAAPAAgAAAAAAAEAAAAQAAgAAAAJAAIAAAARAAgAAAAFAAAAAAD//wkAAAABAAAAAAAAAAkAAAACAAAAAAABAAkAAAACAAAAAAACAAkAAAADAAAAAAADAAkAAAAEAAAAAAAEAAkAAAABAAAAAAAFAAkAAAAKAAIAAAAGAAkAAAAJAAIAAAAHAAkAAAAFAAAAAAAPAAkAAAAAAAIAAAAQAAkAAAACAAIAAAARAAkAAAAJAAIAAAASAAkAAAADAAAAAAATAAkAAAAEAAAAAAAUAAkAAAABAAAAAAAVAAkAAAACAAAAAAAWAAkAAAADAAAAAAD//woAAAACAAIAAAAAAAoAAAACAAIAAAABAAoAAAACAAIAAAACAAoAAAACAAIAAAADAAoAAAACAAIAAAAEAAoAAAACAAIAAAAFAAoAAAACAAIAAAAGAAoAAAACAAIAAAAHAAoAAAAJAAIAAAAIAAoAAAABAAAAAAAJAAoAAAACAAAAAAAKAAoAAAADAAAAAAALAAoAAAAEAAAAAAAMAAoAAAABAAAAAAANAAoAAAACAAAAAAAOAAoAAAADAAAAAAAPAAoAAAAKAAIAAAAQAAoAAAACAAIAAAARAAoAAAACAAIAAAASAAoAAAACAAIAAAATAAoAAAACAAIAAAAUAAoAAAACAAIAAAAVAAoAAAACAAIAAAAWAAoAAAACAAIAAAD//wsAAAACAAIAAAAAAAsAAAACAAIAAAABAAsAAAACAAIAAAACAAsAAAACAAIAAAADAAsAAAACAAIAAAAEAAsAAAACAAIAAAAFAAsAAAACAAIAAAAGAAsAAAACAAIAAAAHAAsAAAACAAIAAAAIAAsAAAACAAIAAAAJAAsAAAACAAIAAAAKAAsAAAACAAIAAAALAAsAAAACAAIAAAAMAAsAAAACAAIAAAANAAsAAAACAAIAAAAOAAsAAAACAAIAAAAPAAsAAAACAAIAAAAQAAsAAAACAAIAAAARAAsAAAACAAIAAAASAAsAAAACAAIAAAATAAsAAAACAAIAAAAUAAsAAAACAAIAAAAVAAsAAAACAAIAAAAWAAsAAAACAAIAAAD//wwAAAACAAIAAAAAAAwAAAACAAIAAAABAAwAAAACAAIAAAACAAwAAAACAAIAAAADAAwAAAACAAIAAAAEAAwAAAACAAIAAAAFAAwAAAACAAIAAAAGAAwAAAACAAIAAAAHAAwAAAACAAIAAAAIAAwAAAACAAIAAAAJAAwAAAACAAIAAAAKAAwAAAACAAIAAAALAAwAAAACAAIAAAAMAAwAAAACAAIAAAANAAwAAAACAAIAAAAOAAwAAAACAAIAAAAPAAwAAAACAAIAAAAQAAwAAAACAAIAAAARAAwAAAACAAIAAAASAAwAAAACAAIAAAATAAwAAAACAAIAAAAUAAwAAAACAAIAAAAVAAwAAAACAAIAAAAWAAwAAAACAAIAAAA=")
+tile_set = ExtResource("2_mossy")
+rendering_quadrant_size = 256
+
+[node name="Teto" type="Node2D" parent="Mundo" unique_id=1282740257]
+z_index = 1
+
+[node name="TetoZona2A" type="Sprite2D" parent="Mundo/Teto" unique_id=676258171]
+position = Vector2(1200, 95)
+rotation = 3.1416
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("6_hills")
+region_enabled = true
+region_rect = Rect2(688, 32, 1160, 496)
+
+[node name="TetoZona2B" type="Sprite2D" parent="Mundo/Teto" unique_id=1020652036]
+position = Vector2(2900, 100)
+rotation = 3.1416
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("6_hills")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(688, 32, 1160, 496)
+
+[node name="TetoZona2C" type="Sprite2D" parent="Mundo/Teto" unique_id=1496845246]
+position = Vector2(4500, 95)
+rotation = 3.1416
+scale = Vector2(0.56, 0.56)
+texture = ExtResource("6_hills")
+region_enabled = true
+region_rect = Rect2(688, 32, 1160, 496)
+
+[node name="Frente" type="Node2D" parent="Mundo" unique_id=1076678288]
+z_index = 10
+
+[node name="MonteFrenteZona2" type="Sprite2D" parent="Mundo/Frente" unique_id=2057423524]
+modulate = Color(0.5, 0.64, 0.56, 1)
+position = Vector2(2700, 3260)
+scale = Vector2(0.82, 0.82)
+texture = ExtResource("7_bgdec")
+region_enabled = true
+region_rect = Rect2(2392, 2360, 1688, 1728)
+
+[node name="FolhaFrenteEsq" type="Sprite2D" parent="Mundo/Frente" unique_id=960254226]
+modulate = Color(0.13, 0.27, 0.22, 1)
+position = Vector2(320, 2820)
+rotation = 0.22
+scale = Vector2(1.85, 1.85)
+texture = ExtResource("4_decor")
+region_enabled = true
+region_rect = Rect2(88, 3072, 336, 448)
+
+[node name="FolhaFrenteDir" type="Sprite2D" parent="Mundo/Frente" unique_id=589487950]
+modulate = Color(0.13, 0.27, 0.22, 1)
+position = Vector2(5280, 2820)
+rotation = -0.22
+scale = Vector2(1.85, 1.85)
+texture = ExtResource("4_decor")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(88, 3072, 336, 448)
+
+[node name="TutorialHints" type="Node2D" parent="." unique_id=1550846734]
+
+[node name="DicaPulo" parent="TutorialHints" unique_id=1983508050 instance=ExtResource("9_hint")]
+position = Vector2(540, 560)
+teclas = "Espaço"
+texto = "Pular"
+tamanho_area = Vector2(720, 380)
+acoes_conclusao = PackedStringArray("pulo")
+
+[node name="Spawns" type="Node2D" parent="." unique_id=1700618511]
+
+[node name="from_west" type="Marker2D" parent="Spawns" unique_id=653985839]
+position = Vector2(210, 678)
+
+[node name="from_east" type="Marker2D" parent="Spawns" unique_id=1251770709]
+position = Vector2(1460, 678)
+
+[node name="Portais" type="Node2D" parent="." unique_id=1682785208]
+
+[node name="Portal_WestToZone01" parent="Portais" unique_id=214856309 instance=ExtResource("8_portal")]
+modulate = Color(0.55, 1, 0.85, 1)
+position = Vector2(76.8, 652)
+target_zone_id = &"zone_01"
+target_spawn_id = &"from_east"
+
+[node name="Portal_EastToZone03" parent="Portais" unique_id=2007154859 instance=ExtResource("8_portal")]
+modulate = Color(0.55, 1, 0.85, 1)
+position = Vector2(1612.8, 652)
+target_zone_id = &"zone_03"
+target_spawn_id = &"from_west"
+
+[node name="Limites" type="StaticBody2D" parent="." unique_id=6779598]
+visible = false
+
+[node name="Esquerda" type="CollisionShape2D" parent="Limites" unique_id=1473920123]
+shape = SubResource("WorldBoundaryShape2D_esq")
+
+[node name="Direita" type="CollisionShape2D" parent="Limites" unique_id=1038162459]
+position = Vector2(1690, 0)
+shape = SubResource("WorldBoundaryShape2D_dir")

@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy/enemy.gd" id="1_enemy"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Cidade/Cidade - DroneInimigo.png" id="2_drone"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drone"]
+radius = 20.0
+height = 42.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 28.0
+
+[node name="CityDrone" type="CharacterBody2D"]
+z_index = 2
+script = ExtResource("1_enemy")
+
+[node name="desenho" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("2_drone")
+
+[node name="colisao" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_drone")
+
+[node name="olhar_esquerdo" type="RayCast2D" parent="."]
+target_position = Vector2(-135, 0)
+
+[node name="olhar_direito" type="RayCast2D" parent="."]
+target_position = Vector2(138, 0)
+
+[node name="tem_chao_esquerdo" type="RayCast2D" parent="."]
+target_position = Vector2(-42, 34)
+
+[node name="tem_chao_direita" type="RayCast2D" parent="."]
+target_position = Vector2(42, 34)
+
+[node name="Hitbox" type="Area2D" parent="." groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_hit")
+debug_color = Color(0.95, 0.25, 0.15, 0.4)
+
+[connection signal="area_entered" from="Hitbox" to="." method="bateu_na_hitbox"]

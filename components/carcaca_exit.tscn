@@ -1,0 +1,163 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/tutorial_exit.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(180, 200)
+
+[sub_resource type="Gradient" id="Gradient_aura"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.76, 0.92, 0.94, 0.72, 0.45, 0.7, 0.76, 0.28, 0.15, 0.25, 0.3, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aura"]
+gradient = SubResource("Gradient_aura")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_part"]
+colors = PackedColorArray(1, 1, 1, 1, 0.85, 0.95, 0.98, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_part"]
+gradient = SubResource("Gradient_part")
+width = 24
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_vida"]
+offsets = PackedFloat32Array(0, 0.2, 0.75, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_key"]
+bg_color = Color(0.05, 0.07, 0.09, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 3
+border_color = Color(0.84, 0.92, 0.94, 0.88)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_mostrar"]
+resource_name = "mostrar"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:modulate:a")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_esconder"]
+resource_name = "esconder"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:modulate:a")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_exit"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"esconder": SubResource("Animation_esconder"),
+&"mostrar": SubResource("Animation_mostrar")
+}
+
+[node name="CarcacaExit" type="Area2D"]
+z_index = 4
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_script")
+proxima_cena = "res://scenes/level_2_floresta.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -44)
+shape = SubResource("RectangleShape2D_exit")
+debug_color = Color(0.7, 0.9, 0.95, 0.22)
+
+[node name="Aura" type="Sprite2D" parent="."]
+position = Vector2(0, -34)
+scale = Vector2(1.05, 1.2)
+texture = SubResource("GradientTexture2D_aura")
+
+[node name="ParticulasNucleo" type="CPUParticles2D" parent="."]
+position = Vector2(0, -18)
+amount = 24
+texture = SubResource("GradientTexture2D_part")
+lifetime = 3.2
+preprocess = 2.5
+emission_shape = 3
+emission_rect_extents = Vector2(44, 18)
+direction = Vector2(0, -1)
+spread = 24.0
+gravity = Vector2(0, -10)
+initial_velocity_min = 10.0
+initial_velocity_max = 26.0
+scale_amount_min = 0.1
+scale_amount_max = 0.26
+color = Color(0.86, 0.96, 1, 0.9)
+color_ramp = SubResource("Gradient_vida")
+
+[node name="Visual" type="Node2D" parent="."]
+z_index = 20
+modulate = Color(1, 1, 1, 0)
+position = Vector2(0, -118)
+
+[node name="KeyPanel" type="PanelContainer" parent="Visual"]
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_key")
+
+[node name="KeyLabel" type="Label" parent="Visual/KeyPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.96, 0.98, 0.95)
+theme_override_font_sizes/font_size = 18
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_exit")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
