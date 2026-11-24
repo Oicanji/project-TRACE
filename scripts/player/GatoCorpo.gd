@@ -32,6 +32,7 @@ class Passo:
 	var decorrido := 0.0
 	var duracao := 0.1
 	var altura := 4.0
+	var vertical := false
 
 class Elo:
 	var ponto := Vector2.ZERO
@@ -112,6 +113,8 @@ var giro_ativo := false
 var giro_t := 0.0
 var giro_angulo := 0.0
 var giro_sentido := 1.0
+var distancia_passo := 0.0
+var distancia_parede := 0.0
 
 
 func _ready() -> void:
@@ -135,8 +138,8 @@ func _physics_process(delta: float) -> void:
 
 func montar_pernas() -> void:
 	pernas.clear()
-	pernas.append(nova_perna(true, false, 0, 18.0, 16.0, 3.3, 2.7))
-	pernas.append(nova_perna(true, true, 1, 17.0, 15.0, 3.0, 2.4))
+	pernas.append(nova_perna(true, false, 0, 22.0, 20.0, 3.3, 2.7))
+	pernas.append(nova_perna(true, true, 1, 22.0, 20.0, 3.0, 2.4))
 	pernas.append(nova_perna(false, true, 0, 15.0, 13.0, 5.0, 4.2))
 	pernas.append(nova_perna(false, false, 1, 16.0, 14.0, 5.4, 4.5))
 
@@ -184,6 +187,8 @@ func reiniciar() -> void:
 	giro_t = 0.0
 	giro_angulo = 0.0
 	giro_sentido = 1.0
+	distancia_passo = 0.0
+	distancia_parede = 0.0
 	balanco = 0.0
 	vel_balanco = 0.0
 	esmagamento = 0.0
@@ -298,12 +303,12 @@ func calcular_nucleo() -> void:
 func ancora_perna(perna: Perna) -> Vector2:
 	if perna.frente:
 		return Vector2(
-			peito.x - olhando * (1.0 + (1.2 if perna.longe else 0.0)) + (-2.2 if perna.longe else 2.2),
-			peito.y + RAIO_PEITO * 0.62 + (-2.0 if perna.longe else 2.0)
+			peito.x - olhando * (2.0 + (2.2 if perna.longe else 0.0)) + olhando * (-1.0 if perna.longe else 1.0),
+			peito.y + RAIO_PEITO * 0.55 + (-2.0 if perna.longe else 2.0)
 		)
 	return Vector2(
-		quadril.x - olhando * (3.2 + (2.6 if perna.longe else 0.0)) + (-2.2 if perna.longe else 2.2),
-		quadril.y + RAIO_QUADRIL * 0.5 + (-2.0 if perna.longe else 2.0)
+		quadril.x - olhando * (2.0 + (2.2 if perna.longe else 0.0)) + olhando * (-1.0 if perna.longe else 1.0),
+		quadril.y + RAIO_QUADRIL * 0.42 + (-2.0 if perna.longe else 2.0)
 	)
 
 
@@ -326,7 +331,7 @@ func raio_tronco(t: float) -> float:
 	return lerpf(RAIO_QUADRIL, RAIO_PEITO, t) + sin(PI * t) * 2.0
 
 
-func empurrar_fora_do_corpo(ponto: Vector2, dianteira: bool = false) -> Vector2:
+func empurrar_fora_do_corpo(ponto: Vector2, _dianteira: bool = false) -> Vector2:
 	var fora := ponto
 	for i in 7:
 		var t := float(i) / 6.0
@@ -335,18 +340,14 @@ func empurrar_fora_do_corpo(ponto: Vector2, dianteira: bool = false) -> Vector2:
 		var delta := fora - centro
 		var dist := delta.length()
 		if dist < minimo:
-			var preferida := Vector2(olhando * 0.35, 1.0).normalized()
+			var preferida := Vector2(olhando * 0.2, 1.0).normalized()
 			if dist < 0.001:
 				fora = centro + preferida * minimo
 			else:
 				var empurrada := delta / dist
-				if empurrada.y < 0.15:
-					empurrada = (empurrada + preferida * 1.4).normalized()
-				if empurrada.dot(Vector2(olhando, 0.0)) < 0.0:
-					empurrada = (empurrada + Vector2(olhando * 0.8, 0.4)).normalized()
+				if empurrada.y < 0.2:
+					empurrada = (empurrada + preferida).normalized()
 				fora = centro + empurrada * minimo
-	if dianteira and (peito.x - fora.x) * olhando > 0.0:
-		fora.x = peito.x + olhando * 4.0
 	return fora
 
 
@@ -394,13 +395,54 @@ func transformar(ponto: Vector2) -> Vector2:
 
 
 func casa_chao(perna: Perna, _ancora: Vector2) -> Vector2:
-	var lado := -5.0 if perna.longe else 5.0
+	var lado := olhando * (-3.0 if perna.longe else 3.0)
 	var casa_x := 0.0
 	if perna.frente:
-		casa_x = peito.x + olhando * (10.0 + atividade * 8.0) + lado
+		casa_x = peito.x + olhando * 14.0 + lado
 	else:
-		casa_x = quadril.x - olhando * (4.0 - atividade * 2.0) + lado
-	return empurrar_fora_do_corpo(Vector2(casa_x, superficie_em(casa_x) - 1.5), perna.frente)
+		casa_x = quadril.x - olhando * 8.0 + lado
+	return Vector2(casa_x, superficie_em(casa_x) - 1.5)
+
+
+func fase_da_perna(perna: Perna) -> float:
+	return float(perna.grupo) * PI + (0.4 if perna.longe else 0.0)
+
+
+func pe_ciclo_chao(perna: Perna) -> Vector2:
+	var casa := casa_chao(perna, Vector2.ZERO)
+	var stride := 10.0 + atividade * 7.0
+	var fase := distancia_passo * 0.07 + fase_da_perna(perna)
+	var swing := sin(fase)
+	var pe_x := casa.x + olhando * stride * swing
+	var pe_y := superficie_em(pe_x) - 1.5
+	if swing > 0.0:
+		pe_y -= sin(PI * swing) * (5.5 + atividade * 3.5)
+	if perna.frente:
+		var minimo := peito.x + olhando * 8.0
+		if (minimo - pe_x) * olhando > 0.0:
+			pe_x = minimo
+	else:
+		var maximo := quadril.x + olhando * 2.0
+		if (pe_x - maximo) * olhando > 0.0:
+			pe_x = maximo
+	return Vector2(pe_x, pe_y)
+
+
+func pe_ciclo_parede(perna: Perna, ancora: Vector2) -> Vector2:
+	var afastamento := 4.0 if perna.longe else 2.5
+	var base_y := ancora.y + (10.0 if perna.frente else -8.0)
+	if perna.longe:
+		base_y += 2.5 if perna.frente else -2.0
+	else:
+		base_y += -1.0 if perna.frente else 1.2
+	var stride_y := 11.0 if perna.frente else 8.0
+	var fase := distancia_parede * 0.09 + fase_da_perna(perna)
+	var swing := sin(fase)
+	var pe_y := base_y + swing * stride_y
+	var pe_x := parede_x - lado_parede * afastamento
+	if swing > 0.15:
+		pe_x -= lado_parede * sin(PI * clampf(swing, 0.0, 1.0)) * 2.4
+	return Vector2(pe_x, pe_y)
 
 
 func pendurar_frente(perna: Perna, ancora: Vector2) -> Vector2:
@@ -577,6 +619,14 @@ func atualizar(delta: float) -> void:
 	arrastar_referencial(delta)
 	if acabou_de_pousar:
 		posicionar_pes()
+	if na_parede:
+		var subindo := absf(vel_y) > 4.0 or bool(pai.get("GRAPPLE"))
+		if subindo:
+			distancia_parede += maxf(absf(vel_y), 40.0) * delta
+	elif no_chao:
+		distancia_passo += absf(vel_x) * delta
+		if absf(vel_x) < 2.0:
+			distancia_passo = lerpf(distancia_passo, roundf(distancia_passo / PI) * PI, 1.0 - exp(-6.0 * delta))
 	atualizar_pernas(delta)
 	atualizar_cauda(delta)
 	atualizar_rosto(delta)
@@ -602,11 +652,6 @@ func arraste_deste_quadro(_delta: float) -> Vector2:
 
 func arrastar_referencial(delta: float) -> void:
 	var arraste := arraste_deste_quadro(delta)
-	for perna: Perna in pernas:
-		perna.pe += arraste
-		if perna.passo != null:
-			perna.passo.de += arraste
-			perna.passo.para += arraste
 	for elo: Elo in cauda:
 		elo.ponto += arraste
 		elo.anterior += arraste
@@ -615,28 +660,27 @@ func arrastar_referencial(delta: float) -> void:
 func atualizar_pernas(delta: float) -> void:
 	for perna: Perna in pernas:
 		atualizar_perna(perna, delta)
-	agendar_passos(delta)
 
 
 func alvo_parede(perna: Perna, ancora: Vector2) -> Vector2:
-	var afastamento := 3.2 if perna.longe else 2.2
-	var espalhar := 11.0 if perna.frente else -9.0
+	var afastamento := 4.0 if perna.longe else 2.5
+	var espalhar := 10.0 if perna.frente else -8.0
 	if perna.longe:
-		espalhar += 3.5 if perna.frente else -3.0
+		espalhar += 3.0 if perna.frente else -2.5
 	else:
-		espalhar += -1.5 if perna.frente else 1.8
-	return empurrar_fora_do_corpo(Vector2(parede_x - lado_parede * afastamento, ancora.y + espalhar))
+		espalhar += -1.2 if perna.frente else 1.5
+	return Vector2(parede_x - lado_parede * afastamento, ancora.y + espalhar)
 
 
 func atualizar_perna(perna: Perna, delta: float) -> void:
 	var ancora := ancora_perna(perna)
 	perna.quadril = ancora
-	perna.espera = maxf(0.0, perna.espera - delta)
+	perna.espera = 0.0
+	perna.passo = null
 	perna.tem_casa = false
 	perna.erro = 0.0
 	perna.limiar = 0.0
 	if giro_ativo:
-		perna.passo = null
 		var recolhido := empurrar_fora_do_corpo(Vector2(
 			ancora.x + olhando * (3.5 if perna.frente else -3.5) + (-2.0 if perna.longe else 2.0),
 			ancora.y + 10.0
@@ -646,24 +690,23 @@ func atualizar_perna(perna: Perna, delta: float) -> void:
 		resolver_perna(perna)
 		return
 	if na_parede:
-		perna.passo = null
-		var alvo := alvo_parede(perna, ancora)
-		perna.pe.x = amortecer(perna.pe.x, alvo.x, 18.0, delta)
-		perna.pe.y = amortecer(perna.pe.y, alvo.y, 18.0, delta)
+		var alvo := pe_ciclo_parede(perna, ancora)
+		perna.pe.x = amortecer(perna.pe.x, alvo.x, 14.0, delta)
+		perna.pe.y = amortecer(perna.pe.y, alvo.y, 14.0, delta)
+		perna.casa = alvo
+		perna.tem_casa = true
 		resolver_perna(perna)
 		return
 	if not no_chao:
-		perna.passo = null
 		var alvo := alvo_ar(perna, ancora)
 		perna.pe.x = amortecer(perna.pe.x, alvo.x, 10.0, delta)
 		perna.pe.y = amortecer(perna.pe.y, alvo.y, 10.0, delta)
 		resolver_perna(perna)
 		return
 	var levantar := 0.0
-	if perna.frente and atividade < 0.18:
-		levantar = smoothstep(0.0, 1.0, (em_pe - 0.12) / 0.48)
+	if perna.frente and atividade < 0.12:
+		levantar = smoothstep(0.0, 1.0, (em_pe - 0.18) / 0.5)
 	if levantar > 0.02:
-		perna.passo = null
 		var chao := casa_chao(perna, ancora)
 		var pendurada := pendurar_frente(perna, ancora)
 		var tx := lerpf(chao.x, pendurada.x, levantar)
@@ -672,29 +715,12 @@ func atualizar_perna(perna: Perna, delta: float) -> void:
 		perna.pe.y = amortecer(perna.pe.y, ty, 12.0, delta)
 		resolver_perna(perna)
 		return
-	var casa := casa_chao(perna, ancora)
-	var rapidez := absf(vel_x)
-	var erro := Vector2(perna.pe.x - casa.x, (perna.pe.y - casa.y) * 0.7).length()
-	if perna.frente:
-		var atrasado := (peito.x - perna.pe.x) * olhando
-		if atrasado > 2.0:
-			erro += atrasado * 1.6
-	var limiar := 4.5 + rapidez * 0.015
-	perna.casa = casa
-	perna.erro = erro
-	perna.limiar = limiar
+	var alvo := pe_ciclo_chao(perna)
+	perna.casa = alvo
 	perna.tem_casa = true
-	if perna.passo != null:
-		perna.passo.decorrido += delta
-		var k := clampf(perna.passo.decorrido / perna.passo.duracao, 0.0, 1.0)
-		var e := k * k * (3.0 - 2.0 * k)
-		perna.pe.x = lerpf(perna.passo.de.x, perna.passo.para.x, e)
-		perna.pe.y = lerpf(perna.passo.de.y, perna.passo.para.y, e) - sin(PI * k) * perna.passo.altura
-		if k >= 1.0:
-			perna.pe = perna.passo.para
-			perna.passo = null
-			perna.espera = 0.04 + randf() * 0.02
-			vel_balanco += 0.45 + atividade * 0.7
+	var taxa := 18.0 if absf(vel_x) > 8.0 else 10.0
+	perna.pe.x = amortecer(perna.pe.x, alvo.x, taxa, delta)
+	perna.pe.y = amortecer(perna.pe.y, alvo.y, taxa, delta)
 	resolver_perna(perna)
 
 
@@ -752,48 +778,129 @@ func agendar_passos(delta: float) -> void:
 		comecou += 1
 	if comecou > 0:
 		ultimo_grupo = escolhido
-		espera_grupo = 0.09
+		espera_grupo = 0.16
+
+
+func pe_no_chao_alcancavel(ancora: Vector2, desejado_x: float, l1: float, l2: float, frente: bool) -> Vector2:
+	var alcance := (l1 + l2) * 0.92
+	var x := desejado_x
+	if frente:
+		var minimo := peito.x + olhando * 6.0
+		if (minimo - x) * olhando > 0.0:
+			x = minimo
+	for _i in 10:
+		var y := superficie_em(x) - 1.5
+		var delta := Vector2(x - ancora.x, y - ancora.y)
+		if delta.length() <= alcance:
+			return Vector2(x, y)
+		x = lerpf(x, ancora.x, 0.18)
+		if frente and (peito.x + olhando * 4.0 - x) * olhando > 0.0:
+			x = peito.x + olhando * 4.0
+			break
+	var y_final := superficie_em(x) - 1.5
+	var delta_final := Vector2(x - ancora.x, y_final - ancora.y)
+	var dist := delta_final.length()
+	if dist < 0.0001:
+		return Vector2(ancora.x + olhando * 4.0, ancora.y + minf(alcance * 0.8, 18.0))
+	if dist > alcance:
+		return ancora + delta_final / dist * alcance
+	return Vector2(x, y_final)
+
+
+func forcar_passo_dianteiro_atrasado() -> void:
+	if not no_chao or na_parede or alguma_perna_no_passo() or espera_grupo > 0.0:
+		return
+	var rapidez := absf(vel_x)
+	for perna: Perna in pernas:
+		if not perna.frente or perna.passo != null or not perna.tem_casa or perna.espera > 0.0:
+			continue
+		var atrasado := (peito.x - perna.pe.x) * olhando
+		if atrasado > 10.0:
+			iniciar_passo(perna, perna.quadril, perna.casa, maxf(rapidez, 40.0))
+			resolver_perna(perna)
+			espera_grupo = 0.14
+			return
 
 
 func iniciar_passo(perna: Perna, ancora: Vector2, casa: Vector2, rapidez: float) -> void:
-	var duracao := clampf(0.18 - atividade * 0.04, 0.14, 0.20)
-	var lead := (14.0 if perna.frente else 8.0) + rapidez * duracao * 0.9 + atividade * 4.0
-	var base_x := peito.x if perna.frente else quadril.x
-	var lado := -5.0 if perna.longe else 5.0
-	var destino_x := base_x + olhando * lead + lado
-	if (destino_x - casa.x) * olhando < 0.0:
-		destino_x = casa.x + olhando * lead * 0.55
-	var destino_y := superficie_em(destino_x) - 1.5
-	var alcance := (perna.l1 + perna.l2) * 0.92
-	var dy := destino_y - ancora.y
-	if dy < alcance:
-		var max_dx := sqrt(maxf(0.0, alcance * alcance - dy * dy))
-		destino_x = ancora.x + clampf(destino_x - ancora.x, -max_dx, max_dx)
-	if perna.frente and (peito.x - destino_x) * olhando > 0.0:
-		destino_x = peito.x + olhando * 4.0
-	elif (not perna.frente) and (quadril.x - destino_x) * olhando > 2.0:
-		destino_x = quadril.x + olhando * 2.0
-	destino_y = superficie_em(destino_x) - 1.5
-	var destino := empurrar_fora_do_corpo(Vector2(destino_x, destino_y), perna.frente)
+	var duracao := clampf(0.28 - atividade * 0.04, 0.22, 0.32)
+	var lead := (8.0 if perna.frente else 4.0) + rapidez * duracao * 0.5
+	var destino_x := casa.x + olhando * lead
+	if perna.frente:
+		var minimo := peito.x + olhando * 8.0
+		if (minimo - destino_x) * olhando > 0.0:
+			destino_x = minimo
+	var destino := pe_no_chao_alcancavel(ancora, destino_x, perna.l1, perna.l2, perna.frente)
 	var dist := Vector2(destino.x - perna.pe.x, destino.y - perna.pe.y).length()
 	var passo := Passo.new()
 	passo.de = perna.pe
 	passo.para = destino
 	passo.decorrido = 0.0
 	passo.duracao = duracao
-	passo.altura = 4.0 + minf(10.0, dist * 0.28) + atividade * 2.0
+	passo.altura = 4.0 + minf(9.0, dist * 0.22) + atividade * 1.4
+	passo.vertical = false
 	perna.passo = passo
-	perna.espera = 0.04 + randf() * 0.02
+	perna.espera = 0.06 + randf() * 0.04
+
+
+func iniciar_passo_parede(perna: Perna, ancora: Vector2) -> void:
+	var agarrado := bool(pai.get("GRAPPLE")) if pai != null else false
+	var subindo := vel_y < -5.0 or agarrado
+	var sentido_y := -1.0 if subindo else 1.0
+	var lift := (14.0 if perna.frente else 10.0) * sentido_y
+	var base := alvo_parede(perna, ancora)
+	var destino_y := clampf(ancora.y + (8.0 if perna.frente else -6.0) + lift * 0.65, ancora.y - 22.0, ancora.y + 20.0)
+	var passo := Passo.new()
+	passo.de = perna.pe
+	passo.para = Vector2(base.x, destino_y)
+	passo.decorrido = 0.0
+	passo.duracao = 0.28
+	passo.altura = 2.5
+	passo.vertical = true
+	perna.passo = passo
+	perna.espera = 0.08 + randf() * 0.04
+
+
+func agendar_passos_parede(delta: float) -> void:
+	espera_grupo = maxf(0.0, espera_grupo - delta)
+	if espera_grupo > 0.0 or alguma_perna_no_passo():
+		return
+	var agarrado := bool(pai.get("GRAPPLE")) if pai != null else false
+	if not agarrado and absf(vel_y) < 8.0:
+		return
+	var escolhido := 0 if ultimo_grupo != 0 else 1
+	if ultimo_grupo < 0:
+		escolhido = 0
+	var comecou := 0
+	for perna: Perna in pernas:
+		if perna.grupo != escolhido or perna.passo != null or perna.espera > 0.0:
+			continue
+		iniciar_passo_parede(perna, perna.quadril)
+		resolver_perna(perna)
+		comecou += 1
+	if comecou > 0:
+		ultimo_grupo = escolhido
+		espera_grupo = 0.18
 
 
 func resolver_perna(perna: Perna) -> void:
 	var dobra := (1.0 if perna.frente else -1.0) * olhando
 	if na_parede:
 		dobra = -lado_parede
-	perna.pe = empurrar_fora_do_corpo(perna.pe, perna.frente)
-	var resultado := resolver_ik(perna.quadril.x, perna.quadril.y, perna.pe.x, perna.pe.y, perna.l1, perna.l2, dobra)
+	var pe_alvo := perna.pe
+	if (giro_ativo or not no_chao) and not na_parede:
+		pe_alvo = empurrar_fora_do_corpo(pe_alvo, perna.frente)
+	if perna.frente and no_chao and not na_parede and not giro_ativo:
+		var minimo := peito.x + olhando * 6.0
+		if (minimo - pe_alvo.x) * olhando > 0.0:
+			pe_alvo.x = minimo
+	var resultado := resolver_ik(perna.quadril.x, perna.quadril.y, pe_alvo.x, pe_alvo.y, perna.l1, perna.l2, dobra)
 	perna.joelho = empurrar_fora_do_corpo(resultado["joelho"], perna.frente)
-	perna.pe_ik = empurrar_fora_do_corpo(resultado["pe"], perna.frente)
+	perna.pe_ik = resultado["pe"]
+	if perna.frente and no_chao and not na_parede:
+		var minimo_ik := peito.x + olhando * 4.0
+		if (minimo_ik - perna.pe_ik.x) * olhando > 0.0:
+			perna.pe_ik.x = minimo_ik
 
 
 func atualizar_cauda(delta: float) -> void:
