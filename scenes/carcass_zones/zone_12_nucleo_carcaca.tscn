@@ -306,8 +306,8 @@ target_spawn_id = &"from_east"
 
 [node name="NucleoControleExit" parent="." instance=ExtResource("5_exit")]
 position = Vector2(2188.8, 1185.0)
-proxima_cena = "res://scenes/level_boss.tscn"
-texto = "Assumir Controle da Carcaça"
+proxima_cena = "res://scenes/cutscene_carcass_to_boss.tscn"
+texto = ""
 
 [node name="Limites" type="StaticBody2D" parent="."]
 visible = false
