@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 128" width="96" height="128">
+  <defs>
+    <radialGradient id="soulGlow" cx="50%" cy="54%" r="48%">
+      <stop offset="0%" stop-color="#FFFDF7" stop-opacity="1"/>
+      <stop offset="58%" stop-color="#F6DFC2" stop-opacity="0.96"/>
+      <stop offset="100%" stop-color="#D8A774" stop-opacity="0.92"/>
+    </radialGradient>
+    <linearGradient id="catHalo" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF8"/>
+      <stop offset="100%" stop-color="#EAE5D8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Soft drop shadow (pure paths, ThorVG-safe in Godot 4) -->
+  <g transform="translate(2.5, 4)" opacity="0.24" fill="#182624" stroke="#182624" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M48 12 C49.5 23 53 26.5 64 28 C53 29.5 49.5 33 48 44 C46.5 33 43 29.5 32 28 C43 26.5 46.5 23 48 12 Z"/>
+    <path d="M24 27 C25 33 27 35 33 36 C27 37 25 39 24 45 C23 39 21 37 15 36 C21 35 23 33 24 27 Z"/>
+    <path d="M72 27 C73 33 75 35 81 36 C75 37 73 39 72 45 C71 39 69 37 63 36 C69 35 71 33 72 27 Z"/>
+    <path d="M48 50 C57 50 61 58 64 53 C68 61 73 72 73 84 C73 100 62 112 48 112 C34 112 23 100 23 84 C23 72 28 61 32 53 C35 58 39 50 48 50 Z"/>
+  </g>
+
+  <!-- Soft cream sticker outline behind everything -->
+  <g fill="#F8F6EE" stroke="#F8F6EE" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M48 12 C49.5 23 53 26.5 64 28 C53 29.5 49.5 33 48 44 C46.5 33 43 29.5 32 28 C43 26.5 46.5 23 48 12 Z"/>
+    <path d="M24 27 C25 33 27 35 33 36 C27 37 25 39 24 45 C23 39 21 37 15 36 C21 35 23 33 24 27 Z"/>
+    <path d="M72 27 C73 33 75 35 81 36 C75 37 73 39 72 45 C71 39 69 37 63 36 C69 35 71 33 72 27 Z"/>
+    <path d="M48 50 C57 50 61 58 64 53 C68 61 73 72 73 84 C73 100 62 112 48 112 C34 112 23 100 23 84 C23 72 28 61 32 53 C35 58 39 50 48 50 Z"/>
+  </g>
+
+  <!-- Three warm golden-peach sparkles -->
+  <path d="M48 12 C49.5 23 53 26.5 64 28 C53 29.5 49.5 33 48 44 C46.5 33 43 29.5 32 28 C43 26.5 46.5 23 48 12 Z"
+        fill="#FFFDF7" stroke="#D5A26E" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M24 27 C25 33 27 35 33 36 C27 37 25 39 24 45 C23 39 21 37 15 36 C21 35 23 33 24 27 Z"
+        fill="#FFFDF7" stroke="#D5A26E" stroke-width="2.2" stroke-linejoin="round"/>
+  <path d="M72 27 C73 33 75 35 81 36 C75 37 73 39 72 45 C71 39 69 37 63 36 C69 35 71 33 72 27 Z"
+        fill="#FFFDF7" stroke="#D5A26E" stroke-width="2.2" stroke-linejoin="round"/>
+
+  <!-- Soul-cat wisp vessel -->
+  <path d="M48 52 C56 52 60 59 64 54 C68 62 72 73 72 84 C72 99 61.5 110 48 110 C34.5 110 24 99 24 84 C24 73 28 62 32 54 C36 59 40 52 48 52 Z"
+        fill="url(#catHalo)" stroke="#687771" stroke-width="2.8" stroke-linejoin="round"/>
+
+  <!-- Inner warm soul core -->
+  <ellipse cx="48" cy="86" rx="14.5" ry="15.5" fill="url(#soulGlow)" stroke="#D9A875" stroke-width="1.8"/>
+  <circle cx="43.5" cy="80.5" r="3.5" fill="#FFFFFF" opacity="0.9"/>
+</svg>
