@@ -16,8 +16,11 @@ height = 45.714233
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fm80t"]
 height = 45.714233
 
-[node name="Player" type="CharacterBody2D" unique_id=333485543]
-z_index = 1
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p47bc"]
+size = Vector2(28, 60)
+
+[node name="Player" type="CharacterBody2D" unique_id=333485543 groups=["player"]]
+z_index = 2
 script = ExtResource("1_p47bc")
 attack_obj = ExtResource("2_75vfm")
 
@@ -34,8 +37,10 @@ shape = SubResource("CapsuleShape2D_h17s1")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1143769769]
 zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
 
-[node name="PatasDireita" type="Area2D" parent="." unique_id=1706280255]
+[node name="PatasDireita" type="Area2D" parent="." unique_id=1706280255 groups=["player_damage"]]
 position = Vector2(37, -5)
 collision_layer = 2
 collision_mask = 2
@@ -43,7 +48,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PatasDireita" unique_id=330442084]
 shape = SubResource("CapsuleShape2D_je7p5")
 
-[node name="PatasEsquerda" type="Area2D" parent="." unique_id=1934690010]
+[node name="PatasEsquerda" type="Area2D" parent="." unique_id=1934690010 groups=["player_damage"]]
 position = Vector2(-37, -5)
 collision_layer = 2
 collision_mask = 2
@@ -58,6 +63,12 @@ script = ExtResource("4_qek5x")
 texture_filter = 2
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("5_5gtgg")
+
+[node name="hitbox" type="Area2D" parent="." unique_id=1920916340 groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=2017798375]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_p47bc")
 
 [connection signal="body_entered" from="PatasDireita" to="." method="pata_direita"]
 [connection signal="body_exited" from="PatasDireita" to="." method="sem_agarre"]
