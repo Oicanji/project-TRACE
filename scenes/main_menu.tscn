@@ -1,0 +1,376 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/main_menu_bg.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/ui/soul_emblem.svg" id="3_emblem"]
+[ext_resource type="FontFile" path="res://assets/fonts/LiberationSerif-Bold.ttf" id="4_font_serif"]
+[ext_resource type="FontFile" path="res://assets/fonts/LiberationSerif-BoldItalic.ttf" id="5_font_italic"]
+[ext_resource type="FontFile" path="res://assets/fonts/Chilanka-Regular.otf" id="6_font_btn"]
+
+[sub_resource type="Gradient" id="Gradient_bottom_wash"]
+offsets = PackedFloat32Array(0, 0.62, 1)
+colors = PackedColorArray(0.08, 0.12, 0.11, 0, 0.08, 0.12, 0.11, 0.06, 0.07, 0.11, 0.1, 0.32)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bottom_wash"]
+gradient = SubResource("Gradient_bottom_wash")
+width = 64
+height = 256
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="Gradient" id="Gradient_spore"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(1, 0.99, 0.95, 0.95, 0.95, 0.97, 0.91, 0.48, 0.88, 0.94, 0.88, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_spore"]
+gradient = SubResource("Gradient_spore")
+width = 20
+height = 20
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_spore_life"]
+offsets = PackedFloat32Array(0, 0.2, 0.78, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.85, 1, 1, 1, 0.75, 1, 1, 1, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_soul"]
+font = ExtResource("4_font_serif")
+font_size = 74
+font_color = Color(0.41, 0.47, 0.44, 1)
+outline_size = 14
+outline_color = Color(0.97, 0.96, 0.92, 1)
+shadow_size = 8
+shadow_color = Color(0.09, 0.15, 0.14, 0.34)
+shadow_offset = Vector2(2, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tracer"]
+font = ExtResource("5_font_italic")
+font_size = 56
+font_color = Color(0.84, 0.65, 0.46, 1)
+outline_size = 11
+outline_color = Color(0.98, 0.97, 0.93, 1)
+shadow_size = 6
+shadow_color = Color(0.09, 0.15, 0.14, 0.3)
+shadow_offset = Vector2(2, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+bg_color = Color(0.39, 0.45, 0.42, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.95, 0.94, 0.89, 0.5)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.08, 0.12, 0.11, 0.34)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+bg_color = Color(0.49, 0.56, 0.52, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.99, 0.97, 0.91, 0.88)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.09, 0.14, 0.12, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 6.0
+bg_color = Color(0.31, 0.37, 0.35, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.88, 0.74, 0.85)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.07, 0.11, 0.1, 0.25)
+shadow_size = 3
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.97, 0.9, 0.72, 0.9)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeOverlay:color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SafeMargin/BottomBar:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_intro"]
+resource_name = "intro"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeOverlay:color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.65),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SafeMargin/BottomBar:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.15, 0.9),
+"transitions": PackedFloat32Array(0.45, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_start_fade"]
+resource_name = "start_fade"
+length = 0.55
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeOverlay:color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1.6, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_menu"]
+_data = {
+&"RESET": SubResource("Animation_reset"),
+&"intro": SubResource("Animation_intro"),
+&"start_fade": SubResource("Animation_start_fade")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BottomWash" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_bottom_wash")
+expand_mode = 1
+
+[node name="AmbientSpores" type="CPUParticles2D" parent="."]
+position = Vector2(576, 324)
+amount = 36
+texture = SubResource("GradientTexture2D_spore")
+lifetime = 9.0
+preprocess = 4.5
+emission_shape = 3
+emission_rect_extents = Vector2(680, 380)
+direction = Vector2(-0.35, 1)
+spread = 35.0
+gravity = Vector2(0, 2)
+initial_velocity_min = 8.0
+initial_velocity_max = 22.0
+scale_amount_min = 0.25
+scale_amount_max = 0.85
+color = Color(0.96, 0.97, 0.92, 0.72)
+color_ramp = SubResource("Gradient_spore_life")
+
+[node name="SafeMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 44
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 24
+
+[node name="BottomBar" type="HBoxContainer" parent="SafeMargin"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 24
+
+[node name="LogoBox" type="HBoxContainer" parent="SafeMargin/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="TitleStack" type="VBoxContainer" parent="SafeMargin/BottomBar/LogoBox"]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_constants/separation = -18
+
+[node name="TitleSoul" type="Label" parent="SafeMargin/BottomBar/LogoBox/TitleStack"]
+layout_mode = 2
+text = "SOUL"
+label_settings = SubResource("LabelSettings_soul")
+
+[node name="TitleTracerMargin" type="MarginContainer" parent="SafeMargin/BottomBar/LogoBox/TitleStack"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 44
+
+[node name="TitleTracer" type="Label" parent="SafeMargin/BottomBar/LogoBox/TitleStack/TitleTracerMargin"]
+layout_mode = 2
+text = "Tracer"
+label_settings = SubResource("LabelSettings_tracer")
+
+[node name="SoulEmblem" type="TextureRect" parent="SafeMargin/BottomBar/LogoBox"]
+custom_minimum_size = Vector2(74, 98)
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+texture = ExtResource("3_emblem")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="SafeMargin/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ButtonRow" type="HBoxContainer" parent="SafeMargin/BottomBar"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 18
+
+[node name="StartButton" type="Button" parent="SafeMargin/BottomBar/ButtonRow"]
+custom_minimum_size = Vector2(180, 56)
+layout_mode = 2
+focus_neighbor_left = NodePath("../QuitButton")
+focus_neighbor_right = NodePath("../QuitButton")
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.97, 0.96, 0.92, 0.96)
+theme_override_colors/font_focus_color = Color(1, 0.99, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.93, 0.89, 0.8, 1)
+theme_override_colors/font_hover_color = Color(1, 0.99, 0.95, 1)
+theme_override_fonts/font = ExtResource("6_font_btn")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_focus")
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="SafeMargin/BottomBar/ButtonRow"]
+custom_minimum_size = Vector2(180, 56)
+layout_mode = 2
+focus_neighbor_left = NodePath("../StartButton")
+focus_neighbor_right = NodePath("../StartButton")
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.97, 0.96, 0.92, 0.96)
+theme_override_colors/font_focus_color = Color(1, 0.99, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.93, 0.89, 0.8, 1)
+theme_override_colors/font_hover_color = Color(1, 0.99, 0.95, 1)
+theme_override_fonts/font = ExtResource("6_font_btn")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_focus")
+text = "Quit"
+
+[node name="FadeOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0.11, 0.1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_menu")
+}
+
+[connection signal="pressed" from="SafeMargin/BottomBar/ButtonRow/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="SafeMargin/BottomBar/ButtonRow/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,0 +1,522 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/boss/boss_level_controller.gd" id="1_ctrl"]
+[ext_resource type="PackedScene" path="res://components/mecha_player.tscn" id="2_mecha"]
+[ext_resource type="PackedScene" path="res://components/colossal_boss.tscn" id="3_boss"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_vida.tscn" id="4_hudvida"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud_boss.tscn" id="5_hudboss"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Cidade/Cidade - SkylineFar.png" id="6_sky_far"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Cidade/Cidade - SkylineMid.png" id="7_sky_mid"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Cidade/Cidade - RuinsLayer.png" id="8_ruins"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Carcaca/Carcaca - BgSilhouettes.png" id="9_carc_bg"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Carcaca/Carcaca - PropsWires.png" id="10_carc_props"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Carcaca/Carcaca - TileSet.png" id="11_carc_tile"]
+[ext_resource type="Shader" path="res://shaders/drifting_white_fog.gdshader" id="12_fog_shader"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="13_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/death_screen.tscn" id="14_death"]
+
+[sub_resource type="Gradient" id="Gradient_sky"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(0.05, 0.08, 0.13, 1, 0.12, 0.17, 0.24, 1, 0.18, 0.22, 0.28, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sky"]
+gradient = SubResource("Gradient_sky")
+width = 64
+height = 256
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(2000, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(60, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vantage"]
+size = Vector2(200, 22)
+
+[sub_resource type="Gradient" id="Gradient_light_radial"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.6, 0.78, 0.95, 0.4, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_light_radial"]
+gradient = SubResource("Gradient_light_radial")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_embers"]
+offsets = PackedFloat32Array(0, 0.35, 1)
+colors = PackedColorArray(0.65, 0.88, 1, 0, 0.55, 0.88, 1, 0.65, 1, 0.38, 0.28, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fog"]
+shader = ExtResource("12_fog_shader")
+shader_parameter/fog_color = Color(0.72, 0.82, 0.9, 1)
+shader_parameter/opacity = 0.2
+shader_parameter/speed_x = 0.022
+shader_parameter/speed_y = -0.004
+shader_parameter/scale_uv = 2.6
+shader_parameter/bottom_weight = 0.72
+
+[sub_resource type="Environment" id="Environment_boss"]
+background_mode = 3
+tonemap_mode = 2
+tonemap_exposure = 1.05
+glow_enabled = true
+glow_intensity = 0.55
+glow_strength = 0.85
+glow_bloom = 0.18
+glow_hdr_threshold = 0.95
+
+[sub_resource type="Gradient" id="Gradient_vignette"]
+offsets = PackedFloat32Array(0.55, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.02, 0.03, 0.05, 0.62)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vignette"]
+gradient = SubResource("Gradient_vignette")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hint"]
+bg_color = Color(0.05, 0.08, 0.11, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.85, 0.95, 0.55)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_end_card"]
+bg_color = Color(0.05, 0.07, 0.11, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.38, 0.82, 0.95, 0.75)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+
+[node name="LevelBoss" type="Node2D"]
+script = ExtResource("1_ctrl")
+
+[node name="SkyLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="SkyGradient" type="TextureRect" parent="SkyLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_sky")
+expand_mode = 1
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.76, 0.8, 0.88, 1)
+
+[node name="ParallaxCity" type="Node2D" parent="."]
+z_index = -6
+
+[node name="SkylineFar" type="Parallax2D" parent="ParallaxCity"]
+scroll_scale = Vector2(0.18, 0.12)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxCity/SkylineFar"]
+modulate = Color(0.32, 0.39, 0.48, 0.58)
+position = Vector2(850, 210)
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("6_sky_far")
+
+[node name="SkylineMid" type="Parallax2D" parent="ParallaxCity"]
+scroll_scale = Vector2(0.35, 0.22)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxCity/SkylineMid"]
+modulate = Color(0.24, 0.3, 0.38, 0.78)
+position = Vector2(850, 245)
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("7_sky_mid")
+
+[node name="RuinsMid" type="Parallax2D" parent="ParallaxCity"]
+scroll_scale = Vector2(0.55, 0.35)
+
+[node name="RuinsLeft" type="Sprite2D" parent="ParallaxCity/RuinsMid"]
+modulate = Color(0.2, 0.24, 0.32, 0.88)
+position = Vector2(460, 345)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("8_ruins")
+
+[node name="RuinsRight" type="Sprite2D" parent="ParallaxCity/RuinsMid"]
+modulate = Color(0.2, 0.24, 0.32, 0.88)
+position = Vector2(1260, 345)
+scale = Vector2(0.78, 0.78)
+flip_h = true
+texture = ExtResource("8_ruins")
+
+[node name="CarcacaStructureBg" type="Node2D" parent="."]
+z_index = -3
+
+[node name="RibsLeft" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.42, 0.47, 0.58, 0.92)
+position = Vector2(130, 170)
+scale = Vector2(0.92, 0.92)
+texture = ExtResource("9_carc_bg")
+region_enabled = true
+region_rect = Rect2(0, 0, 420, 768)
+
+[node name="RibsRight" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.42, 0.47, 0.58, 0.92)
+position = Vector2(1570, 170)
+scale = Vector2(0.92, 0.92)
+flip_h = true
+texture = ExtResource("9_carc_bg")
+region_enabled = true
+region_rect = Rect2(0, 0, 420, 768)
+
+[node name="BeamLeft" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.36, 0.41, 0.5, 0.88)
+position = Vector2(480, 195)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("9_carc_bg")
+region_enabled = true
+region_rect = Rect2(430, 0, 370, 768)
+
+[node name="GearCenter" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.38, 0.42, 0.52, 0.85)
+position = Vector2(880, 400)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("9_carc_bg")
+region_enabled = true
+region_rect = Rect2(800, 385, 576, 383)
+
+[node name="BeamRight" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.36, 0.41, 0.5, 0.88)
+position = Vector2(1260, 195)
+scale = Vector2(0.85, 0.85)
+flip_h = true
+texture = ExtResource("9_carc_bg")
+region_enabled = true
+region_rect = Rect2(430, 0, 370, 768)
+
+[node name="HangingWires1" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.55, 0.62, 0.74, 0.9)
+position = Vector2(360, -40)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("10_carc_props")
+region_enabled = true
+region_rect = Rect2(355, 30, 236, 251)
+
+[node name="HangingWires2" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.55, 0.62, 0.74, 0.9)
+position = Vector2(840, -55)
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("10_carc_props")
+region_enabled = true
+region_rect = Rect2(628, 30, 235, 287)
+
+[node name="HangingWires3" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.55, 0.62, 0.74, 0.9)
+position = Vector2(1320, -40)
+scale = Vector2(0.85, 0.85)
+flip_h = true
+texture = ExtResource("10_carc_props")
+region_enabled = true
+region_rect = Rect2(900, 30, 271, 253)
+
+[node name="ScrapLeft" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.58, 0.64, 0.74, 0.95)
+position = Vector2(530, 488)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("10_carc_props")
+region_enabled = true
+region_rect = Rect2(889, 720, 283, 149)
+
+[node name="ScrapRight" type="Sprite2D" parent="CarcacaStructureBg"]
+modulate = Color(0.58, 0.64, 0.74, 0.95)
+position = Vector2(1190, 488)
+scale = Vector2(0.58, 0.58)
+flip_h = true
+texture = ExtResource("10_carc_props")
+region_enabled = true
+region_rect = Rect2(577, 710, 282, 159)
+
+[node name="ArenaLights" type="Node2D" parent="."]
+
+[node name="MoonlightCenter" type="PointLight2D" parent="ArenaLights"]
+position = Vector2(850, 80)
+color = Color(0.68, 0.86, 1, 1)
+energy = 0.85
+texture = SubResource("GradientTexture2D_light_radial")
+texture_scale = 3.2
+
+[node name="LeftDeckLight" type="PointLight2D" parent="ArenaLights"]
+position = Vector2(210, 340)
+color = Color(0.52, 0.88, 1, 1)
+energy = 0.65
+texture = SubResource("GradientTexture2D_light_radial")
+texture_scale = 1.6
+
+[node name="RightDeckLight" type="PointLight2D" parent="ArenaLights"]
+position = Vector2(1490, 340)
+color = Color(1, 0.45, 0.42, 1)
+energy = 0.65
+texture = SubResource("GradientTexture2D_light_radial")
+texture_scale = 1.6
+
+[node name="AmbientSparks" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(850, 260)
+amount = 64
+lifetime = 5.5
+preprocess = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(840, 340)
+direction = Vector2(0.15, -1)
+spread = 50.0
+gravity = Vector2(0, -6)
+initial_velocity_min = 8.0
+initial_velocity_max = 26.0
+scale_amount_min = 1.5
+scale_amount_max = 3.5
+color_ramp = SubResource("Gradient_embers")
+
+[node name="Arena" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Floor" type="StaticBody2D" parent="Arena"]
+position = Vector2(850, 580)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="FloorBaseDark" type="Polygon2D" parent="Arena/Floor"]
+color = Color(0.03, 0.04, 0.06, 1)
+polygon = PackedVector2Array(-1000, -32, 1000, -32, 1000, 120, -1000, 120)
+
+[node name="TileStrip1" type="Sprite2D" parent="Arena/Floor"]
+position = Vector2(-640, -18)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 0, 1024, 240)
+
+[node name="TileStrip2" type="Sprite2D" parent="Arena/Floor"]
+position = Vector2(-214, -18)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 0, 1024, 240)
+
+[node name="TileStrip3" type="Sprite2D" parent="Arena/Floor"]
+position = Vector2(212, -18)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 0, 1024, 240)
+
+[node name="TileStrip4" type="Sprite2D" parent="Arena/Floor"]
+position = Vector2(638, -18)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 0, 1024, 240)
+
+[node name="LeftWall" type="StaticBody2D" parent="Arena"]
+position = Vector2(-30, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/LeftWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightWall" type="StaticBody2D" parent="Arena"]
+position = Vector2(1730, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/RightWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="LeftRampDeck" type="StaticBody2D" parent="Arena"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/LeftRampDeck"]
+polygon = PackedVector2Array(0, 444, 180, 444, 360, 520, 0, 520)
+
+[node name="Fill" type="Polygon2D" parent="Arena/LeftRampDeck"]
+color = Color(0.05, 0.06, 0.1, 1)
+polygon = PackedVector2Array(0, 448, 180, 448, 360, 524, 0, 524)
+
+[node name="DeckSurface" type="Sprite2D" parent="Arena/LeftRampDeck"]
+position = Vector2(92, 466)
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 0, 1024, 240)
+
+[node name="RampSurface" type="Sprite2D" parent="Arena/LeftRampDeck"]
+position = Vector2(268, 494)
+rotation = 0.399
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 0, 1024, 220)
+
+[node name="RightRampDeck" type="StaticBody2D" parent="Arena"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/RightRampDeck"]
+polygon = PackedVector2Array(1340, 520, 1520, 444, 1700, 444, 1700, 520)
+
+[node name="Fill" type="Polygon2D" parent="Arena/RightRampDeck"]
+color = Color(0.05, 0.06, 0.1, 1)
+polygon = PackedVector2Array(1340, 524, 1520, 448, 1700, 448, 1700, 524)
+
+[node name="DeckSurface" type="Sprite2D" parent="Arena/RightRampDeck"]
+position = Vector2(1608, 466)
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 0, 1024, 240)
+
+[node name="RampSurface" type="Sprite2D" parent="Arena/RightRampDeck"]
+position = Vector2(1432, 494)
+rotation = -0.399
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 0, 1024, 220)
+
+[node name="LeftVantage" type="StaticBody2D" parent="Arena"]
+position = Vector2(180, 355)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/LeftVantage"]
+shape = SubResource("RectangleShape2D_vantage")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Arena/LeftVantage"]
+position = Vector2(0, 14)
+scale = Vector2(0.22, 0.18)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 1536, 1024, 340)
+
+[node name="RightVantage" type="StaticBody2D" parent="Arena"]
+position = Vector2(1520, 355)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/RightVantage"]
+shape = SubResource("RectangleShape2D_vantage")
+
+[node name="PlatformSprite" type="Sprite2D" parent="Arena/RightVantage"]
+position = Vector2(0, 14)
+scale = Vector2(0.22, 0.18)
+texture = ExtResource("11_carc_tile")
+region_enabled = true
+region_rect = Rect2(256, 1536, 1024, 340)
+
+[node name="ForegroundSilhouettes" type="Node2D" parent="."]
+z_index = 9
+
+[node name="FgWiresLeft" type="Sprite2D" parent="ForegroundSilhouettes"]
+modulate = Color(0.04, 0.05, 0.08, 0.92)
+position = Vector2(95, -20)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("10_carc_props")
+region_enabled = true
+region_rect = Rect2(23, 30, 295, 245)
+
+[node name="FgWiresRight" type="Sprite2D" parent="ForegroundSilhouettes"]
+modulate = Color(0.04, 0.05, 0.08, 0.92)
+position = Vector2(1605, -20)
+scale = Vector2(1.15, 1.15)
+flip_h = true
+texture = ExtResource("10_carc_props")
+region_enabled = true
+region_rect = Rect2(23, 30, 295, 245)
+
+[node name="MechaPlayer" parent="." instance=ExtResource("2_mecha")]
+position = Vector2(420, 490)
+vida_maxima = 7
+auto_reload_on_death = false
+
+[node name="Camera2D" parent="MechaPlayer" index="9"]
+zoom = Vector2(1, 1)
+limit_left = 0
+limit_top = -150
+limit_right = 1700
+limit_bottom = 640
+
+[node name="ColossalBoss" parent="." instance=ExtResource("3_boss")]
+position = Vector2(1140, 364)
+arena_min_x = 470.0
+arena_max_x = 1230.0
+
+[node name="DriftingFog" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="FogRect" type="ColorRect" parent="DriftingFog"]
+material = SubResource("ShaderMaterial_fog")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Vignette" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="Overlay" type="TextureRect" parent="Vignette"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_vignette")
+expand_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_boss")
+
+[node name="HudVida" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_hudvida")]
+player = NodePath("../MechaPlayer")
+
+[node name="HudBoss" parent="." node_paths=PackedStringArray("boss") instance=ExtResource("5_hudboss")]
+boss = NodePath("../ColossalBoss")
+
+[node name="PauseMenu" parent="." instance=ExtResource("13_pause")]
+
+[node name="DeathScreen" parent="." node_paths=PackedStringArray("player") instance=ExtResource("14_death")]
+player = NodePath("../MechaPlayer")
+open_delay = 0.75
+
+[node name="EndDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FadeLayer" type="CanvasLayer" parent="."]
+layer = 35
+
+[node name="FadeRect" type="ColorRect" parent="FadeLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.99, 0.94, 0)
+
+[connection signal="timeout" from="EndDelayTimer" to="." method="_on_end_delay_timer_timeout"]
+
+[editable path="MechaPlayer"]

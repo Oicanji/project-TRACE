@@ -15,6 +15,7 @@ const JUMPING_TIME = 0.3
 @export var vida_maxima: int = 3
 @export var tempo_invencibilidade: float = 1.0
 @export var attack_obj: PackedScene
+@export var auto_reload_on_death: bool = true
 
 var vida: int = 3
 var invencivel: bool = false
@@ -216,7 +217,8 @@ func morrer() -> void:
 	set_physics_process(false)
 	morreu.emit()
 	print("Player morreu!")
-	get_tree().call_deferred("reload_current_scene")
+	if auto_reload_on_death:
+		get_tree().call_deferred("reload_current_scene")
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:

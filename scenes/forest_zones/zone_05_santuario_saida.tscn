@@ -194,7 +194,7 @@ region_rect = Rect2(88, 3072, 336, 448)
 
 [node name="TutorialExit" parent="." instance=ExtResource("9_exit")]
 position = Vector2(883, 696)
-proxima_cena = "res://scenes/level_cidade.tscn"
+proxima_cena = "res://scenes/cutscene_forest_to_city.tscn"
 teclas = "E"
 texto = "Seguir para a cidade"
 

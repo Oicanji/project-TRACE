@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://iw33g4ka707s" path="res://components/tilesets/carcaca.tres" id="2_carcaca"]
 [ext_resource type="Texture2D" uid="uid://b3enfblmkmhkm" path="res://assets/sprites/Carcaca/Carcaca - PropsWires.png" id="3_props"]
 [ext_resource type="PackedScene" path="res://components/zone_portal.tscn" id="4_portal"]
+[ext_resource type="PackedScene" path="res://components/carcaca_exit.tscn" id="5_exit"]
 
 [sub_resource type="Gradient" id="Gradient_light"]
 offsets = PackedFloat32Array(0, 0.35, 0.72, 1)
@@ -302,6 +303,11 @@ position = Vector2(64.0, 1086.7)
 scale = Vector2(1.0, 1.15)
 target_zone_id = &"zone_11"
 target_spawn_id = &"from_east"
+
+[node name="NucleoControleExit" parent="." instance=ExtResource("5_exit")]
+position = Vector2(2188.8, 1185.0)
+proxima_cena = "res://scenes/cutscene_carcass_to_boss.tscn"
+texto = ""
 
 [node name="Limites" type="StaticBody2D" parent="."]
 visible = false

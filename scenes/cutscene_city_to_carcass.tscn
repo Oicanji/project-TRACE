@@ -1,0 +1,158 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/transition_slideshow.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/cutscenes/city_to_carcass_01_approach.png" id="2_s1"]
+[ext_resource type="Texture2D" path="res://assets/cutscenes/city_to_carcass_02_entering.png" id="3_s2"]
+[ext_resource type="Texture2D" path="res://assets/cutscenes/city_to_carcass_03_depths.png" id="4_s3"]
+
+[sub_resource type="Gradient" id="Gradient_vignette"]
+offsets = PackedFloat32Array(0.45, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.02, 0.04, 0.06, 0.78)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vignette"]
+gradient = SubResource("Gradient_vignette")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_mote"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.95, 1, 1, 1, 0.5, 0.88, 1, 0.6, 0.2, 0.5, 0.8, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mote"]
+gradient = SubResource("Gradient_mote")
+width = 24
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_life"]
+offsets = PackedFloat32Array(0, 0.25, 0.75, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.85, 1, 1, 1, 0.75, 1, 1, 1, 0)
+
+[node name="CutsceneCityToCarcass" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+slide_textures = Array[Texture2D]([ExtResource("2_s1"), ExtResource("3_s2"), ExtResource("4_s3")])
+next_scene_path = "res://scenes/level_2_floresta.tscn"
+slide_duration = 4.6
+bg_color = Color(0.04, 0.06, 0.09, 1)
+particle_color = Color(0.58, 0.9, 1, 0.72)
+fade_color = Color(0.02, 0.04, 0.06, 1)
+
+[node name="BgRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.06, 0.09, 1)
+
+[node name="SlideViewport" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SlideA" type="TextureRect" parent="SlideViewport"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="SlideB" type="TextureRect" parent="SlideViewport"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Vignette" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_vignette")
+expand_mode = 1
+
+[node name="ParticlesLayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="Particles" type="CPUParticles2D" parent="ParticlesLayer"]
+position = Vector2(640, 420)
+amount = 34
+texture = SubResource("GradientTexture2D_mote")
+lifetime = 6.0
+preprocess = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(680, 380)
+direction = Vector2(0.15, -0.5)
+spread = 60.0
+gravity = Vector2(0, -4)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+scale_amount_min = 0.22
+scale_amount_max = 0.62
+color = Color(0.58, 0.9, 1, 0.72)
+color_ramp = SubResource("Gradient_life")
+
+[node name="HudLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="BottomMargin" type="CenterContainer" parent="HudLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -34.0
+offset_right = 120.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="DotsRow" type="HBoxContainer" parent="HudLayer/BottomMargin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="FadeLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="FadeRect" type="ColorRect" parent="FadeLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.04, 0.06, 1)
+
+[node name="SlideTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SlideTimer" to="." method="_on_slide_timer_timeout"]

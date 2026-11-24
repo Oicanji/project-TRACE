@@ -144,7 +144,8 @@ texture = ExtResource("6_carcass")
 
 [node name="CarcacaExit" parent="." instance=ExtResource("7_exit")]
 position = Vector2(1651.2, 988.6)
-proxima_cena = "res://scenes/level_2_floresta.tscn"
+proxima_cena = "res://scenes/cutscene_city_to_carcass.tscn"
+texto = ""
 
 [node name="Luzes" type="Node2D" parent="."]
 
