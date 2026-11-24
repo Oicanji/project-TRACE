@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/Carcaca/Carcaca - PropsWires.png" id="10_carc_props"]
 [ext_resource type="Texture2D" path="res://assets/sprites/Carcaca/Carcaca - TileSet.png" id="11_carc_tile"]
 [ext_resource type="Shader" path="res://shaders/drifting_white_fog.gdshader" id="12_fog_shader"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="13_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/death_screen.tscn" id="14_death"]
 
 [sub_resource type="Gradient" id="Gradient_sky"]
 offsets = PackedFloat32Array(0, 0.55, 1)
@@ -444,6 +446,7 @@ region_rect = Rect2(23, 30, 295, 245)
 
 [node name="MechaPlayer" parent="." instance=ExtResource("2_mecha")]
 position = Vector2(420, 490)
+vida_maxima = 7
 auto_reload_on_death = false
 
 [node name="Camera2D" parent="MechaPlayer" index="9"]
@@ -492,6 +495,12 @@ player = NodePath("../MechaPlayer")
 [node name="HudBoss" parent="." node_paths=PackedStringArray("boss") instance=ExtResource("5_hudboss")]
 boss = NodePath("../ColossalBoss")
 
+[node name="PauseMenu" parent="." instance=ExtResource("13_pause")]
+
+[node name="DeathScreen" parent="." node_paths=PackedStringArray("player") instance=ExtResource("14_death")]
+player = NodePath("../MechaPlayer")
+open_delay = 0.75
+
 [node name="EndDelayTimer" type="Timer" parent="."]
 one_shot = true
 
@@ -508,45 +517,6 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0.99, 0.94, 0)
 
-[node name="EndScreen" type="CanvasLayer" parent="."]
-layer = 30
-visible = false
-
-[node name="Backdrop" type="ColorRect" parent="EndScreen"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.02, 0.03, 0.06, 0.72)
-
-[node name="CenterContainer" type="CenterContainer" parent="EndScreen/Backdrop"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Buttons" type="HBoxContainer" parent="EndScreen/Backdrop/CenterContainer"]
-layout_mode = 2
-theme_override_constants/separation = 22
-alignment = 1
-
-[node name="RetryButton" type="Button" parent="EndScreen/Backdrop/CenterContainer/Buttons"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
-text = "↺"
-
-[node name="StartButton" type="Button" parent="EndScreen/Backdrop/CenterContainer/Buttons"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-text = "⌂"
-
 [connection signal="timeout" from="EndDelayTimer" to="." method="_on_end_delay_timer_timeout"]
-[connection signal="pressed" from="EndScreen/Backdrop/CenterContainer/Buttons/RetryButton" to="." method="_on_retry_button_pressed"]
-[connection signal="pressed" from="EndScreen/Backdrop/CenterContainer/Buttons/StartButton" to="." method="_on_start_button_pressed"]
 
 [editable path="MechaPlayer"]

@@ -58,6 +58,9 @@ var _blink_remaining: float = 0.0
 var _hurt_react_remaining: float = 0.0
 var _ghost_cooldown: float = 0.0
 var _charge_ratio: float = 0.0
+var _jump_charge_ratio: float = 0.0
+var _jump_tremble_remaining: float = 0.0
+var _jump_tremble_strength: float = 0.0
 var _is_dashing: bool = false
 var _facing: float = 1.0
 var _soul_empowered: bool = false
@@ -81,10 +84,12 @@ func update_rig(
 	facing: float,
 	aim_angle: float,
 	charge_ratio: float,
-	dashing: bool
+	dashing: bool,
+	jump_charge_ratio: float = 0.0
 ) -> void:
 	_facing = -1.0 if facing < 0.0 else 1.0
 	_charge_ratio = clampf(charge_ratio, 0.0, 1.0)
+	_jump_charge_ratio = clampf(jump_charge_ratio, 0.0, 1.0)
 	_is_dashing = dashing
 
 	# 1. Spin all 3 round bogie wheels & animate tread lugs along rounded track
@@ -105,27 +110,43 @@ func update_rig(
 	_spring_y = clampf(_spring_y + _spring_vy * delta, -8.0, 9.0)
 
 	var stretch_relax: float = 1.0 - exp(-12.0 * delta)
-	var target_sx: float = 1.12 if dashing else (1.0 + _charge_ratio * 0.05)
-	var target_sy: float = 0.88 if dashing else (1.0 - _charge_ratio * 0.04)
+	var target_sx: float = 1.12 if dashing else (1.0 + _charge_ratio * 0.05 + _jump_charge_ratio * 0.20)
+	var target_sy: float = 0.88 if dashing else (1.0 - _charge_ratio * 0.04 - _jump_charge_ratio * 0.24)
 	_squash_x = lerpf(_squash_x, target_sx, stretch_relax)
 	_squash_y = lerpf(_squash_y, target_sy, stretch_relax)
 
-	# Engine idle chug + driving bounce
+	# Engine idle chug + driving bounce + charged jump crouch & tremble
 	var drive_factor: float = clampf(absf(velocity.x) / 120.0, 0.0, 1.0)
 	_engine_phase += delta * lerpf(6.5, 18.0, drive_factor)
 	var chug_y: float = sin(_engine_phase) * engine_bob_amp * (1.35 if on_floor and drive_factor > 0.1 else 0.75)
+	var crouch_y: float = _jump_charge_ratio * 4.5
+
+	if _jump_tremble_remaining > 0.0:
+		_jump_tremble_remaining = maxf(0.0, _jump_tremble_remaining - delta)
+
+	var tremble_offset: Vector2 = Vector2.ZERO
+	var active_tremble: float = 0.0
+	if _jump_charge_ratio > 0.08:
+		active_tremble = maxf(active_tremble, lerpf(0.5, 2.2, _jump_charge_ratio))
+	if _jump_tremble_remaining > 0.0:
+		active_tremble = maxf(active_tremble, _jump_tremble_strength * (_jump_tremble_remaining / 0.16))
+	if active_tremble > 0.01:
+		tremble_offset = Vector2(
+			randf_range(-active_tremble, active_tremble),
+			randf_range(-active_tremble * 0.45, active_tremble * 0.45)
+		)
 
 	# Chassis pitch from acceleration/speed + floor slope
 	var accel_tilt: float = clampf(-local_vx * 0.00055, -0.09, 0.09)
 	var hull_target_rot: float = (0.14 * _facing) if dashing else floor_tilt
 	_hull.rotation = lerpf(_hull.rotation, hull_target_rot, 1.0 - exp(-10.0 * delta))
 
-	_chassis_spring.position = _chassis_rest_pos + Vector2(0.0, _spring_y + chug_y)
+	_chassis_spring.position = _chassis_rest_pos + Vector2(0.0, _spring_y + chug_y + crouch_y) + tremble_offset
 	_chassis_spring.scale = Vector2(_squash_x, _squash_y)
 	_chassis_spring.rotation = lerpf(_chassis_spring.rotation, accel_tilt, 1.0 - exp(-10.0 * delta))
 
 	# Keep turret riding smoothly on the spring-suspended hull!
-	_turret_pivot.position.y = _turret_base_y + (_spring_y + chug_y) * 0.85
+	_turret_pivot.position.y = _turret_base_y + (_spring_y + chug_y + crouch_y) * 0.85 + tremble_offset.y
 
 	# 3. Alive White Cat Pilot inside cockpit (head tracking, spring ears, blinking & charging squint)
 	_cat_pilot.position = _cat_rest_pos + Vector2(-local_vx * 0.008, _spring_y * 0.35 - chug_y * 0.45)
@@ -278,11 +299,15 @@ func _pill_point(t: float, half_w: float, r: float) -> Vector2:
 		return Vector2(-half_w + cos(a) * r, sin(a) * r)
 
 
-func trigger_jump() -> void:
-	_squash_x = 0.86
-	_squash_y = 1.18
-	_spring_vy = -55.0
-	_ear_vel = -4.5
+func trigger_jump(charge_ratio: float = 0.0) -> void:
+	var ratio: float = clampf(charge_ratio, 0.0, 1.0)
+	_squash_x = lerpf(0.86, 0.72, ratio)
+	_squash_y = lerpf(1.18, 1.36, ratio)
+	_spring_vy = lerpf(-55.0, -110.0, ratio)
+	_ear_vel = lerpf(-4.5, -8.5, ratio)
+	if ratio > 0.15:
+		_jump_tremble_remaining = 0.16
+		_jump_tremble_strength = lerpf(1.2, 2.8, ratio)
 
 
 func trigger_land(impact_speed: float) -> void:

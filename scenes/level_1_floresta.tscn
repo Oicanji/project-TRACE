@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://be3btymynn4rb" path="res://scenes/ui/hud_vida.tscn" id="13_hudvida"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_dica.tscn" id="14_huddica"]
 [ext_resource type="Script" path="res://scripts/floresta/floresta_zone_manager.gd" id="15_mgr"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="16_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/death_screen.tscn" id="17_death"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7061b"]
 atlas = ExtResource("2_clinv")
@@ -676,6 +678,11 @@ grow_vertical = 2
 player = NodePath("../Player")
 
 [node name="HudDica" parent="." instance=ExtResource("14_huddica")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("16_pause")]
+
+[node name="DeathScreen" parent="." node_paths=PackedStringArray("player") instance=ExtResource("17_death")]
+player = NodePath("../Player")
 
 [node name="TransicaoZona" type="CanvasLayer" parent="."]
 layer = 20

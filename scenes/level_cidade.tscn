@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://be3btymynn4rb" path="res://scenes/ui/hud_vida.tscn" id="12_hud"]
 [ext_resource type="Shader" path="res://shaders/city_tremble_fog.gdshader" id="13_tremble"]
 [ext_resource type="Shader" path="res://shaders/drifting_white_fog.gdshader" id="14_fog"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="15_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/death_screen.tscn" id="16_death"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fall_0"]
 atlas = ExtResource("3_fall")
@@ -777,6 +779,11 @@ texture = SubResource("GradientTexture2D_vinheta")
 expand_mode = 1
 
 [node name="HudVida" parent="." node_paths=PackedStringArray("player") instance=ExtResource("12_hud")]
+player = NodePath("../Player")
+
+[node name="PauseMenu" parent="." instance=ExtResource("15_pause")]
+
+[node name="DeathScreen" parent="." node_paths=PackedStringArray("player") instance=ExtResource("16_death")]
 player = NodePath("../Player")
 
 [node name="TransicaoZona" type="CanvasLayer" parent="."]

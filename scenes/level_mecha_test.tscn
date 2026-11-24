@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" path="res://components/mecha_player.tscn" id="1_mecha"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud_vida.tscn" id="2_hudvida"]
 [ext_resource type="PackedScene" path="res://components/mecha_target_enemy.tscn" id="3_colossus"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="4_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/death_screen.tscn" id="5_death"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(1800, 120)
@@ -117,6 +119,11 @@ limit_bottom = 640
 position = Vector2(1060, 364)
 
 [node name="HudVida" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_hudvida")]
+player = NodePath("../MechaPlayer")
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_pause")]
+
+[node name="DeathScreen" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_death")]
 player = NodePath("../MechaPlayer")
 
 [node name="ControlsOverlay" type="CanvasLayer" parent="."]

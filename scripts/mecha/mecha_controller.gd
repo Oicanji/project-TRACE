@@ -10,6 +10,9 @@ signal morreu
 @export_range(100.0, 2000.0, 10.0) var friction: float = 520.0
 @export_range(50.0, 1500.0, 10.0) var air_acceleration: float = 200.0
 @export_range(-900.0, -100.0, 10.0) var jump_velocity: float = -420.0
+@export_range(-1100.0, -200.0, 10.0) var charged_jump_velocity: float = -680.0
+@export_range(0.15, 2.0, 0.05) var jump_charge_time: float = 0.55
+@export_range(0.0, 1.0, 0.05) var jump_charge_move_multiplier: float = 0.45
 @export_range(0.5, 2.5, 0.05) var gravity_scale: float = 1.2
 @export_range(0.0, 30.0, 0.5) var hull_tilt_speed: float = 8.0
 
@@ -39,6 +42,7 @@ signal morreu
 @export_range(0.0, 30.0, 0.5) var dash_shake_strength: float = 3.0
 @export_range(0.0, 40.0, 0.5) var damage_shake_strength: float = 11.0
 @export_range(0.0, 20.0, 0.5) var landing_shake_strength: float = 3.5
+@export_range(0.0, 20.0, 0.5) var charged_jump_shake_strength: float = 4.5
 @export_range(50.0, 800.0, 10.0) var landing_shake_min_speed: float = 260.0
 @export_range(5.0, 80.0, 1.0) var shake_decay: float = 28.0
 
@@ -88,6 +92,8 @@ var _is_dashing: bool = false
 var _dash_dir: float = 1.0
 var _is_charging: bool = false
 var _charge_elapsed: float = 0.0
+var _is_charging_jump: bool = false
+var _jump_charge_elapsed: float = 0.0
 var _hitstop_active: bool = false
 
 
@@ -158,6 +164,8 @@ func start_dash(direction: float = 1.0) -> void:
 		return
 
 	_is_dashing = true
+	_is_charging_jump = false
+	_jump_charge_elapsed = 0.0
 	_dash_dir = -1.0 if direction < 0.0 else 1.0
 	_dash_timer.start(dash_duration)
 	_dash_cooldown_timer.start(dash_cooldown)
@@ -192,16 +200,31 @@ func _handle_movement(delta: float) -> void:
 	var direction: float = Input.get_axis("esquerda", "direita")
 
 	if is_on_floor():
+		if Input.is_action_just_pressed("pulo"):
+			_is_charging_jump = true
+			_jump_charge_elapsed = 0.0
+
+		var current_max_speed: float = max_speed * (jump_charge_move_multiplier if _is_charging_jump else 1.0)
 		if not is_zero_approx(direction):
-			velocity.x = move_toward(velocity.x, direction * max_speed, acceleration * delta)
+			velocity.x = move_toward(velocity.x, direction * current_max_speed, acceleration * delta)
 		else:
 			velocity.x = move_toward(velocity.x, 0.0, friction * delta)
 
-		if Input.is_action_just_pressed("pulo"):
-			velocity.y = jump_velocity
-			if is_instance_valid(_rig):
-				_rig.trigger_jump()
+		if _is_charging_jump:
+			if Input.is_action_pressed("pulo"):
+				_jump_charge_elapsed = minf(_jump_charge_elapsed + delta, jump_charge_time)
+			else:
+				var jump_ratio: float = clampf(_jump_charge_elapsed / maxf(jump_charge_time, 0.01), 0.0, 1.0)
+				_is_charging_jump = false
+				_jump_charge_elapsed = 0.0
+				velocity.y = lerpf(jump_velocity, charged_jump_velocity, jump_ratio)
+				if jump_ratio > 0.15:
+					apply_camera_shake(lerpf(1.5, charged_jump_shake_strength, jump_ratio))
+				if is_instance_valid(_rig):
+					_rig.trigger_jump(jump_ratio)
 	else:
+		_is_charging_jump = false
+		_jump_charge_elapsed = 0.0
 		if not is_zero_approx(direction):
 			velocity.x = move_toward(velocity.x, direction * max_speed, air_acceleration * delta)
 
@@ -376,6 +399,7 @@ func _update_visual_feedback(delta: float) -> void:
 
 	if is_instance_valid(_rig):
 		var charge_ratio: float = clampf(_charge_elapsed / maxf(charge_time, 0.01), 0.0, 1.0) if _is_charging else 0.0
+		var jump_charge_ratio: float = clampf(_jump_charge_elapsed / maxf(jump_charge_time, 0.01), 0.0, 1.0) if _is_charging_jump else 0.0
 		_rig.update_rig(
 			delta,
 			velocity,
@@ -384,7 +408,8 @@ func _update_visual_feedback(delta: float) -> void:
 			_hull.scale.x,
 			_turret_pivot.rotation,
 			charge_ratio,
-			_is_dashing
+			_is_dashing,
+			jump_charge_ratio
 		)
 	else:
 		_hull.rotation = lerpf(_hull.rotation, target_tilt, 1.0 - exp(-hull_tilt_speed * delta))
@@ -435,6 +460,8 @@ func morrer() -> void:
 	_is_dashing = false
 	_is_charging = false
 	_charge_elapsed = 0.0
+	_is_charging_jump = false
+	_jump_charge_elapsed = 0.0
 	_update_charge_visuals()
 	set_physics_process(false)
 	if is_instance_valid(_tread_dust):

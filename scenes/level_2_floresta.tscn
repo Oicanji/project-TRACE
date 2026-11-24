@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://be3btymynn4rb" path="res://scenes/ui/hud_vida.tscn" id="14_hudvida"]
 [ext_resource type="Shader" uid="uid://d4dmc4m46jph7" path="res://shaders/saturation.gdshader" id="15_sat01"]
 [ext_resource type="Texture2D" uid="uid://c3xmj7gw00ya" path="res://assets/sprites/Carcaca/Carcaca - BgSilhouettes.png" id="16_bgcarc"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="17_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/death_screen.tscn" id="18_death"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7061b"]
 atlas = ExtResource("2_gej1d")
@@ -927,6 +929,11 @@ texture = SubResource("GradientTexture2D_vinheta")
 expand_mode = 1
 
 [node name="HudVida" parent="." unique_id=1555535129 node_paths=PackedStringArray("player") instance=ExtResource("14_hudvida")]
+player = NodePath("../Player")
+
+[node name="PauseMenu" parent="." instance=ExtResource("17_pause")]
+
+[node name="DeathScreen" parent="." node_paths=PackedStringArray("player") instance=ExtResource("18_death")]
 player = NodePath("../Player")
 
 [node name="TransicaoZona" type="CanvasLayer" parent="." unique_id=1279352790]

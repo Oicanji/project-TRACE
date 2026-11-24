@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <linearGradient id="redThreadLeft" x1="18%" y1="68%" x2="46%" y2="76%">
+      <stop offset="0%" stop-color="#FFD4D4" stop-opacity="0.14"/>
+      <stop offset="45%" stop-color="#D9535E" stop-opacity="0.58"/>
+      <stop offset="92%" stop-color="#F27983" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#FF9BA3" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="redThreadRight" x1="56%" y1="68%" x2="86%" y2="42%">
+      <stop offset="0%" stop-color="#FF9BA3" stop-opacity="0.0"/>
+      <stop offset="14%" stop-color="#E85A66" stop-opacity="0.58"/>
+      <stop offset="72%" stop-color="#C93B48" stop-opacity="0.68"/>
+      <stop offset="100%" stop-color="#FFD6D9" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Left broken half drooping downward from the cat side -->
+  <path d="M 270 535 C 345 552, 412 574, 488 618"
+        fill="none" stroke="url(#redThreadLeft)" stroke-width="9" stroke-linecap="round" opacity="0.26"/>
+  <path d="M 270 535 C 345 552, 412 574, 488 618"
+        fill="none" stroke="url(#redThreadLeft)" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Right broken half drooping down from the sad red soul -->
+  <path d="M 1068 318 C 978 368, 888 432, 792 528"
+        fill="none" stroke="url(#redThreadRight)" stroke-width="9" stroke-linecap="round" opacity="0.26"/>
+  <path d="M 1068 318 C 978 368, 888 432, 792 528"
+        fill="none" stroke="url(#redThreadRight)" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Frayed faint wisp near the right snap point -->
+  <path d="M 960 398 C 902 442, 858 486, 822 544"
+        fill="none" stroke="url(#redThreadRight)" stroke-width="1.1" stroke-linecap="round" opacity="0.45"/>
+
+  <!-- Small fading crimson motes drifting downward near the break -->
+  <circle cx="484" cy="624" r="2.3" fill="#FF9CA5" opacity="0.55"/>
+  <circle cx="512" cy="642" r="1.7" fill="#E35B68" opacity="0.42"/>
+  <circle cx="786" cy="536" r="2.4" fill="#FF9CA5" opacity="0.60"/>
+  <circle cx="764" cy="560" r="1.8" fill="#E35B68" opacity="0.44"/>
+  <circle cx="944" cy="404" r="1.9" fill="#FFB8BE" opacity="0.50"/>
+</svg>

@@ -1,0 +1,737 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/death_screen.gd" id="1_script"]
+[ext_resource type="Shader" path="res://shaders/pause_backdrop.gdshader" id="2_backdrop_shader"]
+[ext_resource type="Texture2D" path="res://assets/ui/death_thread.svg" id="3_thread"]
+[ext_resource type="Texture2D" path="res://assets/ui/death_cat.png" id="4_cat"]
+[ext_resource type="Texture2D" path="res://assets/ui/death_soul.png" id="5_soul"]
+[ext_resource type="FontFile" path="res://assets/fonts/LiberationSerif-Bold.ttf" id="6_font_title"]
+[ext_resource type="FontFile" path="res://assets/fonts/Chilanka-Regular.otf" id="7_font_btn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_backdrop"]
+shader = ExtResource("2_backdrop_shader")
+shader_parameter/blur_radius = 2.8
+shader_parameter/tint_color = Color(0.18, 0.025, 0.045, 0.84)
+shader_parameter/vignette_strength = 0.62
+shader_parameter/progress = 0.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_soul_halo"]
+offsets = PackedFloat32Array(0, 0.42, 1)
+colors = PackedColorArray(1, 0.62, 0.62, 0.72, 0.86, 0.2, 0.26, 0.34, 0.5, 0.06, 0.1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_soul_halo"]
+gradient = SubResource("Gradient_soul_halo")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_ember_dot"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(1, 0.86, 0.86, 1, 0.94, 0.34, 0.38, 0.58, 0.65, 0.1, 0.14, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ember_dot"]
+gradient = SubResource("Gradient_ember_dot")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_ember_life"]
+offsets = PackedFloat32Array(0, 0.22, 0.75, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 0.78, 0.78, 0.85, 0.88, 0.3, 0.34, 0.55, 0.6, 0.1, 0.14, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font = ExtResource("6_font_title")
+font_size = 64
+font_color = Color(0.99, 0.88, 0.86, 1)
+outline_size = 12
+outline_color = Color(0.17, 0.02, 0.04, 0.96)
+shadow_size = 12
+shadow_color = Color(0.08, 0.01, 0.02, 0.7)
+shadow_offset = Vector2(2, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.14, 0.035, 0.055, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96, 0.82, 0.8, 0.8)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.07, 0.01, 0.02, 0.65)
+shadow_size = 14
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+content_margin_left = 20.0
+content_margin_top = 6.0
+content_margin_right = 20.0
+content_margin_bottom = 6.0
+bg_color = Color(0.46, 0.21, 0.24, 0.84)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.96, 0.86, 0.84, 0.55)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.1, 0.02, 0.03, 0.42)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_left = 20.0
+content_margin_top = 6.0
+content_margin_right = 20.0
+content_margin_bottom = 6.0
+bg_color = Color(0.6, 0.26, 0.29, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.92, 0.9, 0.92)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.12, 0.02, 0.04, 0.48)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 4.0
+bg_color = Color(0.35, 0.14, 0.17, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96, 0.76, 0.72, 0.88)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.08, 0.01, 0.02, 0.3)
+shadow_size = 3
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_focus"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98, 0.78, 0.72, 0.92)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="Animation" id="Animation_transition_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/Backdrop:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Root/BrokenThread:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Root/CatAnchor:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Root/CatAnchor:offset_left")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-36.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Root/SoulAnchor:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Root/SoulAnchor:offset_top")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-20.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Root/SafeMargin:modulate:a")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_abrir"]
+resource_name = "abrir"
+length = 0.45
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/Backdrop:material:shader_parameter/progress")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.36),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Root/BrokenThread:modulate:a")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.12, 0.45),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.0, 0.82]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Root/CatAnchor:modulate:a")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.06, 0.4),
+"transitions": PackedFloat32Array(0.45, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Root/CatAnchor:offset_left")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.06, 0.42),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [-36.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Root/SoulAnchor:modulate:a")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1, 0.45),
+"transitions": PackedFloat32Array(0.45, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Root/SoulAnchor:offset_top")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1, 0.45),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [-20.0, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Root/SafeMargin:modulate:a")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.1, 0.42),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_transition"]
+_data = {
+&"RESET": SubResource("Animation_transition_reset"),
+&"abrir": SubResource("Animation_abrir")
+}
+
+[sub_resource type="Animation" id="Animation_ambient_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/SoulAnchor/SoulFloat:offset_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Root/SoulAnchor/SoulFloat:offset_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Root/SoulAnchor/SoulFloat/SoulHalo:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.48]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Root/CatAnchor/CatFrame:offset_top")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Root/CatAnchor/CatFrame:offset_bottom")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ambient_idle"]
+resource_name = "idle"
+length = 4.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/SoulAnchor/SoulFloat:offset_top")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.4, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 9.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Root/SoulAnchor/SoulFloat:offset_bottom")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.4, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 9.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Root/SoulAnchor/SoulFloat/SoulHalo:modulate:a")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.4, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.34, 0.56, 0.34]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Root/CatAnchor/CatFrame:offset_top")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.4, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 4.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Root/CatAnchor/CatFrame:offset_bottom")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.4, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 4.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ambient"]
+_data = {
+&"RESET": SubResource("Animation_ambient_reset"),
+&"idle": SubResource("Animation_ambient_idle")
+}
+
+[node name="DeathScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 30
+visible = false
+script = ExtResource("1_script")
+
+[node name="Root" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="Root"]
+material = SubResource("ShaderMaterial_backdrop")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BrokenThread" type="TextureRect" parent="Root"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_thread")
+expand_mode = 1
+
+[node name="CatAnchor" type="Control" parent="Root"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchor_top = 0.22
+anchor_right = 0.45
+anchor_bottom = 1.0
+offset_left = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CatFrame" type="AspectRatioContainer" parent="Root/CatAnchor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+ratio = 0.8671
+stretch_mode = 2
+alignment_horizontal = 0
+alignment_vertical = 2
+
+[node name="CatArt" type="TextureRect" parent="Root/CatAnchor/CatFrame"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_cat")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SoulAnchor" type="Control" parent="Root"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchor_left = 0.72
+anchor_top = 0.24
+anchor_right = 0.96
+anchor_bottom = 0.64
+offset_top = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SoulFloat" type="Control" parent="Root/SoulAnchor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SoulHalo" type="TextureRect" parent="Root/SoulAnchor/SoulFloat"]
+modulate = Color(0.96, 0.34, 0.38, 0.48)
+material = SubResource("CanvasItemMaterial_add")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -112.0
+offset_right = 112.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_soul_halo")
+expand_mode = 1
+
+[node name="SoulEmbersAnchor" type="Control" parent="Root/SoulAnchor/SoulFloat"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SoulEmbers" type="CPUParticles2D" parent="Root/SoulAnchor/SoulFloat/SoulEmbersAnchor"]
+amount = 16
+texture = SubResource("GradientTexture2D_ember_dot")
+lifetime = 2.8
+preprocess = 2.2
+emission_shape = 1
+emission_sphere_radius = 44.0
+direction = Vector2(0, 1)
+spread = 40.0
+gravity = Vector2(0, 22)
+initial_velocity_min = 6.0
+initial_velocity_max = 18.0
+scale_amount_min = 0.22
+scale_amount_max = 0.62
+color = Color(0.98, 0.48, 0.5, 0.85)
+color_ramp = SubResource("Gradient_ember_life")
+
+[node name="SoulArt" type="TextureRect" parent="Root/SoulAnchor/SoulFloat"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.0
+offset_top = -78.0
+offset_right = 78.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_soul")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SafeMargin" type="MarginContainer" parent="Root"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 56
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 48
+
+[node name="TitleAnchor" type="CenterContainer" parent="Root/SafeMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="TitleLabel" type="Label" parent="Root/SafeMargin/TitleAnchor"]
+layout_mode = 2
+text = "Você Morreu"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuAnchor" type="MarginContainer" parent="Root/SafeMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/margin_bottom = 36
+
+[node name="MenuPanel" type="PanelContainer" parent="Root/SafeMargin/MenuAnchor"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="PanelPadding" type="MarginContainer" parent="Root/SafeMargin/MenuAnchor/MenuPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 18
+
+[node name="ButtonList" type="VBoxContainer" parent="Root/SafeMargin/MenuAnchor/MenuPanel/PanelPadding"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RetryButton" type="Button" parent="Root/SafeMargin/MenuAnchor/MenuPanel/PanelPadding/ButtonList"]
+custom_minimum_size = Vector2(264, 52)
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../MainMenuButton")
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.99, 0.94, 0.92, 0.96)
+theme_override_colors/font_focus_color = Color(1, 0.97, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.95, 0.84, 0.82, 1)
+theme_override_colors/font_hover_color = Color(1, 0.97, 0.95, 1)
+theme_override_fonts/font = ExtResource("7_font_btn")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_focus")
+text = "Tentar Novamente"
+
+[node name="MainMenuButton" type="Button" parent="Root/SafeMargin/MenuAnchor/MenuPanel/PanelPadding/ButtonList"]
+custom_minimum_size = Vector2(264, 52)
+layout_mode = 2
+focus_neighbor_top = NodePath("../RetryButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.99, 0.94, 0.92, 0.96)
+theme_override_colors/font_focus_color = Color(1, 0.97, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.95, 0.84, 0.82, 1)
+theme_override_colors/font_hover_color = Color(1, 0.97, 0.95, 1)
+theme_override_fonts/font = ExtResource("7_font_btn")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_focus")
+text = "Menu Inicial"
+
+[node name="QuitButton" type="Button" parent="Root/SafeMargin/MenuAnchor/MenuPanel/PanelPadding/ButtonList"]
+custom_minimum_size = Vector2(264, 52)
+layout_mode = 2
+focus_neighbor_top = NodePath("../MainMenuButton")
+focus_neighbor_bottom = NodePath("../RetryButton")
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.99, 0.94, 0.92, 0.96)
+theme_override_colors/font_focus_color = Color(1, 0.97, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.95, 0.84, 0.82, 1)
+theme_override_colors/font_hover_color = Color(1, 0.97, 0.95, 1)
+theme_override_fonts/font = ExtResource("7_font_btn")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_focus")
+text = "Sair"
+
+[node name="OpenDelayTimer" type="Timer" parent="."]
+wait_time = 0.45
+one_shot = true
+
+[node name="TransitionAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_transition")
+}
+
+[node name="AmbientAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ambient")
+}
+
+[connection signal="timeout" from="OpenDelayTimer" to="." method="_on_open_delay_timer_timeout"]
+[connection signal="pressed" from="Root/SafeMargin/MenuAnchor/MenuPanel/PanelPadding/ButtonList/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="Root/SafeMargin/MenuAnchor/MenuPanel/PanelPadding/ButtonList/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Root/SafeMargin/MenuAnchor/MenuPanel/PanelPadding/ButtonList/QuitButton" to="." method="_on_quit_button_pressed"]

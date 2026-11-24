@@ -10,8 +10,6 @@ const HUMAN_SOUL_SCENE: PackedScene = preload("res://components/human_soul_drop.
 @onready var _player: Node2D = $MechaPlayer as Node2D
 @onready var _boss: Node2D = $ColossalBoss as Node2D
 @onready var _end_delay_timer: Timer = $EndDelayTimer
-@onready var _end_screen: CanvasLayer = $EndScreen
-@onready var _retry_button: Button = $EndScreen/Backdrop/CenterContainer/Buttons/RetryButton
 @onready var _fade_rect: ColorRect = get_node_or_null("FadeLayer/FadeRect") as ColorRect
 
 var _match_ended: bool = false
@@ -21,7 +19,6 @@ var _last_boss_pos: Vector2 = Vector2(1060.0, 364.0)
 
 
 func _ready() -> void:
-	_end_screen.visible = false
 	if is_instance_valid(_fade_rect):
 		_fade_rect.color = Color(1.0, 0.99, 0.94, 0.0)
 		_fade_rect.visible = false
@@ -75,16 +72,11 @@ func _on_player_defeated() -> void:
 		return
 	_match_ended = true
 	_player_won = false
-	_end_delay_timer.start(0.75)
 
 
 func _on_end_delay_timer_timeout() -> void:
 	if _player_won:
 		_start_ending_transition()
-		return
-
-	_end_screen.visible = true
-	_retry_button.grab_focus()
 
 
 func _start_ending_transition() -> void:
@@ -101,12 +93,3 @@ func _start_ending_transition() -> void:
 
 func _go_to_ending_scene() -> void:
 	get_tree().call_deferred("change_scene_to_file", ending_scene_path)
-
-
-func _on_retry_button_pressed() -> void:
-	get_tree().call_deferred("reload_current_scene")
-
-
-func _on_start_button_pressed() -> void:
-	if not start_scene_path.is_empty() and ResourceLoader.exists(start_scene_path):
-		get_tree().call_deferred("change_scene_to_file", start_scene_path)
